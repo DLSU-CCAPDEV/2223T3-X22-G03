@@ -9,7 +9,7 @@ const profileController = {
     getProfile: async function (req, res) {
         const query = {idNumber: req.query.idNumber};
       
-        const projection = 'idNumber firstName lastName designation';
+        const projection = 'idNumber firstName lastName designation passengerType';
       
         const result = await db.findOne(User, query, projection);
       
@@ -19,7 +19,8 @@ const profileController = {
             idNumber: result.idNumber,
             firstName: result.firstName,
             lastName: result.lastName,
-            designation: result.designation
+            designation: result.designation,
+            passengerType: result.passengerType
           };
       
           res.render('Profile', details);
@@ -32,7 +33,7 @@ const profileController = {
     getProfileAdmin: async function (req, res) {
         var query = {idNumber: req.query.idNumber};
 
-        var projection = 'idNumber firstName lastName designation';
+        var projection = 'idNumber firstName lastName designation passengerType';
 
         const result = await db.findOne(Admin, query, projection);
         
@@ -42,7 +43,8 @@ const profileController = {
                 idNumber: result.idNumber,
                 firstName: result.firstName,
                 lastName: result.lastName,
-                designation: result.designation
+                designation: result.designation,
+                passengerType: result.passengerType
             };
 
             res.render('ProfileAdmin', details);
@@ -53,9 +55,9 @@ const profileController = {
 
     },
 
-    postChangeInfo: async function (req, res) {
+    postChangePublicInfo: async function (req, res) {
       var query = {idNumber: req.body.idNumber };
-      const projection = { idNumber: 1, firstName: 1, lastName: 1 };
+      const projection = { idNumber: 1, firstName: 1, lastName: 1, designation: 1, passengerType: 1 };
 
       const resultUser = await db.findOne(User, query, projection);
       const resultAdmin = await db.findOne(Admin, query, projection);
@@ -76,6 +78,31 @@ const profileController = {
       }
 
     },
+
+    postChangePrivateInfo: async function (req, res) {
+      var query = {idNumber: req.body.idNumber };
+      const projection = { idNumber: 1, designation: 1};
+
+      const resultUser = await db.findOne(User, query, projection);
+      const resultAdmin = await db.findOne(Admin, query, projection);
+     
+      if (resultUser != null ) {
+        await User.updateOne(query, {designation: req.body.newDesignation})
+        console.log("User private info change successful");
+        res.redirect('/Profile?idNumber=' + req.body.idNumber);
+      }
+      else if (resultAdmin != null ) {
+        await Admin.updateOne(query, {designation: req.body.newDesignation})
+        console.log("Admin user private info change successful");
+        res.redirect('/ProfileAdmin?idNumber=' + req.body.idNumber);
+      }
+      else {
+        console.log("User/Admin public info change unsuccessful");
+        res.redirect('/Settings?idNumber=' + req.body.idNumber);
+      }
+
+    },
+
 
     postChangePassword: async function (req, res) {
       var query = {idNumber: req.body.idNumber};

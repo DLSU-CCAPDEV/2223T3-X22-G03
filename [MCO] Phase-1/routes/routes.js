@@ -39,7 +39,8 @@ app.get('/ProfileAdmin', profileController.getProfileAdmin);
 
 // Profile settings
 app.get('/Settings', controller.getSettings);
-app.post('/ChangeInfo', profileController.postChangeInfo);
+app.post('/ChangePublicInfo', profileController.postChangePublicInfo);
+app.post('/ChangePrivateInfo', profileController.postChangePrivateInfo);
 app.post('/ChangePassword', profileController.postChangePassword);
 app.post('/DeleteAccount', profileController.postDeleteAccount);
 

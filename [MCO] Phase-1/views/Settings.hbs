@@ -128,7 +128,6 @@
 
     <body>
 		
-
         <div class="navbar">
             <a onclick="history.back()"><img src="Images/Leftarrow.png" class="back_img"></a>
             <img src="Images/DLSU_Logo.png" class="website_logo" href="#">   
@@ -155,16 +154,16 @@
                     <div style="background-color: white; border-radius: 25px; width:auto; padding: 25px;">
 						<h1>Public info</h1>
 						<hr>
-						<form id="public_change" action="/ChangeInfo" method="post">
+						<form id="public_change" action="/ChangePublicInfo" method="post">
 							<input type="hidden" name="idNumber" value="{{idNumber}}">
 							<div style="display: flex;">
 								<div style="margin-right: 20px;">
-									<label for="oldFirstName"><h2>Old First Name:</h2></label>
-									<input type="text" placeholder="{{firstName}}" id="oldFirstName" name="oldFirstName" readonly disabled>
+									<label for="currentFirstName"><h2>Current First Name:</h2></label>
+									<input type="text" placeholder="{{firstName}}" id="currentFirstName" name="currentFirstName" readonly disabled>
 								</div>
 								<div>
-									<label for="oldLastName"><h2>Old Last Name:</h2></label>
-									<input type="text" placeholder="{{lastName}}" id="oldLastName" name="oldLastName" readonly disabled>
+									<label for="currentLastName"><h2>Current Last Name:</h2></label>
+									<input type="text" placeholder="{{lastName}}" id="currentLastName" name="currentLastName" readonly disabled>
 								</div>
 							</div>
 							<div style="display: flex;">
@@ -178,7 +177,7 @@
 								</div>
 							</div>
 							<div>
-								<label for="dp"><h2>Display photo: <br> <h2></label>
+								<label for="dp"><h2>Display Photo: <br> <h2></label>
 								<input type="file" id="dp" name="dp" style="margin-top: 10px;">
 							</div>
 							
@@ -191,27 +190,32 @@
 					<div style="background-color: white; border-radius: 25px; width:auto; padding: 25px; margin-top: 15px">
 						<h1>Private info</h1>
 						<hr>
-						<form id="private_change", action="#">
+						<form id="private_change", action="/ChangePrivateInfo" method="post">
 							<input type="hidden" name="idNumber" value="{{idNumber}}">
-							<div>
-								<label for="designation"><h2>Change designation <br> <h2></label>
-								<select id="designation" name="designation" style="height: 50px; margin-top: 10px; font-size: 24px; border-radius: 5px; width: 300px">
-									<option value="guest">Guest</option>
-									<option value="student">Student</option>
-									<option value="faculty">Faculty</option>
-									<option value="asp">ASP</option>
-									<option value="apsp">APSP</option>
-									<option value="caf">CAF</option>
-									<option value="esp">ESP</option>
-								</select>
+							<div style="display: flex;">
+								<div style="margin-right: 20px;">
+									<label for="oldDesignation"><h2>Current Designation: </h2></label>
+									<input type="text" placeholder="{{designation}}" id="oldDesignation" name="oldDesignation" readonly disabled>
+								</div>
+								<div>
+									<label for="newDesignation"><h2>New Designation: <br> <h2></label>
+									<select id="newDesignation" name="newDesignation" style="height: 50px; margin-top: 10px; font-size: 24px; border-radius: 5px; width: 300px">
+										<option value="Guest">Guest</option>
+										<option value="Student">Student</option>
+										<option value="Faculty">Faculty</option>
+										<option value="ASP">ASP</option>
+										<option value="APSP">APSP</option>
+										<option value="CAF">CAF</option>
+										<option value="ESP">ESP</option>
+									</select>
+								</div>
 							</div>
 							
-							<div>
-								<label for="type"><h2>Type of Passenger <br> <h2></label>
-								<select id="type" name="type" style="height: 50px; margin-top: 10px; font-size: 24px; border-radius: 5px; width: 300px">
-									<option value="student">Student</option>
-									<option value="employee">Employee</option>
-								</select>
+							<div style="display:flex;" id="changePassengerType">
+								<div style="margin-right: 20px;">
+									<label for="oldPassengerType"><h2>Current Passenger Type: </h2></label>
+									<input type="text" placeholder="{{passengerType}}" id="oldPassengerType" name="oldPassengerType" readonly disabled>
+								</div>
 							</div>
 							
 							<button onclick="submitForm('private_change')", class="submitButton">Save Changes</button>

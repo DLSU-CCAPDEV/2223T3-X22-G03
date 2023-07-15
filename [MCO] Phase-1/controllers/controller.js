@@ -38,7 +38,7 @@ const controller = {
     getSettings: async function (req, res){
 
         var query = {idNumber: req.query.idNumber};
-        const projection = 'idNumber firstName lastName';
+        const projection = 'idNumber firstName lastName designation passengerType';
 
         const resultUser = await db.findOne(User, query, projection);
         const resultAdmin = await db.findOne(Admin, query, projection);
@@ -50,6 +50,8 @@ const controller = {
                 idNumber: resultUser.idNumber,
                 firstName: resultUser.firstName,
                 lastName: resultUser.lastName,
+                designation: resultUser.designation,
+                passengerType: resultUser.passengerType,
                 res: res
             };
         }
@@ -58,6 +60,8 @@ const controller = {
                 idNumber: resultAdmin.idNumber,
                 firstName: resultAdmin.firstName,
                 lastName: resultAdmin.lastName,
+                designation: resultAdmin.designation,
+                passengerType: resultAdmin.passengerType,
                 res: res
             };
         }
