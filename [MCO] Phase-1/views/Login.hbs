@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Arrow Express - Login </title> 
+        <script src="JS/User.js"> </script>
+        <link rel="icon" type="image/png" href="/images/DLSU_Logo.png">
+        <link rel="stylesheet" href="/css/FormStyle.css">  <!-- Kailangan to if may separate CSS file -->
+    </head>
+
+    <body>
+        <div class = "banner"> 
+            <div class="navbar">
+                <a onclick="history.back()"><img src="/images/Leftarrow.png" class = "back_img"></a>
+                <img src= "/images/DLSU_Logo.png" class = "website_logo">   
+            </div>
+            
+            <div class="form_box">
+                <h2> Login </h2>
+                <h4> Ready, Set, and Go! </h4>
+                <hr>
+                <div class="input">
+                    <form action="/Login" id="loginForm" method="post">
+                        <label for="user_idNumber"></label>
+                        <input type="text" placeholder="ID Number" class="fillup" name="user_idNumber" id="user_idNumber" required >
+                        <label for="user_password"></label>
+                        <input type="password" placeholder="Password" class="fillup" name="user_password" id="user_password" required>
+                        <button type="submit" class="toggle_btn" > Login <style> .toggle_btn{ font-size: large; font-weight: bold;} </style> </button>
+                    </form>
+                </div>
+
+                <div class="subtext">
+                    <a href="/SignUp"> Register | </a>
+                    <a href="#"> Forgot Password? </a>
+                </div>
+            </div>
+
+            <div id="error_box">
+                <p> Invalid User/Password. Check your input </p>
+            </div>
+
+        </div>
+    </body>
+
+    <style>
+
+        .form_box{
+            height: 300px;
+            margin: 100px auto;
+        }
+
+        .form_box .input{
+            top: 25px;
+        }
+
+        .toggle_btn{
+            top: -10px;
+        }
+
+        .subtext{
+            top: 30px;
+        }
+
+        #error_box{
+            width: 380px;
+            height: 20px;
+            top: 12%;
+            margin: auto;
+            background: rgb(255, 54, 54);
+            padding: 5px;
+            position: relative;
+            border-radius: 20px;
+            display: none;
+        }
+
+        #error_box p{
+            text-align: center;
+            font-family: sans-serif;
+            font-size: 13px;
+            position: relative;
+            top: 3px;
+        }
+
+    </style>
+
+</html>
