@@ -54,27 +54,38 @@
 						}
 					</style>
 					<label for="search"></label>
-					<input type="search" placeholder="View a profile..." name="search" id="search" onsubmit="search_User();">
+					<input type="text" placeholder="View a profile..." name="search" id="search" onkeyup="sendData(this);">
                     <img src="Images/SearchIcon.png" id="searchIcon" >
 
 					<script>
-						const searchBar = document.getElementById("search");
-						const searchIcon = document.getElementById("searchIcon");
 
-						search.addEventListener("keypress", function(e) {
+						function sendData(e) {
+							const resultContainer = document.getElementsByClassName('results_container')[0];
+							const userCardTemplate = document.getElementsByTagName('template')[0].content;
+							
+							fetch('UserSearch', {
+								method: 'POST',
+								headers: { 'Content-Type': 'application/json' },
+								body: JSON.stringify({ payload: e.value })
+							}).then(res => res.json()).then(data => {
+								const payload = data.payload;
+								
+								resultContainer.innerHTML = "";
 
-							if ( e.key === 'Enter')
-							{
-								const searchTerm = searchBar.value;
-								search_User(searchTerm);
-							}
-						
-						});
+								payload.forEach(item => {
+									const copyUserCardTemplate = document.importNode(userCardTemplate, true);
+									const nameElement = copyUserCardTemplate.querySelector('.name');
+									const designationElement = copyUserCardTemplate.querySelector('.designation');
 
-						searchIcon.addEventListener("click", function(e) {
-							const searchTerm = searchBar.value;
-							search_User(searchTerm);
-						});
+									nameElement.textContent = item.firstName + " " + item.lastName;
+									designationElement.textContent = item.passengerType;
+
+									resultContainer.appendChild(copyUserCardTemplate);
+								});
+							}) .catch(error => {
+								console.error('Error:', error);
+							});
+						}
 
 					</script>
 
@@ -83,50 +94,6 @@
 				<div class="container">
 					
 					<div class="results_container">
-
-						<a href="Temp/TempProfile/DummyProfile1.html" style="text-decoration: none;">
-							<div class="card"> 
-								<img src="Images/DLSU_Logo.png">
-								<p class="name"> Maui Lopez </p>
-								<p class="designation"> Student </p>
-							</div>
-						</a>
-						
-						<a href="Temp/TempProfile/DummyProfile2.html" style="text-decoration: none;">
-							<div class="card"> 
-								<img src="Images/DLSU_Logo.png">
-								<p class="name"> Nathan Asnan </p>
-								<p class="designation"> Student </p>
-							</div>
-						</a>
-						
-	
-						<a href="Temp/TempProfile/DummyProfile3.html" style="text-decoration: none;">
-							<div class="card"> 
-								<img src="Images/DLSU_Logo.png">
-								<p class="name"> Benmar Ramirez </p>
-								<p class="designation"> Student </p>
-							</div>
-						</a>
-						
-	
-						<a href="Temp/TempProfile/DummyProfile4.html" style="text-decoration: none;">
-							<div class="card"> 
-								<img src="Images/DLSU_Logo.png">
-								<p class="name"> Shin Ryujin </p>
-								<p class="designation"> Student </p>
-							</div>
-						</a>
-						
-	
-						<a href="Temp/TempProfile/DummyProfile5.html" style="text-decoration: none;">
-							<div class="card"> 
-								<img src="Images/DLSU_Logo.png">
-								<p class="name"> Hwang Yeji </p>
-								<p class="designation"> Student </p>
-							</div>
-						</a>
-
 					</div>
 
 				</div>

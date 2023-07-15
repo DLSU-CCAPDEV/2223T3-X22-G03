@@ -16,6 +16,8 @@ const port = 9090;
 // set `hbs` as view engine
 app.set('view engine', 'hbs');
 
+app.use(express.json());
+
 // parses incoming requests with urlencoded payloads
 app.use(express.urlencoded({extended: true}));
 
