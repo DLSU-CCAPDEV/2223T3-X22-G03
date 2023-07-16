@@ -4,12 +4,13 @@
 - Nathan Asnan 
 - Benmar Ramirez
 
-Phase 1 of developing shuttle reservation system for De La Salle University Laguna Campus.
+Phase 2 of developing shuttle reservation system for De La Salle University Laguna Campus.
 
 The phase includes:
-- HTML development : Front-end
-- CSS development : Front-end
-- JavaScript development : Minor Back-end
+- JavaScript development
+- NodeJS development
+- Mongoose development
+- MongoDB development
 
 **[GOAL]**
 -
@@ -20,35 +21,25 @@ A simplified booking experience for Arrows Express, designed by Mauries, Benmar,
 
 **[NOTABLE FEATURES]**
 -
-- 1.) Search bar is working for only certain users (Hard-coded users). *Try typing one of the hard-coded users by either first name, last name, or full name in the search bar*
-   - 1.1) Every users can be clicked to show their individual profile page. This shows their reserved schedule/s.
-- 2.) Every that is clickable can do an action.
-- 3.) Working register and login function (Only localstorage, no database).
-   - 3.1) To skip login, use an admin account. You can use the following accounts:
-     - 3.1.1) ID : 99999999 ; Password : admin
-     - 3.1.2) ID : 12177539 ; Password : maui
-     - 3.1.3) ID : 12116766 ; Password : benmar
-     - 3.1.4) ID : 12943337 ; Password : asnan
-     - 3.1.5) ID : 88888888 ; Password : admin1
-   - 3.2) Register an account through the register function to login, 
-          the account will still work on next sessions **unless deleted through Profile Settings**. (Only localstorage, no database).
-- 4.) Admin and normal accounts have different user-interface.
-- 5.) Satisfying animations to show clickables.
+- 1.) To be listed...
 
 **[HOW TO RUN]**
 -
-- Double click index.html
+- (1.) Download the code as zip file.
+- (2.) Extract the folder.
+- (3.) Go inside the folder -> Go to [MCO] Phase-2 folder
+- (4.) Click the folder path -> type cmd -> press enter (if successful, it will open a cmd window)
+- (5.) Type 'node admins.js' (if successful, it will add documents to your localhost database) -> then do 'CTRL + C'
+- (6.) Type 'node index.js' (if successful, it will connect to the database and opens a localhost website)
+- (7.) Go to any browser -> type 'localhost:9090' in the URL
 
 **[RESPONSIBLITIES]**
 -
 - Mauries Lopez
-    - JavaScript Development (Lead Developer) = Main functionalities of the website.
-    - Front-end Development (Lead Developer) = Main designed the website.
+    - To be listed...
 
-- Nathan Asnan)
-    - JavaScript Development (Developer) = Assisted developing the functionalities.
-    - Front-end Development (Developer) = Designed minor user-interface.
+- Nathan Asnan
+    - To be listed...
  
 - Benmar Ramirez
-    - JavaScript Development (Developer) = Mainly developed the viewing of schedules.
-    - Front-end Development (Developer) = Designed all related to viewing of schedules. And, designed minor user-interface.
+    - To be listed...
