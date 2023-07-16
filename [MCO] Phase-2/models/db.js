@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 // import module `User` from `../models/UserModel.js`
 const User= require('./userdb.js');
 
+const Reservation = require('./reservationdb.js');
+
+const Admin = require('./admindb.js');
+
 // ccapdev-mongoose is the name of the database
 const url = 'mongodb://0.0.0.0:27017/ccapdev-mongoose';
 
