@@ -67,7 +67,7 @@ function validate_User() {
   });
 }
 
-*/
+
 
 var registeredUserCount = localStorage.length + 1; //For key in local storage
 
@@ -105,6 +105,8 @@ function create_User(){
     localStorage.setItem('valid_user['+registeredUserCount+']' , JSON.stringify(newUser));
 
 }
+
+*/
 
 function logoutAccount(){
   localStorage.removeItem('loggedInUser');

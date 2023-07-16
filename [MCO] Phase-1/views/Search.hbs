@@ -76,9 +76,11 @@
 									const copyUserCardTemplate = document.importNode(userCardTemplate, true);
 									const nameElement = copyUserCardTemplate.querySelector('.name');
 									const designationElement = copyUserCardTemplate.querySelector('.designation');
+									const htmlAttribute = copyUserCardTemplate.querySelector(".htmlLink");
 
 									nameElement.textContent = item.firstName + " " + item.lastName;
 									designationElement.textContent = item.passengerType;
+									htmlAttribute.setAttribute("href", "/SearchProfile?idNumber=" + item.idNumber);
 
 									resultContainer.appendChild(copyUserCardTemplate);
 								});

@@ -33,6 +33,7 @@ app.post('/SignUp', signupController.postSignUp);
 // Search settings
 app.get('/Search', searchController.getSearch);
 app.post('/UserSearch', searchController.postUserSearch);
+app.get('/SearchProfile', searchController.getSearchProfile);
 
 // User profile settings
 app.get('/Profile', profileController.getProfile);
