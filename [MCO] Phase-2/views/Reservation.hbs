@@ -16,6 +16,9 @@
         <script>
             window.onload = function() {
                 readyHTML({{displayUI}});
+				{{#each result}}
+					hideScheduleForm(true, ["{{startCampus}}", "{{date}}", "{{entryLoc}}", "{{entryTime}}", "{{exitLoc}}", "{{exitTime}}", {{idNumber}}]);
+				{{/each}}
             };
         </script>
         
@@ -65,116 +68,21 @@
                         background: yellow;
                     }
 					
+					.text_reserved_schedule hr{
+						margin-left: 10px; 
+						border: 2px solid white; 
+						border-radius: 30px;
+					}
+					
 
                 </style>
 
                 <hr style="position: relative; margin-top: 2px; border: 2px solid white;">
 
                 <div class = "schedule_container">
-                    
-                    <div class = "reserved_schedule" id="0"> 
+                    <!-- This where the funny reservations appear -->
+					
 
-                        <div class = "text_reserved_schedule"> 
-                            <p> Laguna </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> 2023-06-23 </p>  
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> Paseo -> DLSU LC </p> 
-                            <p> 05:45 AM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> N/A </p> 
-                            <p> N/A </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                        </div>
-
-                        <div class = reserved_schedule_btn> 
-                            <button class="edit_btn" id="e_btn0" onclick="showEditForm(0)"> EDIT </button>
-                            <button class="delete_btn" onclick="showDeleteForm(0)"> DELETE </button>
-                        </div>
-                    </div>
-
-                    <div class = "reserved_schedule" id="1"> 
-                        <div class = "text_reserved_schedule"> 
-                            <p> Laguna </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> 2023-07-24 </p>  
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> Carmona -> DLSU LC </p> 
-                            <p> 06:00 AM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> DLSU LC -> DLSU Manila </p> 
-                            <p> 03:00 PM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                        </div>
-
-                        <div class = reserved_schedule_btn> 
-                            <button class="edit_btn" id="e_btn1" onclick="showEditForm(1)"> EDIT </button>
-                            <button class="delete_btn" onclick="showDeleteForm(1)"> DELETE </button>
-                        </div>
-                    </div>
-
-                    <div class = "reserved_schedule" id="2"> 
-
-                        <div class = "text_reserved_schedule"> 
-                            <p> Laguna </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> 2023-07-25 </p>  
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> Pavilion Mall -> DLSU LC </p> 
-                            <p> 06:30 AM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> DLSU LC -> Carmona </p> 
-                            <p> 04:45 PM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                        </div>
-
-                        <div class = reserved_schedule_btn> 
-                            <button class="edit_btn" id="e_btn2" onclick="showEditForm(2)"> EDIT </button>
-                            <button class="delete_btn" onclick="showDeleteForm(2)"> DELETE </button>
-                        </div>
-                    </div>
-
-                    <div class = "reserved_schedule" id="3"> 
-
-                        <div class = "text_reserved_schedule"> 
-                            <p> Laguna </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> 2023-08-26 </p>  
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> Paseo -> DLSU LC </p> 
-                            <p> 09:00 AM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> DLSU LC -> Walter Mart </p> 
-                            <p> 2:15 PM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                        </div>
-
-                        <div class = reserved_schedule_btn> 
-                            <button class="edit_btn" id="e_btn3" onclick="showEditForm(3)"> EDIT </button>
-                            <button class="delete_btn" onclick="showDeleteForm(3)"> DELETE </button>
-                        </div>
-                    </div>
-                    
-                    <div class = "reserved_schedule" id="4"> 
-
-                        <div class = "text_reserved_schedule"> 
-                            <p> Laguna </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> 2023-09-27 </p>  
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> Walter Mart -> DLSU LC </p> 
-                            <p> 07:00 AM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> DLSU LC -> Walter Mart </p> 
-                            <p> 04:45 PM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                        </div>
-
-                        <div class = reserved_schedule_btn> 
-                            <button  type="button" class="edit_btn" id="e_btn4" onclick="showEditForm(4)"> EDIT </button>
-                            <button  type="button" class="delete_btn" id="d_btn4" onclick="showDeleteForm(4)"> DELETE </button>
-                        </div>
-                    </div>
                 </div>
                                 
                 <div class="form_box" onsubmit="return false"> <!-- RESERVE SCHEDULE BOX -->
