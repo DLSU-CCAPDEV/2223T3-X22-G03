@@ -124,7 +124,7 @@ function showScheduleForm() {
 	
 }
 
-function hideScheduleForm(){
+function hideScheduleForm(fromLoad = 0, resultArr = []){
 
     var scheduleContainer = document.getElementsByClassName('schedule_container')[0];
     var scheduleForm = document.getElementsByClassName('form_box')[0];
@@ -132,13 +132,16 @@ function hideScheduleForm(){
     var div = document.createElement('div');
     div.className = 'reserved_schedule';
 	if (count == null){
-		count = scheduleContainer.childElementCount + 1;
+		count = scheduleContainer.childElementCount;
 	}
 	else{
 		count = count + 1;
 		
 	} 
 	div.setAttribute('id', count );
+	if(resultArr.length != 0) var userID = resultArr[6];
+	else var userID = URLSearchParams(window.location.search).get('idNumber');
+	div.setAttribute('linkedidnumber', userID); 
 	
     scheduleContainer.appendChild(div);
 	
@@ -164,20 +167,25 @@ function hideScheduleForm(){
 
     divBtn.appendChild(edit_btn);
     divBtn.appendChild(delete_btn);
-
-    if( adminFunctionCall == 0 ) { 
+	
+	if( fromLoad ){ //is being called to populate the list from after loading screen
+		createTextInfo(div, resultArr);
+	}
+    else{
+		if( adminFunctionCall == 0 ) { 
         createTextInfo(div); //Show only for registered user
-    }
-    else {
-        div.style.border = '5px solid yellow';
-        createTextInfoAdmin(div,false); //Show only for admin
-    }
+		}
+		else {
+			div.style.border = '5px solid yellow';
+			createTextInfoAdmin(div,false); //Show only for admin
+		}
 
-    scheduleForm.addEventListener('submit', function(e) {
-       e.preventDefault();
-	})
+		scheduleForm.addEventListener('submit', function(e) {
+		   e.preventDefault();
+		})
 
-    scheduleForm.style.display = 'none';
+		scheduleForm.style.display = 'none';
+	}
 
 }
 
@@ -264,8 +272,8 @@ function cancelDeleteForm(){
 	deleteForm.style.display="none";
 }
 
-function createTextInfo(main_div){
-    
+function createTextInfo(main_div, resultArr = []){
+    var hasResults = resultArr.length;
     var text_info = document.createElement('div');
     text_info.className = 'text_reserved_schedule';
     main_div.appendChild(text_info);
@@ -285,49 +293,70 @@ function createTextInfo(main_div){
     var exitTimeValue = document.getElementById('user_exitTime');
 
     var locationText = document.createElement('p');
-    locationText.innerHTML = locationValue.innerHTML;
+	if(hasResults)
+		locationText.innerHTML = resultArr[0];
+	else
+		locationText.innerHTML = locationValue.innerHTML.trim();
 
     var dateText = document.createElement('p');
     dateText.setAttribute('id', 'date_text');
-    if ( dateValue.value == '' ){
-        dateText.innerHTML = 'N/A';
-    }
-    else{
-        
-        dateText.innerHTML = dateValue.value;
-    }
+	if(hasResults){
+		dateText.innerHTML = resultArr[1];
+	}
+	else{
+		if ( dateValue.value == '' ){
+			dateText.innerHTML = 'N/A';
+		}
+		else{
+			dateText.innerHTML = dateValue.value;
+		}
+	}
 
     var entryText = document.createElement('p');
-    if ( entryValue.options[entryValue.selectedIndex].text == 'N/A' || entryValue.options[entryValue.selectedIndex].text == "Entry Location"){
-        entryText.innerHTML = 'N/A';
-    }
-    else{
-        entryText.innerHTML = entryValue.options[entryValue.selectedIndex].text;
-    }
+	if(hasResults){
+		entryText.innerHTML = resultArr[2];
+	}
+	else{
+		if ( entryValue.options[entryValue.selectedIndex].text == 'N/A' || entryValue.options[entryValue.selectedIndex].text == "Entry Location"){
+			entryText.innerHTML = 'N/A';
+		}
+		else{
+			entryText.innerHTML = entryValue.options[entryValue.selectedIndex].text;
+		}
+	}
 
     var entryTimeText = document.createElement('p');
-    if ( entryTimeValue.options[entryTimeValue.selectedIndex].text == 'N/A' || entryTimeValue.options[entryTimeValue.selectedIndex].text == "Time Slot"){
-        entryTimeText.innerHTML = 'N/A';
-    }
-    else{
-        entryTimeText.innerHTML = entryTimeValue.options[entryTimeValue.selectedIndex].text;
-    }
+    if(hasResults) entryTimeText.innerHTML = resultArr[3];
+	else{
+		if ( entryTimeValue.options[entryTimeValue.selectedIndex].text == 'N/A' || entryTimeValue.options[entryTimeValue.selectedIndex].text == "Time Slot"){
+			entryTimeText.innerHTML = 'N/A';
+		}
+		else{
+			entryTimeText.innerHTML = entryTimeValue.options[entryTimeValue.selectedIndex].text;
+		}
+	}
 
     var exitText = document.createElement('p');
-    if ( exitValue.options[exitValue.selectedIndex].text == 'N/A' || exitValue.options[exitValue.selectedIndex].text == "Exit Location"){
-        exitText.innerHTML = 'N/A';
-    }
-    else{
-        exitText.innerHTML = exitValue.options[exitValue.selectedIndex].text;
-    }
+    if(hasResults) exitText.innerHTML = resultArr[4];
+	else{
+		if ( exitValue.options[exitValue.selectedIndex].text == 'N/A' || exitValue.options[exitValue.selectedIndex].text == "Exit Location"){
+			exitText.innerHTML = 'N/A';
+		}
+		else{
+			exitText.innerHTML = exitValue.options[exitValue.selectedIndex].text;
+		}
+	}
 
     var exitTimeText = document.createElement('p');
-    if ( exitTimeValue.options[exitTimeValue.selectedIndex].text == 'N/A' || exitTimeValue.options[exitTimeValue.selectedIndex].text == "Time Slot" ){
-        exitTimeText.innerHTML = 'N/A';
-    }
-    else{
-        exitTimeText.innerHTML = exitTimeValue.options[exitTimeValue.selectedIndex].text;
-    }
+    if(hasResults) exitTimeText.innerHTML = resultArr[5];
+	else{
+		if ( exitTimeValue.options[exitTimeValue.selectedIndex].text == 'N/A' || exitTimeValue.options[exitTimeValue.selectedIndex].text == "Time Slot" ){
+			exitTimeText.innerHTML = 'N/A';
+		}
+		else{
+			exitTimeText.innerHTML = exitTimeValue.options[exitTimeValue.selectedIndex].text;
+		}
+	}
 
 
     var border = new Array();
