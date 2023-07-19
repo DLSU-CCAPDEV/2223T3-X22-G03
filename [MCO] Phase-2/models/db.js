@@ -35,7 +35,9 @@ const database = {
     */
     insertOne: function(model, doc, callback) {
         model.create(doc, function(error, result) {
-            if(error) return callback(false);
+            if(error){
+				return callback(false);
+			}
             console.log('Added ' + result);
             return callback(true);
         });
@@ -67,6 +69,7 @@ const database = {
         searches for multiple documents based on the model `model`
         filtered through the object `query`
         limits the fields returned based on the string `projection`
+        callback function is called after the execution of findMany() function
     */
     findMany: async function(model, query, projection) {
         return await model.find(query, projection);
