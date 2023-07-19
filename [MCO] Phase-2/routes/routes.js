@@ -15,8 +15,6 @@ const signupController = require('../controllers/signupController.js');
 
 const reservationController = require('../controllers/reservationController.js');
 
-const searchController = require('../controllers/searchController.js');
-
 const app = express();
 
 // Index settings
@@ -31,9 +29,7 @@ app.get('/SignUp', signupController.getSignUp);
 app.post('/SignUp', signupController.postSignUp);
 
 // Search settings
-app.get('/Search', searchController.getSearch);
-app.post('/UserSearch', searchController.postUserSearch);
-app.get('/SearchProfile', searchController.getSearchProfile);
+app.get('/Search', controller.getSearch);
 
 // User profile settings
 app.get('/Profile', profileController.getProfile);
@@ -52,7 +48,12 @@ app.post('/DeleteAccount', profileController.postDeleteAccount);
 app.get('/Schedule', controller.getSchedule);
 
 // Reservation
-app.get('/Reservation', reservationController.getReservation);
+app.get('/Reservation', reservationController.getReservations);
+app.post('/Reservation', reservationController.postReservations);
+//Reservation Update and DeleteAccount
+app.post('/ReservationUpdate', reservationController.postUpdateReservations);
+app.post('/ReservationDelete', reservationController.postDelete);
+
 
 // Admin Reservation
 app.get('/ReservationAdmin', reservationController.getReservationAdmin);
