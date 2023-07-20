@@ -8,7 +8,7 @@ const signupController = {
         res.render('SignUp',res);
     },
 
-    postSignUp: function (req, res) {
+    postSignUp: async function (req, res) {
         const user = {
             firstName: req.body.user_firstName,
             lastName: req.body.user_lastName,
@@ -19,12 +19,15 @@ const signupController = {
             passengerType: req.body.user_passengerType,
         }
 
-        db.insertOne(User, user, function(flag) {
-            if(flag){
-                console.log('User successfully added');
-                res.redirect('/Login');
-            }
-        });
+        var result = await db.insertOne(User, user);
+
+        if( result ){
+            console.log('User successfully added');
+            res.redirect('/Login');
+        }
+        else{
+            console.log('User not added');
+        }
     }
 
 }

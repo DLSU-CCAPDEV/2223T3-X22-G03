@@ -4,6 +4,8 @@ const User = require('../models/userdb.js');
 
 const Admin = require('../models/admindb.js');
 
+const Reservation = require('../models/reservationdb.js');
+
 const profileController = {
 
     getProfile: async function (req, res) {
@@ -137,11 +139,13 @@ const profileController = {
       
       if (resultUser != null && resultUser.password === req.body.Password ) {
         await User.deleteOne(query);
+        await Reservation.deleteMany(query);
         console.log("User deleted");
         res.redirect('/?success');
       }
       else if (resultAdmin != null && resultAdmin.password === req.body.Password) {
         await Admin.deleteOne(query);
+        await Reservation.deleteMany(query);
         console.log("Admin user deleted");
         res.redirect('/?success');
       }

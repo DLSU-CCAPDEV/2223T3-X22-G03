@@ -160,7 +160,7 @@ function populateFields(){
 function getIdNumber(){
 	return new URLSearchParams(window.location.search).get('idNumber');
 }
-function hideScheduleForm(fromLoad = 0, resultArr = []){
+function hideScheduleForm(fromLoad = 0, resultArr = [], isSearch = false){
 
     var scheduleContainer = document.getElementsByClassName('schedule_container')[0];
     var scheduleForm = document.getElementsByClassName('form_box')[0];
@@ -187,23 +187,25 @@ function hideScheduleForm(fromLoad = 0, resultArr = []){
     
     reserved_schedule_container.appendChild(divBtn);
     
-    var edit_btn = document.createElement('button');
-    edit_btn.className = 'edit_btn';
-    edit_btn.setAttribute('type', 'button');
-	edit_btn.setAttribute('id', 'e_btn' + count);
-    edit_btn.setAttribute('onclick','showEditForm(' + count + ')');
-    edit_btn.innerHTML = 'EDIT';
+    if ( isSearch == false ){
+        var edit_btn = document.createElement('button');
+        edit_btn.className = 'edit_btn';
+        edit_btn.setAttribute('type', 'button');
+        edit_btn.setAttribute('id', 'e_btn' + count);
+        edit_btn.setAttribute('onclick','showEditForm(' + count + ')');
+        edit_btn.innerHTML = 'EDIT';
 
-    var delete_btn = document.createElement('button');
-    delete_btn.className = 'delete_btn';
-    delete_btn.setAttribute('type', 'button');
-	delete_btn.setAttribute('id', 'd_btn' + count);
-	delete_btn.setAttribute('onclick','showDeleteForm(' + count + ')');
-    delete_btn.innerHTML = 'DELETE';
+        var delete_btn = document.createElement('button');
+        delete_btn.className = 'delete_btn';
+        delete_btn.setAttribute('type', 'button');
+        delete_btn.setAttribute('id', 'd_btn' + count);
+        delete_btn.setAttribute('onclick','showDeleteForm(' + count + ')');
+        delete_btn.innerHTML = 'DELETE';
 
-    divBtn.appendChild(edit_btn);
-    divBtn.appendChild(delete_btn);
-	
+        divBtn.appendChild(edit_btn);
+        divBtn.appendChild(delete_btn);
+    }
+    
 	if( fromLoad ){ //is being called to populate the list from after loading screen
 		createTextInfo(div, resultArr);
 	}

@@ -18,7 +18,7 @@
                 readyHTML({{displayUI}});
 				
 				{{#each result}}
-					hideScheduleForm(true, ["{{startCampus}}", "{{date}}", "{{entryLoc}}", "{{entryTime}}", "{{exitLoc}}", "{{exitTime}}", {{idNumber}}]);
+					hideScheduleForm(true, ["{{startCampus}}", "{{date}}", "{{entryLoc}}", "{{entryTime}}", "{{exitLoc}}", "{{exitTime}}", {{idNumber}}], false);
 				{{/each}}
 
                 var adminLink = '/ProfileAdmin?idNumber=' + {{idNumber}};

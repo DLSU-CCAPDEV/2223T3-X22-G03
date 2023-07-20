@@ -53,12 +53,15 @@ const reservationController = {
             defined in the `database` object in `../models/db.js`
             this function adds a document to collection `reservations`
         */
-        db.insertOne(Reservation, rsv, function(flag) {
-            if(flag){
-                console.log('Reservation successfully added');
-                res.redirect('/Reservation?idNumber=' + req.body.hiddenIdNumber);
-            }
-        });
+        var result = await db.insertOne(Reservation, rsv);
+
+		if ( result ){
+			console.log('Reservation successfully added');
+            res.redirect('/Reservation?idNumber=' + req.body.hiddenIdNumber);
+		}
+		else{
+			console.log('Reservation failed to add');
+		}
     },
 
 	postUpdateReservations: async function (req, res){
