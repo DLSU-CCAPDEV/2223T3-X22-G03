@@ -46,7 +46,7 @@ function showAdminForm(){
 }
 
 function readyHTML(displayUI){
-
+    
     if ( displayUI == 1 ){ //Admin 
         document.getElementById('reserveUser_schedule_btn').style.display = 'inline';
     }

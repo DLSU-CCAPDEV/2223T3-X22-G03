@@ -1,5 +1,7 @@
 const db = require('../models/db.js');
 
+const User = require('../models/userdb.js');
+
 const Admin = require('../models/admindb.js');
 
 const Reservation = require('../models/reservationdb.js');
@@ -13,12 +15,13 @@ const reservationController = {
         const projection = { idNumber: 1 };
 		
         const isAdmin = await db.findOne(Admin, query, projection);
+
 		const result = await db.findMany(Reservation, {idNumber: userID}, {_id:0, __v:0});
 
         if ( isAdmin != null ) {
-            res.render('Reservation', {displayUI: 1, result: result, idNumber: userID});
+            res.render('Reservation', {displayUI: 1, result: result, idNumber: userID, isAdmin: true});
         } else {
-            res.render('Reservation', {displayUI: 0, result: result, idNumber: userID});
+            res.render('Reservation', {displayUI: 0, result: result, idNumber: userID, isAdmin: false});
         }
 		
     },
@@ -26,7 +29,7 @@ const reservationController = {
     getReservationAdmin: function (req, res) {
         res.render('ReservationAdmin', res);
     },
-	
+
 	//Add reservation
 	postReservations: async function (req, res) {
         /*
@@ -57,7 +60,7 @@ const reservationController = {
             }
         });
     },
-	
+
 	postUpdateReservations: async function (req, res){
 		var curr ={
 			startCampus: req.body.eCurrStartCampus,
@@ -68,7 +71,7 @@ const reservationController = {
 			exitTime: req.body.eCurrExitTime,
 			idNumber: req.body.eCurrIdNumber
 		}
-		
+
 		var upd = {
 			startCampus: req.body.ehiddenStartCampus,
 			date: req.body.user_date,
@@ -78,12 +81,12 @@ const reservationController = {
 			exitTime: req.body.ehiddenExitTime,
 			idNumber: req.body.ehiddenIdNumber
 		}
-		
+
 		console.log("current reservation:");
 		console.log(curr);
 		console.log("To be updated with: ");
 		console.log(upd);
-				
+
 		var found = await db.findOne(Reservation, curr);
 		if(found){
 			await Reservation.updateOne(curr, upd);
@@ -95,7 +98,7 @@ const reservationController = {
 			console.log('error somewhere');
 		}
 	},
-	
+
 	postDelete: async function (req, res){
 		var rsv = {
 			startCampus: req.body.dCurrStartCampus,
@@ -106,7 +109,7 @@ const reservationController = {
 			exitTime: req.body.dCurrExitTime,
 			idNumber: req.body.dCurrIdNumber
 		};
- 
+
 		console.log('to delete');
 		console.log(rsv);
 		var deleted = await Reservation.deleteOne(rsv);
@@ -118,7 +121,7 @@ const reservationController = {
 			console.log("Code monkeys did an oopsie daisy");
 			console.log('error somewhere');
 		}
-		
+
 	}
     
 }
