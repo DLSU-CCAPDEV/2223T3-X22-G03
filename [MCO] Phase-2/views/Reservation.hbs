@@ -16,13 +16,17 @@
         <script>
             window.onload = function() {
                 readyHTML({{displayUI}});
+				
+				{{#each result}}
+					hideScheduleForm(true, ["{{startCampus}}", "{{date}}", "{{entryLoc}}", "{{entryTime}}", "{{exitLoc}}", "{{exitTime}}", {{idNumber}}]);
+				{{/each}}
             };
         </script>
         
         <div class = "banner" > 
 
             <div class="navbar">
-                <a onclick="history.back()"><img src="Images/Leftarrow.png" class = "back_img"></a>
+                <a href="/ProfileAdmin?idNumber={{idNumber}}" ><img src="Images/Leftarrow.png" class = "back_img"></a>
                 <a> <img src= "Images/DLSU_Logo.png" class = "website_logo"> </a> 
             </div>
             
@@ -65,125 +69,30 @@
                         background: yellow;
                     }
 					
+					.text_reserved_schedule hr{
+						margin-left: 10px; 
+						border: 2px solid white; 
+						border-radius: 30px;
+					}
+					
 
                 </style>
 
                 <hr style="position: relative; margin-top: 2px; border: 2px solid white;">
 
                 <div class = "schedule_container">
-                    
-                    <div class = "reserved_schedule" id="0"> 
+                    <!-- This where the funny reservations appear -->
+					
 
-                        <div class = "text_reserved_schedule"> 
-                            <p> Laguna </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> 2023-06-23 </p>  
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> Paseo -> DLSU LC </p> 
-                            <p> 05:45 AM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> N/A </p> 
-                            <p> N/A </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                        </div>
-
-                        <div class = reserved_schedule_btn> 
-                            <button class="edit_btn" id="e_btn0" onclick="showEditForm(0)"> EDIT </button>
-                            <button class="delete_btn" onclick="showDeleteForm(0)"> DELETE </button>
-                        </div>
-                    </div>
-
-                    <div class = "reserved_schedule" id="1"> 
-                        <div class = "text_reserved_schedule"> 
-                            <p> Laguna </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> 2023-07-24 </p>  
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> Carmona -> DLSU LC </p> 
-                            <p> 06:00 AM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> DLSU LC -> DLSU Manila </p> 
-                            <p> 03:00 PM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                        </div>
-
-                        <div class = reserved_schedule_btn> 
-                            <button class="edit_btn" id="e_btn1" onclick="showEditForm(1)"> EDIT </button>
-                            <button class="delete_btn" onclick="showDeleteForm(1)"> DELETE </button>
-                        </div>
-                    </div>
-
-                    <div class = "reserved_schedule" id="2"> 
-
-                        <div class = "text_reserved_schedule"> 
-                            <p> Laguna </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> 2023-07-25 </p>  
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> Pavilion Mall -> DLSU LC </p> 
-                            <p> 06:30 AM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> DLSU LC -> Carmona </p> 
-                            <p> 04:45 PM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                        </div>
-
-                        <div class = reserved_schedule_btn> 
-                            <button class="edit_btn" id="e_btn2" onclick="showEditForm(2)"> EDIT </button>
-                            <button class="delete_btn" onclick="showDeleteForm(2)"> DELETE </button>
-                        </div>
-                    </div>
-
-                    <div class = "reserved_schedule" id="3"> 
-
-                        <div class = "text_reserved_schedule"> 
-                            <p> Laguna </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> 2023-08-26 </p>  
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> Paseo -> DLSU LC </p> 
-                            <p> 09:00 AM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> DLSU LC -> Walter Mart </p> 
-                            <p> 2:15 PM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                        </div>
-
-                        <div class = reserved_schedule_btn> 
-                            <button class="edit_btn" id="e_btn3" onclick="showEditForm(3)"> EDIT </button>
-                            <button class="delete_btn" onclick="showDeleteForm(3)"> DELETE </button>
-                        </div>
-                    </div>
-                    
-                    <div class = "reserved_schedule" id="4"> 
-
-                        <div class = "text_reserved_schedule"> 
-                            <p> Laguna </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> 2023-09-27 </p>  
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> Walter Mart -> DLSU LC </p> 
-                            <p> 07:00 AM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                            <p> DLSU LC -> Walter Mart </p> 
-                            <p> 04:45 PM </p>
-                            <hr style="margin-left: 10px; border: 2px solid white; border-radius: 30px;"> 
-                        </div>
-
-                        <div class = reserved_schedule_btn> 
-                            <button  type="button" class="edit_btn" id="e_btn4" onclick="showEditForm(4)"> EDIT </button>
-                            <button  type="button" class="delete_btn" id="d_btn4" onclick="showDeleteForm(4)"> DELETE </button>
-                        </div>
-                    </div>
                 </div>
                                 
-                <div class="form_box" onsubmit="return false"> <!-- RESERVE SCHEDULE BOX -->
+                <div class="form_box" > <!-- RESERVE SCHEDULE BOX Why did this have a 'return false' onclick-->
                     <div id="blur_box"> </div>
                     <h2> Reserve Now </h2>
                     <h4> Just one-click away </h4>
                     <hr>
                     <div class="input">
-                        <form action="">
+                        <form action="/Reservation" method="post">
                             <div class="button_box">
                                 <div id="btn"></div>
                                 <button type="button" class="switch" id="laguna_btn" onclick="leftClick();"> Laguna </button>
@@ -191,7 +100,13 @@
                             </div>
                             
                             <label for="user_idNumber"></label>
-                            <input type="text" placeholder="ID Number" class="fillup" name="user_idNumber" id="user_idNumber" required style="position: relative; top: -25px; display: block;">
+							<input type="hidden" id="hiddenStartCampus" required name="hiddenStartCampus" value="">
+							<input type="hidden" id="hiddenIdNumber" required name="hiddenIdNumber" value="">
+							<input type="hidden" id="hiddenEntryLoc" name="hiddenEntryLoc" value="">
+							<input type="hidden" id="hiddenEntryTime" name="hiddenEntryTime" value="">
+							<input type="hidden" id="hiddenExitLoc" name="hiddenExitLoc" value="">
+							<input type="hidden" id="hiddenExitTime" name="hiddenExitTime" value="">
+                            <!-- <input type="text" placeholder="ID Number" class="fillup" name="user_idNumber" id="user_idNumber" required style="position: relative; top: -25px; display: block;"> -->
                             <input type="date" class="fillup" required name="user_date" id="user_date" >
     
                             <div class="entry">
@@ -248,8 +163,8 @@
                                     <option value="11"> N/A </option>
                                 </select>
                             </div>
-    
-                            <button type="submit" class="toggle_btn" id="reserve_btn" onclick="hideScheduleForm();"> Reserve <style> .toggle_btn{ font-size: large; font-weight: bold;}</style></button>
+								
+                            <button type="submit" class="toggle_btn" id="reserve_btn" onclick="populateFields()"><!--onclick="hideScheduleForm();"--> Reserve <style> .toggle_btn{ font-size: large; font-weight: bold;}</style></button>
                         </form>
                         
                     </div>
@@ -266,13 +181,28 @@
                     <h2> Edit Reservation</h2>
                     <hr>
                     <div class="input">
-                        <form action="">
+                        <form action="/ReservationUpdate" method="post">
                             <div class="button_box">
                                 <div id="ebtn"></div>
                                 <button type="button" class="switch" id="laguna_btn" onclick="eleftClick();"> Laguna </button>
                                 <button type="button" class="switch" id="manila_btn" onclick="erightClick();"> Manila </button> 
                             </div>
-    
+							
+							<input type="hidden" id="ehiddenStartCampus" required name="ehiddenStartCampus" value="">
+							<input type="hidden" id="ehiddenIdNumber" required name="ehiddenIdNumber" value="">
+							<input type="hidden" id="ehiddenEntryLoc" name="ehiddenEntryLoc" value="">
+							<input type="hidden" id="ehiddenEntryTime" name="ehiddenEntryTime" value="">
+							<input type="hidden" id="ehiddenExitLoc" name="ehiddenExitLoc" value="">
+							<input type="hidden" id="ehiddenExitTime" name="ehiddenExitTime" value="">
+							
+							<input type="hidden" id="eCurrStartCampus" name ="eCurrStartCampus" value="">
+							<input type="hidden" id="eCurrIdNumber" name = "eCurrIdNumber" value="">
+							<input type="hidden" id="eCurrDate" name="eCurrDate" value="">
+							<input type="hidden" id="eCurrEntryLoc" name="eCurrEntryLoc" value="">
+							<input type="hidden" id="eCurrEntryTime" name="eCurrEntryTime" value="">
+							<input type="hidden" id="eCurrExitLoc" name="eCurrExitLoc" value="">
+							<input type="hidden" id="eCurrExitTime" name="eCurrExitTime" value="">
+							
                             <input type="date" placeholder="Date" class="fillup" required name="user_date" id="user_date" >
     
                             <div class="entry">
@@ -342,34 +272,42 @@
     
                 </div>
 				
-				<div class="form_box2" id="delete_box" style="display: none; height: auto;"> <!-- DELETE BOX -->
+				<style>
+					#delete_btn{
+						margin-top: 50px; 
+						background-color: rgb(131, 0, 0); 
+						color: rgb(255, 255, 255);
+					}
+					#delete_btn:hover{
+						margin-top: 50px; 
+						background-color: rgb(255, 0, 0); 
+						color: rgb(255, 255, 255);
+					}
+
+				</style>
+				
+ <!-- DELETE BOX -->
+				<div class="form_box2" id="delete_box" style="display: none; height: auto;">
                     <div id="blur_box"> </div>
                     <h2 style="width: 80%;"> Delete Reservation</h2>
 					<h4 style="width: 80%"> Are you sure you want to delete this reservation? </h4>
                     <hr>
                     <div class="input">
-                        <form action="">
+                        <form action="/ReservationDelete" method="post">
+							<input type="hidden" id="dCurrStartCampus" required name="dCurrStartCampus" value="">
+							<input type="hidden" id="dCurrIdNumber" required name="dCurrIdNumber" value="">
+							<input type="hidden" id="dCurrDate" name="dCurrDate" value="">
+							<input type="hidden" id="dCurrEntryLoc" name="dCurrEntryLoc" value="">
+							<input type="hidden" id="dCurrEntryTime" name="dCurrEntryTime" value="">
+							<input type="hidden" id="dCurrExitLoc" name="dCurrExitLoc" value="">
+							<input type="hidden" id="dCurrExitTime" name="dCurrExitTime" value="">
                             <button type="submit" class="toggle_btn" id="delete_btn" onclick="hideDeleteForm();"> Delete <style> .toggle_btn{ font-size: large; font-weight: bold;}</style></button>
-							<style>
-                                #delete_btn{
-                                    margin-top: 50px; 
-                                    background-color: rgb(131, 0, 0); 
-                                    color: rgb(255, 255, 255);
-                                }
-                                #delete_btn:hover{
-                                    margin-top: 50px; 
-                                    background-color: rgb(255, 0, 0); 
-                                    color: rgb(255, 255, 255);
-                                }
-
-                            </style>
-                            <button type="submit" class="toggle_btn" id="cancel_btn" onclick="hideDeleteForm();"> Cancel</button>
-						</form>
-                        
+							
+                            <button type="submit" class="toggle_btn" id="cancel_btn" onclick="cancelDeleteForm();"> Cancel</button>
+						</form>                      
                     </div>
     
                 </div>
-
             </div>
 
         </div>

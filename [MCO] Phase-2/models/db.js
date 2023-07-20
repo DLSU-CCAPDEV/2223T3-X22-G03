@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 // import module `User` from `../models/UserModel.js`
 const User= require('./userdb.js');
 
+const Reservation = require('./reservationdb.js');
+
+const Admin = require('./admindb.js');
+
 // ccapdev-mongoose is the name of the database
 const url = 'mongodb://0.0.0.0:27017/ccapdev-mongoose';
 
@@ -31,7 +35,9 @@ const database = {
     */
     insertOne: function(model, doc, callback) {
         model.create(doc, function(error, result) {
-            if(error) return callback(false);
+            if(error){
+				return callback(false);
+			}
             console.log('Added ' + result);
             return callback(true);
         });
@@ -65,11 +71,8 @@ const database = {
         limits the fields returned based on the string `projection`
         callback function is called after the execution of findMany() function
     */
-    findMany: function(model, query, projection, callback) {
-        model.find(query, projection, function(error, result) {
-            if(error) return callback(false);
-            return callback(result);
-        });
+    findMany: async function(model, query, projection) {
+        return await model.find(query, projection);
     },
 
     /*
