@@ -21,6 +21,10 @@ var AdminSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    securityCode: {
+        type: Number,
+        required: true,
+    },
     designation: {
         type: String,
         required: true,

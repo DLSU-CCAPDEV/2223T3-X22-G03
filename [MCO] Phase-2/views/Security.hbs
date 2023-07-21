@@ -16,23 +16,18 @@
             </div>
             
             <div class="form_box">
-                <h2> Login </h2>
-                <h4> Ready, Set, and Go! </h4>
+                <h2> Security Check </h2>
+                <h4> 4-Digit Security Code </h4>
                 <hr>
                 <div class="input">
-                    <form action="/Login" id="loginForm" method="post">
-                        <label for="user_idNumber"></label>
-                        <input type="text" placeholder="ID Number" class="fillup" name="user_idNumber" id="user_idNumber" required pattern="[0-9]+" minlength="8" maxlength="8" >
+                    <form action="/SecurityCheck" id="loginForm" method="post">
+                        <input type="hidden" name="idNumber" value="{{idNumber}}">
                         <label for="user_password"></label>
-                        <input type="password" placeholder="Password" class="fillup" name="user_password" id="user_password" required>
-                        <button type="submit" class="toggle_btn" > Login <style> .toggle_btn{ font-size: large; font-weight: bold;} </style> </button>
+                        <input type="password" placeholder="Enter 4-Digit Security Code" class="fillup" name="user_securityCode" id="user_securityCode" required pattern="[0-9]+" minlength="4" maxlength="4" >
+                        <button type="submit" class="toggle_btn" > Submit <style> .toggle_btn{ font-size: large; font-weight: bold;} </style> </button>
                     </form>
                 </div>
 
-                <div class="subtext">
-                    <a href="/SignUp"> Register | </a>
-                    <a href="/ForgotPassword"> Forgot Password? </a>
-                </div>
             </div>
 
             <div id="error_box">
@@ -45,7 +40,7 @@
     <style>
 
         .form_box{
-            height: 300px;
+            height: 230px;
             margin: 100px auto;
         }
 

@@ -9,15 +9,13 @@ var user = {
   email: 'admin@gmail.com',
   idNumber: '99999999',
   password: 'admin',
+  securityCode: '1234',
   designation: 'Faculty',
   passengerType: 'Employee'
 };
 
-db.insertOne(Admin, user, function(flag) {
-    if(flag){
-        console.log('User successfully added');
-    }
-});
+var result = db.insertOne(Admin, user);
+console.log('User successfully added');
 
 
 var user = {
@@ -26,15 +24,13 @@ var user = {
     email: 'maui@gmail.com',
     idNumber: '12177539',
     password: 'maui',
+    securityCode: '1234',
     designation: 'Faculty',
     passengerType: 'Employee'
 };
 
-db.insertOne(Admin, user, function(flag) {
-    if(flag){
-        console.log('User successfully added');
-    }
-});
+var result = db.insertOne(Admin, user);
+console.log('User successfully added');
 
 
 var user = {
@@ -43,15 +39,13 @@ var user = {
     email: 'benmar@gmail.com',
     idNumber: '12116866',
     password: 'benmar',
+    securityCode: '1234',
     designation: 'Faculty',
     passengerType: 'Employee'
 };
 
-db.insertOne(Admin, user, function(flag) {
-    if(flag){
-        console.log('User successfully added');
-    }
-});
+var result = db.insertOne(Admin, user);
+console.log('User successfully added');
 
 
 var user = {
@@ -60,15 +54,13 @@ var user = {
     email: 'asnan@gmail.com',
     idNumber: '12043338',
     password: 'nathan',
+    securityCode: '1234',
     designation: 'Faculty',
     passengerType: 'Employee'
 };
 
-db.insertOne(Admin, user, function(flag) {
-    if(flag){
-        console.log('User successfully added');
-    }
-});
+var result = db.insertOne(Admin, user);
+console.log('User successfully added');
 
 
 var user = {
@@ -77,12 +69,10 @@ var user = {
     email: 'it@gmail.com',
     idNumber: '00000000',
     password: 'itadmin',
+    securityCode: '1234',
     designation: 'Faculty',
     passengerType: 'Employee'
 };
 
-db.insertOne(Admin, user, function(flag) {
-    if(flag){
-        console.log('User successfully added');
-    }
-});
+var result = db.insertOne(Admin, user);
+console.log('User successfully added');

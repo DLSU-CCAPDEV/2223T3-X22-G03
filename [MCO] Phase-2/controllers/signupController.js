@@ -15,6 +15,7 @@ const signupController = {
             email: req.body.user_email,
             idNumber: req.body.user_idNumber,
             password: req.body.user_password,
+            securityCode: req.body.user_securityCode,
             designation: req.body.user_designation,
             passengerType: req.body.user_passengerType,
         }

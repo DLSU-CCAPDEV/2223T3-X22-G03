@@ -2,13 +2,10 @@
 // import module `express`
 const express = require('express');
 
-// import module `controller` from `../controllers/controller.js`
 const controller = require('../controllers/controller.js')
 
-// import module `loginController` from `../controllers/signupController.js`
 const loginController = require('../controllers/loginController.js');
 
-// import module `profileController` from `../controllers/profileController.js`
 const profileController = require('../controllers/profileController.js');
 
 const signupController = require('../controllers/signupController.js');
@@ -16,6 +13,10 @@ const signupController = require('../controllers/signupController.js');
 const reservationController = require('../controllers/reservationController.js');
 
 const searchController = require('../controllers/searchController.js');
+
+const securityController = require('../controllers/securityController.js');
+
+const forgotPassController = require('../controllers/forgotPassController.js');
 
 const app = express();
 
@@ -26,9 +27,18 @@ app.get('/', controller.getIndex);
 app.get('/Login', loginController.getLogin);
 app.post('/Login', loginController.postLogin);
 
+// Forgot Password settings
+app.get('/ForgotPassword', forgotPassController.getForgotPassword);
+app.post('/ForgotPassword', forgotPassController.postForgotPassword);
+app.post('/ChangePassword', forgotPassController.postChangePassword);
+
 // Signup settings
 app.get('/SignUp', signupController.getSignUp);
 app.post('/SignUp', signupController.postSignUp);
+
+// Security settings
+app.get('/SecurityCheck', securityController.getSecurity);
+app.post('/SecurityCheck', securityController.postSecurity);
 
 // Search settings
 app.get('/Search', searchController.getSearch);
@@ -48,6 +58,7 @@ app.post('/ChangePublicInfo', profileController.postChangePublicInfo);
 app.post('/ChangePrivateInfo', profileController.postChangePrivateInfo);
 app.post('/ChangePassword', profileController.postChangePassword);
 app.post('/DeleteAccount', profileController.postDeleteAccount);
+app.post('/ChangeCode', profileController.postChangeCode);
 
 // Schedule
 app.get('/Schedule', controller.getSchedule);
