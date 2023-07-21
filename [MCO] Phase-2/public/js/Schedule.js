@@ -64,7 +64,6 @@ function rightClick() {
   option.innerHTML = 'Select Location';
 
   var option_array = [option];
-
   var storage_exit = ["DLSU LC -> Yuchenco Bldg. ", "DLSU LC -> Paseo ", "DLSU LC -> Carmona  ", "DLSU LC -> Pavilion Mall ", "DLSU LC -> Walter Mart ", "N/A"];
   for (var i = 0; i < storage_exit.length; i++) {
     var exit_option = document.createElement('option');
