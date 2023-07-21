@@ -58,6 +58,10 @@
 
 					<script>
 
+						window.onload = function() {
+							sendData(document.getElementById("search"));
+						}
+
 						function sendData(e) {
 							const resultContainer = document.getElementsByClassName('results_container')[0];
 							const userCardTemplate = document.getElementsByTagName('template')[0].content;
