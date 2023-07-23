@@ -39,6 +39,11 @@ const reservationController = {
             Example: the value entered in <input type="text" name="fName">
             can be retrieved using `req.body.fName`
         */		
+		if (req.body.user_idNumber != "")
+			var idNum = req.body.user_idNumber;
+		else
+			var idNum = req.body.hiddenIdNumber;
+		
         var rsv = {
 			startCampus: req.body.hiddenStartCampus,
 			date: req.body.user_date,
@@ -46,18 +51,19 @@ const reservationController = {
 			entryTime: req.body.hiddenEntryTime,
 			exitLoc: req.body.hiddenExitLoc,
 			exitTime: req.body.hiddenExitTime,
-			idNumber: req.body.hiddenIdNumber
+			idNumber: idNum
 		};
         /*
             calls the function insertOne()
             defined in the `database` object in `../models/db.js`
             this function adds a document to collection `reservations`
         */
+		
         var result = await db.insertOne(Reservation, rsv);
 
 		if ( result ){
 			console.log('Reservation successfully added');
-            res.redirect('/Reservation?idNumber=' + req.body.hiddenIdNumber);
+            res.redirect('/Reservation?idNumber=' + req.body.adminId);
 		}
 		else{
 			console.log('Reservation failed to add');
