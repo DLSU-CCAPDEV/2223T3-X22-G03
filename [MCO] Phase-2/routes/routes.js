@@ -13,7 +13,6 @@ const signupController = require('../controllers/signupController.js');
 const reservationController = require('../controllers/reservationController.js');
 
 const searchController = require('../controllers/searchController.js');
-const scheduleController = require('../controllers/scheduleController.js');
 
 const securityController = require('../controllers/securityController.js');
 
@@ -24,6 +23,9 @@ const app = express();
 // Index settings
 app.get('/', controller.getIndex);
 
+// Error page
+app.get('/Error', controller.getError);
+
 // Login settings
 app.get('/Login', loginController.getLogin);
 app.post('/Login', loginController.postLogin);
@@ -31,7 +33,7 @@ app.post('/Login', loginController.postLogin);
 // Forgot Password settings
 app.get('/ForgotPassword', forgotPassController.getForgotPassword);
 app.post('/ForgotPassword', forgotPassController.postForgotPassword);
-app.post('/ChangePassword', forgotPassController.postChangePassword);
+app.post('/ChangeFPassword', forgotPassController.postChangeFPassword);
 
 // Signup settings
 app.get('/SignUp', signupController.getSignUp);
@@ -63,7 +65,6 @@ app.post('/ChangeCode', profileController.postChangeCode);
 
 // Schedule
 app.get('/Schedule', controller.getSchedule);
-app.get('/Schedule/:date/:location/:time', scheduleController.getReservations);
 
 // Reservation
 app.get('/Reservation', reservationController.getReservations);

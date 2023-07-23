@@ -28,7 +28,7 @@ const profileController = {
           res.render('Profile', details);
           
         } else {
-          res.send('User does not exist.');
+          res.render('Error',res);
         }
     },
 
@@ -52,7 +52,7 @@ const profileController = {
             res.render('ProfileAdmin', details);
         }
         else {
-            res.send('User does not exist.');
+            res.render('Error',res);
         }
 
     },

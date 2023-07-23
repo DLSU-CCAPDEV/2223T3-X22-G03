@@ -24,7 +24,7 @@ const signupController = {
 
         if( result ){
             console.log('User successfully added');
-            res.redirect('/Login');
+            res.render('Login', {isRegistered: true});
         }
         else{
             console.log('User not added');

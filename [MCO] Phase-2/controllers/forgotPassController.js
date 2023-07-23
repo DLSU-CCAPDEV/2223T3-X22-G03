@@ -41,12 +41,12 @@ const forgotPassController = {
             res.render('ForgotPassword', details);
         }
         else{
-            res.render('ForgotPassword', res);
+            res.render('ForgotPassword', { isInvalid: true });
         }
 
     },
 
-    postChangePassword: async function (req, res){
+    postChangeFPassword: async function (req, res){
 
         var newPassword0 = req.body.user_newPassword0;
         var newPassword1 = req.body.user_newPassword1;
@@ -56,28 +56,26 @@ const forgotPassController = {
             var query = {idNumber: req.body.idNumber};
             const projection = { idNumber: 1, password: 1};
 
-            console.log(req.body.idNumber);
-
             const resultUser = await db.findOne(User, query, projection);
             const resultAdmin = await db.findOne(Admin, query, projection);
 
             if ( resultUser != null ) {
                 await User.updateOne(query, {password: req.body.user_newPassword1})
                 console.log("Change password successful");
-                res.redirect('/Login');
+                res.render('Login', { codeChange: true } );
             }
             else if ( resultAdmin != null ) {
                 await Admin.updateOne(query, {password: req.body.user_newPassword1})
                 console.log("Change password successful");
-                res.redirect('/Login');
+                res.render('Login', { codeChange: true } );
             } else {
-                console.log("User/Admin password change unsuccessful");
+                console.log("User/Admin password change unsuccessful. No user/admin found.");
                 res.render('ForgotPassword', res);
             }
 
         }
         else{
-            res.render('ForgotPassword', res);
+            res.render('ForgotPassword', { isMatch: false, idNumber: req.body.idNumber } );
         }
 
         
