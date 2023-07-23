@@ -27,7 +27,14 @@ const reservationController = {
     },
 
     getReservationAdmin: function (req, res) {
-        res.render('ReservationAdmin', res);
+        
+		var userID = req.query.idNumber;
+
+		const details = {
+			idNumber: userID,
+		}
+
+        res.render('ReservationAdmin', details);
     },
 
 	//Add reservation
@@ -39,34 +46,57 @@ const reservationController = {
             Example: the value entered in <input type="text" name="fName">
             can be retrieved using `req.body.fName`
         */		
-		if (req.body.user_idNumber != "")
-			var idNum = req.body.user_idNumber;
-		else
-			var idNum = req.body.hiddenIdNumber;
+			if (req.body.user_idNumber != ""){
+
+				const idNumber = req.body.user_idNumber;
+	
+				const query = { idNumber: idNumber};
+				const projection = { idNumber: 1 };
+				const result = await db.findOne(User, query, projection);
+				const result2 = await db.findOne(Admin, query, projection);
+	
+				if (result) {
+					var idNum = req.body.user_idNumber;
+				} else if (result2) {
+					var idNum = req.body.user_idNumber;
+				} else {
+					var idNum = 0;
+					console.log('User does not exist');
+				}
+	
+			}
+			else{
+				var idNum = req.body.hiddenIdNumber;
+			}
 		
-        var rsv = {
-			startCampus: req.body.hiddenStartCampus,
-			date: req.body.user_date,
-			entryLoc: req.body.hiddenEntryLoc,
-			entryTime: req.body.hiddenEntryTime,
-			exitLoc: req.body.hiddenExitLoc,
-			exitTime: req.body.hiddenExitTime,
-			idNumber: idNum
-		};
+			var rsv = {
+				startCampus: req.body.hiddenStartCampus,
+				date: req.body.user_date,
+				entryLoc: req.body.hiddenEntryLoc,
+				entryTime: req.body.hiddenEntryTime,
+				exitLoc: req.body.hiddenExitLoc,
+				exitTime: req.body.hiddenExitTime,
+			};
+
+			var result;
+
+			if (idNum !== 0) {
+				rsv.idNumber = idNum;
+				result = await db.insertOne(Reservation, rsv);
+			}
         /*
             calls the function insertOne()
             defined in the `database` object in `../models/db.js`
             this function adds a document to collection `reservations`
         */
-		
-        var result = await db.insertOne(Reservation, rsv);
 
 		if ( result ){
 			console.log('Reservation successfully added');
-            res.redirect('/Reservation?idNumber=' + req.body.adminId);
+            res.redirect('/Reservation?idNumber=' + req.body.adminId + '&reserveUserSuccess=true');
 		}
 		else{
 			console.log('Reservation failed to add');
+			res.redirect('/Reservation?idNumber=' + req.body.adminId + '&reserveUserSuccess=false');
 		}
     },
 

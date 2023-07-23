@@ -10,8 +10,57 @@
     </head>
 
     <body>
+
+        <script type="text/javascript">
+            
+            window.onload = function() {
+    
+                    document.getElementById("success_box").style.display = "none";
+
+                    var infoChangeSuccess = new URLSearchParams(window.location.search).get('infoChangeSuccess');
+                    var pwChangeSuccess = new URLSearchParams(window.location.search).get('pwChangeSuccess');
+                    var codeChangeSuccess = new URLSearchParams(window.location.search).get('codeChangeSuccess');
+                    
+                    if (infoChangeSuccess != null && infoChangeSuccess == "true"){
+                        console.log('success');
+                        document.getElementById("success_box").style.display = "block";
+                        $("#success_message").text("Information changed successfully!");
+                        
+                        setTimeout(function(){
+                            document.getElementById("success_box").style.display = "none";
+                        }, 5000);
+                    }
+
+                    if(pwChangeSuccess != null && pwChangeSuccess=="true"){
+                        document.getElementById("success_box").style.display = "block";
+                        $("#success_message").text("Password changed successfully!");
+                        
+                        setTimeout(function(){
+                            document.getElementById("success_box").style.display = "none";
+                        }, 5000);
+                    }
+                    
+                    if(codeChangeSuccess != null && codeChangeSuccess=="true"){
+                        document.getElementById("success_box").style.display = "block";
+                        $("#success_message").text("Security code changed successfully!");
+                        
+                        setTimeout(function(){
+                            document.getElementById("success_box").style.display = "none";
+                        }, 5000);
+                    }
+                    
+                };
+
+        
+        </script>
+
         <div class="navbar">
             <img src= "Images/DLSU_Logo.png" class = "website_logo" href="#">   
+
+            <div id="success_box">
+                <p id="success_message"> Success! </p>
+            </div>
+            
         </div>
         <div class="content">
 

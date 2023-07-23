@@ -61,30 +61,32 @@ function showScheduleForm() {
 	var doc = document;
     var scheduleForm = null;
     var date_box = document.getElementById('user_date');
-	var entry_box = doc.getElementById('user_entry');
-	var entryTimeBox = doc.getElementById('user_entryTime');
-	var exitBox = doc.getElementById('user_exit');
-	var exitTimeBox = doc.getElementById('user_exitTime');
-	//var idBox = doc.getElementById('user_idNumber');
+    var entry_box = doc.getElementById('user_entry');
+    var entryTimeBox = doc.getElementById('user_entryTime');
+    var exitBox = doc.getElementById('user_exit');
+    var exitTimeBox = doc.getElementById('user_exitTime');
+    var idBox = doc.getElementById('user_idNumber');
 
     if ( adminFunctionCall == 0 ){
-        //idBox.style.display = 'none';
+        idBox.style.display = 'none';
+        idBox.type = 'hidden';
         scheduleForm = document.getElementsByClassName('form_box')[0];
         scheduleForm.querySelector('h2').innerHTML = 'Reserve Now';
         scheduleForm.querySelector('h4').innerHTML = 'Just one-click away';
         scheduleForm.style.height = '385px';
     }
     else{
-        //idBox.style.display = 'block';
+        idBox.style.display = 'block';
+        idBox.type = 'text';
         scheduleForm = document.getElementsByClassName('form_box')[0];
         scheduleForm.querySelector('h2').innerHTML = 'Admin Reserve';
         scheduleForm.querySelector('h4').innerHTML = 'Fillup to reserve for a user';
         scheduleForm.style.height = '450px';
     }
-	
-	//if(idBox != null){
-	//	idBox.value="";
-	//}
+    
+    if(idBox != null){
+        idBox.value="";
+    }
 	
 	date_box.value="";
 	entry_box.value="";
@@ -155,7 +157,6 @@ function populateFields(){
 	startCampusBox.value = startVal;
 	
 	if(idNumberBox.value != ""){
-		alert("ID box is not null!" + idNumberBox.value);
 		hiddenIdNumberBox.value = idNumberBox.value;
 	}
 	else

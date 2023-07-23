@@ -31,6 +31,9 @@
 			
 			//check if redirected from settings and got an error
 			window.onload = function() {
+      
+				document.getElementById("error_box").style.display = "none";
+
 				var infoChangeSuccess = new URLSearchParams(window.location.search).get('infoChangeSuccess');
 				var pwChangeSuccess = new URLSearchParams(window.location.search).get('pwChangeSuccess');
 				var codeChangeSuccess = new URLSearchParams(window.location.search).get('codeChangeSuccess');
@@ -44,7 +47,8 @@
 						document.getElementById("error_box").style.display = "none";
 					}, 3000);
 				}
-				else if(pwChangeSuccess != null && pwChangeSuccess=="false"){
+
+				if(pwChangeSuccess != null && pwChangeSuccess=="false"){
 					document.getElementById("error_box").style.display = "block";
 					$("#error_message").text("Current password was wrong. Please try again.");
 					
@@ -53,7 +57,8 @@
 					}, 3000);
 				}
 				
-				else if(codeChangeSuccess != null && codeChangeSuccess=="false"){
+				if(codeChangeSuccess != null && codeChangeSuccess=="false"){
+        
 					document.getElementById("error_box").style.display = "block";
 					$("#error_message").text("Current Security Code was wrong. Please try again.");
 					
@@ -61,7 +66,9 @@
 						document.getElementById("error_box").style.display = "none";
 					}, 3000);
 				}
-				else if(deleteSuccess != null && deleteSuccess=="false"){
+
+				if(deleteSuccess != null && deleteSuccess=="false"){
+
 					document.getElementById("error_box").style.display = "block";
 					$("#error_message").text("Current password was wrong. Please try again.");
 					
@@ -69,6 +76,7 @@
 						document.getElementById("error_box").style.display = "none";
 					}, 3000);
 				}
+
 			};
         </script>
     
@@ -248,11 +256,11 @@
 							<input type="hidden" name="idNumber" value="{{idNumber}}">
 							<div>
 								<label for="currentSecCode"><h2>Current Security Code: <br> <h2></label>
-								<input type="text" placeholder="4-Digit Security Code" id="currentSecCode" name="currentSecCode" pattern="[0-9]+" minlength="4" maxlength="4" >
+								<input type="password" placeholder="4-Digit Security Code" id="currentSecCode" name="currentSecCode" pattern="[0-9]+" minlength="4" maxlength="4" >
 							</div>
 							<div>
 								<label for="newSecCode"><h2>New Security Code: <br> <h2></label>
-								<input type="text" placeholder="4-Digit Security Code" id="newSecCode" name="newSecCode" pattern="[0-9]+" minlength="4" maxlength="4" >
+								<input type="password" placeholder="4-Digit Security Code" id="newSecCode" name="newSecCode" pattern="[0-9]+" minlength="4" maxlength="4" >
 							</div>
 							
 							<button type="submit" class="submitButton">Save Changes</button>
@@ -311,11 +319,6 @@
 				top: 3px;
 			}
 		</style>
-
-		<!--
-		<div id="success_box">
-			<p id="success_message"></p>
-		</div>-->
 
 		
 	</body>
