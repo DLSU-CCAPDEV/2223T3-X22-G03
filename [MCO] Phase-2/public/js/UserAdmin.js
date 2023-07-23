@@ -1,7 +1,9 @@
 var count = null;
 
 function createTextInfoAdmin(main_div, resultArr = [], isSearch){
-    
+
+    console.log(resultArr);
+
     var text_info = document.createElement('div');
     text_info.className = 'text_reserved_schedule';
     main_div.appendChild(text_info);
@@ -22,37 +24,27 @@ function createTextInfoAdmin(main_div, resultArr = [], isSearch){
     var exitTimeText = document.createElement('p');
 
     if ( isSearch == true ){
-        var userArray = new Array(user0, user1, user2, user3, user4);
-        var foundUser;
 
-        for ( var i = 0; i < userArray.length; i++ ){
-            if ( userArray[i].idNumber == idValue.value ){
-                foundUser = userArray[i];
-                break;
-            }
-        }
-
-        
-        locationText.innerHTML = foundUser.location;
+        locationText.innerHTML = resultArr[0];
 
         if ( idValue.value == '' ){
             idText.innerHTML = 'N/A';
         }
         else{
-            
-            idText.innerHTML = idValue.value;
+            idText.innerHTML = resultArr[1];
         }
 
-        dateText.innerHTML = foundUser.date;
-        entryText.innerHTML = foundUser.entry;
-        entryTimeText.innerHTML = foundUser.entryTime;
-        exitText.innerHTML = foundUser.exit;
-        exitTimeText.innerHTML = foundUser.exitTime;
+        idText.innerHTML = resultArr[1];
+        dateText.innerHTML = resultArr[2];
+        entryText.innerHTML = resultArr[3];
+        entryTimeText.innerHTML = resultArr[4];
+        exitText.innerHTML = resultArr[5];
+        exitTimeText.innerHTML = resultArr[6];
         
 
-    }else{
-        
-        if ( functionCalled == 0 ){
+    }else {
+
+         if ( functionCalled == 0 ){
             locationValue = document.getElementById('laguna_btn');
         }
         else{
@@ -97,9 +89,9 @@ function createTextInfoAdmin(main_div, resultArr = [], isSearch){
 
         locationText.innerHTML = locationValue.innerHTML;
 
-
     }
     
+
 
     var border = new Array();
 
@@ -129,7 +121,7 @@ function showSearchForm(){
     formBox.style.height = '245px';
 }
 
-function displayUserSchedule(isSearch){
+function displayUserSchedule(isSearch, resultArr = []){
     
     var scheduleContainer = document.getElementsByClassName('schedule_container')[0];
     var formBox = document.getElementsByClassName('form_box')[0];
@@ -173,17 +165,12 @@ function displayUserSchedule(isSearch){
     divBtn.appendChild(delete_btn);
 
     if ( isSearch == true ){
-        createTextInfoAdmin(div, true); //Show searched users
+        console.log('test');
+        createTextInfoAdmin(div, resultArr, true); //Show searched users
     }
     else{
-        createTextInfoAdmin(div, false); //Show admin resserved users
+        createTextInfoAdmin(div, resultArr, false); //Show admin resserved users
     }
-    
-
-    formBox.addEventListener('submit', function(e) {
-       e.preventDefault();
-       
-	})
 
     formBox.style.display = 'none';
 }

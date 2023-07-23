@@ -171,7 +171,7 @@ function populateFields(){
 function getIdNumber(){
 	return new URLSearchParams(window.location.search).get('idNumber');
 }
-function hideScheduleForm(fromLoad = 0, resultArr = [], isSearch = false){
+function hideScheduleForm(fromLoad = 0, resultArr = [], isSearch){
 
     var scheduleContainer = document.getElementsByClassName('schedule_container')[0];
     var scheduleForm = document.getElementsByClassName('form_box')[0];
@@ -220,21 +220,7 @@ function hideScheduleForm(fromLoad = 0, resultArr = [], isSearch = false){
 	if( fromLoad ){ //is being called to populate the list from after loading screen
 		createTextInfo(div, resultArr);
 	}
-    else{
-		if( adminFunctionCall == 0 ) { 
-        createTextInfo(div); //Show only for registered user
-		}
-		else {
-			div.style.border = '5px solid yellow';
-			createTextInfoAdmin(div,false); //Show only for admin
-		}
 
-		scheduleForm.addEventListener('submit', function(e) {
-		   e.preventDefault();
-		})
-
-		scheduleForm.style.display = 'none';
-	}
 
 }
 
@@ -318,7 +304,7 @@ function hideEditForm(i){
 	currEntryT.value = reserveText.children[5].innerHTML;
 	currExitL.value = reserveText.children[7].textContent;
 	currExitT.value = reserveText.children[8].innerHTML;
-	
+		
 	editForm.style.display="none";
 }
 
