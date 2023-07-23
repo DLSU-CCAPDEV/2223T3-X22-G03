@@ -4,7 +4,7 @@
         <title> Arrow Express - Settings </title> 
         <link rel="icon" type="image/png" href="Images/DLSU_Logo.png">
         <link rel="stylesheet" type="text/css" href="CSS/SettingsStyle.css">
-
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script type="text/javascript">
             var buttons = document.getElementsByClassName("tab");
             var panels = document.getElementsByClassName("panel");
@@ -28,7 +28,48 @@
                 //displays the chosen panel
                 panels[i].style.display="block";
             }
-
+			
+			//check if redirected from settings and got an error
+			window.onload = function() {
+				var infoChangeSuccess = new URLSearchParams(window.location.search).get('infoChangeSuccess');
+				var pwChangeSuccess = new URLSearchParams(window.location.search).get('pwChangeSuccess');
+				var codeChangeSuccess = new URLSearchParams(window.location.search).get('codeChangeSuccess');
+				var deleteSuccess = new URLSearchParams(window.location.search).get('deleteSuccess');
+				
+				if (infoChangeSuccess != null && infoChangeSuccess == "false"){
+					document.getElementById("error_box").style.display = "block";
+					$("#error_message").text("Info couldn't be changed. Please try again.");
+					
+					setTimeout(function(){
+						document.getElementById("error_box").style.display = "none";
+					}, 3000);
+				}
+				else if(pwChangeSuccess != null && pwChangeSuccess=="false"){
+					document.getElementById("error_box").style.display = "block";
+					$("#error_message").text("Current password was wrong. Please try again.");
+					
+					setTimeout(function(){
+						document.getElementById("error_box").style.display = "none";
+					}, 3000);
+				}
+				
+				else if(codeChangeSuccess != null && codeChangeSuccess=="false"){
+					document.getElementById("error_box").style.display = "block";
+					$("#error_message").text("Current Security Code was wrong. Please try again.");
+					
+					setTimeout(function(){
+						document.getElementById("error_box").style.display = "none";
+					}, 3000);
+				}
+				else if(deleteSuccess != null && deleteSuccess=="false"){
+					document.getElementById("error_box").style.display = "block";
+					$("#error_message").text("Current password was wrong. Please try again.");
+					
+					setTimeout(function(){
+						document.getElementById("error_box").style.display = "none";
+					}, 3000);
+				}
+			};
         </script>
     
         <style>
@@ -49,6 +90,14 @@
 			}
 			
 			.panel div div input[type="text"]{
+				height: 50px; 
+				margin-top: 10px; 
+				font-size: 24px; 
+				border-radius: 5px; 
+				padding-left: 5px;
+			}
+			
+			.panel div div input[type="password"]{
 				height: 50px; 
 				margin-top: 10px; 
 				font-size: 24px; 
@@ -181,11 +230,11 @@
 							<input type="hidden" name="idNumber" value="{{idNumber}}">
 							<div>
 								<label for="currentPassword"><h2>Current Password: <br> <h2></label>
-								<input type="text" placeholder="Current Password" id="currentPassword" name="currentPassword">
+								<input type="password" placeholder="Current Password" id="currentPassword" name="currentPassword">
 							</div>
 							<div>
 								<label for="newPassword"><h2>New Password: <br> <h2></label>
-								<input type="text" placeholder="New Password" id="newPassword" name="newPassword">
+								<input type="password" placeholder="New Password" id="newPassword" name="newPassword">
 							</div>
 							
 							<button type="submit" class="submitButton">Save Password</button>
@@ -220,7 +269,7 @@
 						<form id="delete_account" action="/DeleteAccount" method="post">
 							<div>
 								<label for="password"><h2>Current Password: <br> <h2></label>
-								<input type="text" placeholder="Password" id="password" name="Password">
+								<input type="password" placeholder="Password" id="password" name="Password">
 								<input type="hidden" name="idNumber" value="{{idNumber}}">
 							</div>
 							
@@ -234,6 +283,39 @@
             </div>
 
         </div>
+		
+		<div id="error_box" style="display: none;">
+            <p id="error_message"></p>
+        </div>
+		
+		<style>
+			#error_box{
+				width: 380px;
+				height: 20px;
+				top: 10%;
+				left: 50%;
+				margin: auto;
+				background: rgb(255, 54, 54);
+				padding: 5px;
+				position: absolute;
+				border-radius: 20px;
+				display: none;
+				transform: translate(-50%,-50%);
+			}
+
+			#error_box p{
+				text-align: center;
+				font-family: sans-serif;
+				font-size: 13px;
+				position: relative;
+				top: 3px;
+			}
+		</style>
+
+		<!--
+		<div id="success_box">
+			<p id="success_message"></p>
+		</div>-->
 
 		
 	</body>
