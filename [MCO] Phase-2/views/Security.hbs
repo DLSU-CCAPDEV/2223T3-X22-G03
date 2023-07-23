@@ -2,13 +2,22 @@
 
 <html>
     <head>
-        <title> Arrow Express - Login </title> 
+        <title> Arrow Express - Security </title> 
         <script src="JS/User.js"> </script>
         <link rel="icon" type="image/png" href="/images/DLSU_Logo.png">
         <link rel="stylesheet" href="/css/FormStyle.css">  <!-- Kailangan to if may separate CSS file -->
     </head>
 
     <body>
+
+        <script>
+            
+            window.onload = function() {
+                
+            };
+
+        </script>
+
         <div class = "banner"> 
             <div class="navbar">
                 <a onclick="history.back()"><img src="/images/Leftarrow.png" class = "back_img"></a>
@@ -22,7 +31,7 @@
                 <div class="input">
                     <form action="/SecurityCheck" id="loginForm" method="post">
                         <input type="hidden" name="idNumber" value="{{idNumber}}">
-                        <label for="user_password"></label>
+                        <label for="user_securityCode"></label>
                         <input type="password" placeholder="Enter 4-Digit Security Code" class="fillup" name="user_securityCode" id="user_securityCode" required pattern="[0-9]+" minlength="4" maxlength="4" >
                         <button type="submit" class="toggle_btn" > Submit <style> .toggle_btn{ font-size: large; font-weight: bold;} </style> </button>
                     </form>

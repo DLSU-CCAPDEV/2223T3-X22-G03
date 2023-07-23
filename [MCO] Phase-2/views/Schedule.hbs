@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title> Arrow Express - Reserve </title>
+        <title> Arrow Express - Schedule </title>
         <link rel="icon" type="image/png" href="Images/DLSU_Logo.png">
         <link rel="stylesheet" href="CSS/FormStyle.css"> 
         <link rel="stylesheet" href="CSS/ReservationStyle.css">
@@ -55,7 +55,7 @@
 
                 <div class = "schedule_container">
                     <div class="viewed_schedule">
-                        <h2 id="schedule_label">Seats Availability of Schedule</h2>
+                        <h2 id="schedule_label">Seats Availability of a schedule</h2>
                         <div id="seat_container">
                         </div>
                       </div>
@@ -181,6 +181,18 @@
             font-weight: bold;
             font-size: x-large;
             border-radius: 20px;
+        }
+
+        .seat .taken {
+            width: 150px;
+            height: 150px;
+            margin: 5px;
+            background-color: rgb(187, 0, 0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: x-large;
         }
 
         .schedule_container p {

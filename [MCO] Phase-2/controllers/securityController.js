@@ -48,19 +48,17 @@ const securityController = {
           if (result != null ) {
 
             if ( result.securityCode == securityCode ) {
-                console.log(result);
-                res.status(200).redirect('/Profile?idNumber=' + idNumber);
+              res.status(200).redirect('/Profile?idNumber=' + idNumber);
             }
             
           } else if ( result2 != null ) {
 
             if ( result2.securityCode == securityCode ) {
-                console.log(result2);
                 res.status(200).redirect('/ProfileAdmin?idNumber=' + idNumber);
             }
             
           } else {
-            res.status(401).redirect('/Login');
+            res.render('Login', { isCodeCorrect: false })
           }
 
         } catch (err) {
