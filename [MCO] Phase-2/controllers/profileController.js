@@ -67,16 +67,16 @@ const profileController = {
       if (resultUser != null ) {
         await User.updateOne(query, {firstName: req.body.newFirstName, lastName: req.body.newLastName})
         console.log("User public info change successful");
-        res.redirect('/Profile?idNumber=' + req.body.idNumber);
+        res.redirect('/Profile?idNumber=' + req.body.idNumber + '&infoChangeSuccess=true');
       }
       else if (resultAdmin != null ) {
         await Admin.updateOne(query, {firstName: req.body.newFirstName, lastName: req.body.newLastName})
         console.log("Admin user public info change successful");
-        res.redirect('/ProfileAdmin?idNumber=' + req.body.idNumber);
+        res.redirect('/ProfileAdmin?idNumber=' + req.body.idNumber + '&infoChangeSuccess=true');
       }
       else {
         console.log("User/Admin public info change unsuccessful");
-        res.redirect('/Settings?idNumber=' + req.body.idNumber);
+        res.redirect('/Settings?idNumber=' + req.body.idNumber + '&infoChangeSuccess=false');
       }
 
     },
@@ -91,16 +91,16 @@ const profileController = {
       if (resultUser != null ) {
         await User.updateOne(query, {designation: req.body.newDesignation})
         console.log("User private info change successful");
-        res.redirect('/Profile?idNumber=' + req.body.idNumber);
+        res.redirect('/Profile?idNumber=' + req.body.idNumber + '&infoChangeSuccess=true');
       }
       else if (resultAdmin != null ) {
         await Admin.updateOne(query, {designation: req.body.newDesignation})
         console.log("Admin user private info change successful");
-        res.redirect('/ProfileAdmin?idNumber=' + req.body.idNumber);
+        res.redirect('/ProfileAdmin?idNumber=' + req.body.idNumber + '&infoChangeSuccess=true');
       }
       else {
-        console.log("User/Admin public info change unsuccessful");
-        res.redirect('/Settings?idNumber=' + req.body.idNumber);
+        console.log("User/Admin private info change unsuccessful");
+        res.redirect('/Settings?idNumber=' + req.body.idNumber + '&infoChangeSuccess=false');
       }
 
     },
@@ -115,16 +115,16 @@ const profileController = {
       if (resultUser != null && resultUser.password === req.body.currentPassword ) {
         await User.updateOne(query, {password: req.body.newPassword})
         console.log("User password change successful");
-        res.redirect('/Profile?idNumber=' + req.body.idNumber);
+        res.redirect('/Profile?idNumber=' + req.body.idNumber + '&pwChangeSuccess=true');
       }
       else if (resultAdmin != null && resultAdmin.password === req.body.currentPassword) {
         await Admin.updateOne(query, {password: req.body.newPassword})
         console.log("Admin user password change successful");
-        res.redirect('/ProfileAdmin?idNumber=' + req.body.idNumber);
+        res.redirect('/ProfileAdmin?idNumber=' + req.body.idNumber + '&pwChangeSuccess=true');
       }
       else {
         console.log("User/Admin password change unsuccessful");
-        res.redirect('/Settings?idNumber=' + req.body.idNumber);
+        res.redirect('/Settings?idNumber=' + req.body.idNumber + '&pwChangeSuccess=false');
       }
 
     },
@@ -140,19 +140,19 @@ const profileController = {
       if (resultUser != null && resultUser.securityCode == req.body.currentSecCode) {
         await User.updateOne(query, {securityCode: req.body.newSecCode});
         console.log("User code change successful");
-        res.redirect('/Profile?idNumber=' + req.body.idNumber);
+        res.redirect('/Profile?idNumber=' + req.body.idNumber + '&codeChangeSuccess=true');
       }
       else if (resultAdmin != null && resultAdmin.securityCode == req.body.currentSecCode) {
         await Admin.updateOne(query, {securityCode: req.body.newSecCode});
         console.log("User code change successful");
-        res.redirect('/ProfileAdmin?idNumber=' + req.body.idNumber);
+        res.redirect('/ProfileAdmin?idNumber=' + req.body.idNumber + '&codeChangeSuccess=true');
       }
       else {
         console.log(req.body.currentSecCode);
         console.log(req.body.newSecCode);
         
         console.log("User/Admin security code change unsuccessful");
-        res.redirect('/Settings?idNumber=' + req.body.idNumber);
+        res.redirect('/Settings?idNumber=' + req.body.idNumber + '&codeChangeSuccess=false');
       }
 
     },
@@ -178,7 +178,7 @@ const profileController = {
       }
       else {
         console.log("User/Admin not deleted");
-        res.redirect('/Settings?idNumber=' + req.body.idNumber);
+        res.redirect('/Settings?idNumber=' + req.body.idNumber + '&deleteSuccess=false');
       }
     }
     

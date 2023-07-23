@@ -9,22 +9,21 @@
         <script src="JS/User.js"> </script>
         <script src="JS/Reservation.js" defer> </script>
         <script src="JS/UserAdmin.js" defer> </script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
 
     <body>
 
         <script>
             window.onload = function() {
+
+                document.getElementById("success_box").style.display = "none";
+
                 readyHTML({{displayUI}});
-
-                console.log({{isAdmin}});
-
-                var admin = "{{isAdmin}}";
 				
 				{{#each result}}
-					hideScheduleForm(true, ["{{startCampus}}", "{{date}}", "{{entryLoc}}", "{{entryTime}}", "{{exitLoc}}", "{{exitTime}}", {{idNumber}}], false, admin);
+					hideScheduleForm(true, ["{{startCampus}}", "{{date}}", "{{entryLoc}}", "{{entryTime}}", "{{exitLoc}}", "{{exitTime}}", {{idNumber}}], false);
 				{{/each}}
-
 
                 var adminLink = '/ProfileAdmin?idNumber=' + {{idNumber}};
                 var userLink = '/Profile?idNumber=' + {{idNumber}};
@@ -35,6 +34,25 @@
                 else{
                     document.getElementById('backButton').setAttribute('href', userLink);
                 }
+
+                var reserveUserStatus = new URLSearchParams(window.location.search).get('reserveUserSuccess');
+
+                if ( reserveUserStatus != null && reserveUserStatus == "true"){
+                    document.getElementById("success_box").style.display = "block";
+                    $("#success_message").text("User reservation successful!");
+                    
+                    setTimeout(function(){
+                        document.getElementById("success_box").style.display = "none";
+                    }, 3000);
+                }
+                else if (reserveUserStatus != null && reserveUserStatus == "false") {
+                    document.getElementById("error_box").style.display = "block";
+                    $("#error_message").text("User reservation failed. Please try again.");
+
+                    setTimeout(function(){
+                        document.getElementById("error_box").style.display = "none";
+                    }, 3000);
+                }
                 
             };
         </script>
@@ -43,7 +61,17 @@
 
             <div class="navbar">
                 <a href="" id="backButton"><img src="Images/Leftarrow.png" class = "back_img"></a>
+
+                <div id="success_box">
+                    <p id="success_message"> Success! </p>
+                </div>
+
+                <div id="error_box">
+                    <p id="error_message"> Invalid User/Password. Check your input </p>
+                </div>
+
                 <a> <img src= "Images/DLSU_Logo.png" class = "website_logo"> </a> 
+
             </div>
             
             <div class="content">
@@ -90,6 +118,46 @@
 						border: 2px solid white; 
 						border-radius: 30px;
 					}
+
+                     #success_box{
+                        width: 380px;
+                        height: 20px;
+                        top: 0%;
+                        margin: auto;
+                        background: rgb(97, 255, 77);
+                        padding: 5px;
+                        border-radius: 20px;
+                        display: none;
+                    }
+
+                    #success_box p{
+                        text-align: center;
+                        font-family: sans-serif;
+                        font-size: 13px;
+                        position: relative;
+                        top: 3px;
+                    }
+
+                    #error_box{
+                        width: 380px;
+                        height: 20px;
+                        top: 0%;
+                        margin: auto;
+                        background: rgb(255, 54, 54);
+                        padding: 5px;
+                        position: relative;
+                        border-radius: 20px;
+                        display: none;
+                    }
+
+                    #error_box p{
+                        text-align: center;
+                        font-family: sans-serif;
+                        font-size: 13px;
+                        position: relative;
+                        top: 3px;
+                    }
+
 					
 
                 </style>

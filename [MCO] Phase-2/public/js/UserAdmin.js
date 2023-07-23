@@ -1,8 +1,6 @@
 var count = null;
 
 function createTextInfoAdmin(main_div, resultArr = [], isSearch){
-
-    console.log('IN HERE!')
     
     var text_info = document.createElement('div');
     text_info.className = 'text_reserved_schedule';
@@ -99,9 +97,9 @@ function createTextInfoAdmin(main_div, resultArr = [], isSearch){
 
         locationText.innerHTML = locationValue.innerHTML;
 
+
     }
     
-
 
     var border = new Array();
 
