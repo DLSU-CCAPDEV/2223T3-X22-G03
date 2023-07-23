@@ -91,10 +91,10 @@ const reservationController = {
 		
 		if ( result ){
 			console.log('Reservation successfully added');
-            res.redirect('/Reservation?idNumber=' + req.body.adminId);
+            res.redirect('/Reservation?idNumber=' + req.body.adminId + '&reserveUserSuccess=true');
 		}
 		else{
-			res.redirect('/Reservation?idNumber=' + req.body.adminId);
+			res.redirect('/Reservation?idNumber=' + req.body.adminId + '&reserveUserSuccess=false');
 			console.log('Reservation failed to add');
 		}
     },
