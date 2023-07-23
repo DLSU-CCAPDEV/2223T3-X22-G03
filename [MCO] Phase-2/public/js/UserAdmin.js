@@ -1,7 +1,9 @@
 var count = null;
 
 function createTextInfoAdmin(main_div, resultArr = [], isSearch){
-    
+
+    console.log(resultArr);
+
     var text_info = document.createElement('div');
     text_info.className = 'text_reserved_schedule';
     main_div.appendChild(text_info);
@@ -22,35 +24,27 @@ function createTextInfoAdmin(main_div, resultArr = [], isSearch){
     var exitTimeText = document.createElement('p');
 
     if ( isSearch == true ){
-        var userArray = new Array(user0, user1, user2, user3, user4);
-        var foundUser;
 
-        for ( var i = 0; i < userArray.length; i++ ){
-            if ( userArray[i].idNumber == idValue.value ){
-                foundUser = userArray[i];
-                break;
-            }
-        }
-
-        
-        locationText.innerHTML = foundUser.location;
+        locationText.innerHTML = resultArr[0];
 
         if ( idValue.value == '' ){
             idText.innerHTML = 'N/A';
         }
         else{
-            
-            idText.innerHTML = idValue.value;
+            idText.innerHTML = resultArr[1];
         }
 
-        dateText.innerHTML = foundUser.date;
-        entryText.innerHTML = foundUser.entry;
-        entryTimeText.innerHTML = foundUser.entryTime;
-        exitText.innerHTML = foundUser.exit;
-        exitTimeText.innerHTML = foundUser.exitTime;
+        idText.innerHTML = resultArr[1];
+        dateText.innerHTML = resultArr[2];
+        entryText.innerHTML = resultArr[3];
+        entryTimeText.innerHTML = resultArr[4];
+        exitText.innerHTML = resultArr[5];
+        exitTimeText.innerHTML = resultArr[6];
         
 
-    }else{
+    }else {
+
+        console.log('isSearch = false');
         
         if ( functionCalled == 0 ){
             locationValue = document.getElementById('laguna_btn');
@@ -68,38 +62,40 @@ function createTextInfoAdmin(main_div, resultArr = [], isSearch){
         if ( dateValue.value == '' ){
             dateText.innerHTML = 'N/A';
         }else{
-            dateText.innerHTML = resultArr[1];
+            dateText.innerHTML = dateValue.value;
         }
 
         if (entryValue.options[entryValue.selectedIndex].text == 'N/A' || entryValue.options[entryValue.selectedIndex].text == "Entry Location"){
             entryText.innerHTML = 'N/A';
         }else{
-            entryText.innerHTML = resultArr[2];
+            entryText.innerHTML = entryValue.options[entryValue.selectedIndex].text;
         }   
 
         if (entryTimeValue.options[entryTimeValue.selectedIndex].text == 'N/A' || entryTimeValue.options[entryTimeValue.selectedIndex].text == "Time Slot"){
             entryTimeText.innerHTML = 'N/A';
         }else{
-            entryTimeText.innerHTML = resultArr[3];
+            entryTimeText.innerHTML = entryTimeValue.options[entryTimeValue.selectedIndex].text;
         }
 
         if ( exitValue.options[exitValue.selectedIndex].text == 'N/A' || exitValue.options[exitValue.selectedIndex].text == "Exit Location" ){
             exitText.innerHTML = 'N/A';
         }else{
-            exitText.innerHTML = resultArr[4];
+            exitText.innerHTML = exitValue.options[exitValue.selectedIndex].text;
         }
 
         if ( exitTimeValue.options[exitTimeValue.selectedIndex].text == 'N/A' || exitTimeValue.options[exitTimeValue.selectedIndex].text == "Time Slot"){
             exitTimeText.innerHTML = 'N/A';
         }else{
-            exitTimeText.innerHTML = resultArr[5];
+            exitTimeText.innerHTML = exitTimeValue.options[exitTimeValue.selectedIndex].text;
         }
 
         locationText.innerHTML = locationValue.innerHTML;
-
+        //
+        //
 
     }
     
+
 
     var border = new Array();
 
@@ -129,7 +125,7 @@ function showSearchForm(){
     formBox.style.height = '245px';
 }
 
-function displayUserSchedule(isSearch){
+function displayUserSchedule(isSearch, resultArr = []){
     
     var scheduleContainer = document.getElementsByClassName('schedule_container')[0];
     var formBox = document.getElementsByClassName('form_box')[0];
@@ -173,17 +169,12 @@ function displayUserSchedule(isSearch){
     divBtn.appendChild(delete_btn);
 
     if ( isSearch == true ){
-        createTextInfoAdmin(div, true); //Show searched users
+        console.log('test');
+        createTextInfoAdmin(div, resultArr, true); //Show searched users
     }
     else{
-        createTextInfoAdmin(div, false); //Show admin resserved users
+        createTextInfoAdmin(div, resultArr, false); //Show admin resserved users
     }
-    
-
-    formBox.addEventListener('submit', function(e) {
-       e.preventDefault();
-       
-	})
 
     formBox.style.display = 'none';
 }
