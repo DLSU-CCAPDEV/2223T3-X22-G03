@@ -44,9 +44,7 @@ function createTextInfoAdmin(main_div, resultArr = [], isSearch){
 
     }else {
 
-        console.log('isSearch = false');
-        
-        if ( functionCalled == 0 ){
+         if ( functionCalled == 0 ){
             locationValue = document.getElementById('laguna_btn');
         }
         else{
@@ -62,36 +60,34 @@ function createTextInfoAdmin(main_div, resultArr = [], isSearch){
         if ( dateValue.value == '' ){
             dateText.innerHTML = 'N/A';
         }else{
-            dateText.innerHTML = dateValue.value;
+            dateText.innerHTML = resultArr[1];
         }
 
         if (entryValue.options[entryValue.selectedIndex].text == 'N/A' || entryValue.options[entryValue.selectedIndex].text == "Entry Location"){
             entryText.innerHTML = 'N/A';
         }else{
-            entryText.innerHTML = entryValue.options[entryValue.selectedIndex].text;
+            entryText.innerHTML = resultArr[2];
         }   
 
         if (entryTimeValue.options[entryTimeValue.selectedIndex].text == 'N/A' || entryTimeValue.options[entryTimeValue.selectedIndex].text == "Time Slot"){
             entryTimeText.innerHTML = 'N/A';
         }else{
-            entryTimeText.innerHTML = entryTimeValue.options[entryTimeValue.selectedIndex].text;
+            entryTimeText.innerHTML = resultArr[3];
         }
 
         if ( exitValue.options[exitValue.selectedIndex].text == 'N/A' || exitValue.options[exitValue.selectedIndex].text == "Exit Location" ){
             exitText.innerHTML = 'N/A';
         }else{
-            exitText.innerHTML = exitValue.options[exitValue.selectedIndex].text;
+            exitText.innerHTML = resultArr[4];
         }
 
         if ( exitTimeValue.options[exitTimeValue.selectedIndex].text == 'N/A' || exitTimeValue.options[exitTimeValue.selectedIndex].text == "Time Slot"){
             exitTimeText.innerHTML = 'N/A';
         }else{
-            exitTimeText.innerHTML = exitTimeValue.options[exitTimeValue.selectedIndex].text;
+            exitTimeText.innerHTML = resultArr[5];
         }
 
         locationText.innerHTML = locationValue.innerHTML;
-        //
-        //
 
     }
     
