@@ -1,4 +1,3 @@
-
 // import module `express`
 const express = require('express');
 
@@ -78,6 +77,11 @@ app.post('/ReservationDelete', reservationController.postDelete);
 
 // Admin Reservation
 app.get('/ReservationAdmin', reservationController.getReservationAdmin);
+app.get('/SearchUser', reservationController.getSearchUser)
+app.post('/SearchUser', reservationController.postSearchUser);
+// Admin Reservation Update and Delete
+app.post('/SearchUserUpdate', reservationController.postSearchUserUpdate);
+app.post('/SearchUserDelete', reservationController.postSearchUserDelete);
 
 /*
     exports the object `app` (defined above)
