@@ -27,7 +27,7 @@ var ReservationSchema = new mongoose.Schema({
     },
     idNumber: { //This is used to bind a reservation to a user. Many-to-one relation.
         type: Number,
-        required: true,
+        required: false,
     }
 });
 

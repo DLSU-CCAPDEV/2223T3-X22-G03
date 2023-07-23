@@ -16,10 +16,15 @@
         <script>
             window.onload = function() {
                 readyHTML({{displayUI}});
+
+                console.log({{isAdmin}});
+
+                var admin = "{{isAdmin}}";
 				
 				{{#each result}}
-					hideScheduleForm(true, ["{{startCampus}}", "{{date}}", "{{entryLoc}}", "{{entryTime}}", "{{exitLoc}}", "{{exitTime}}", {{idNumber}}], false);
+					hideScheduleForm(true, ["{{startCampus}}", "{{date}}", "{{entryLoc}}", "{{entryTime}}", "{{exitLoc}}", "{{exitTime}}", {{idNumber}}], false, admin);
 				{{/each}}
+
 
                 var adminLink = '/ProfileAdmin?idNumber=' + {{idNumber}};
                 var userLink = '/Profile?idNumber=' + {{idNumber}};
@@ -119,7 +124,7 @@
 							<input type="hidden" id="hiddenExitTime" name="hiddenExitTime" value="">
 							<input type="hidden" id="adminId" name="adminId" value="">
 							
-                            <input type="text" placeholder="ID Number" class="fillup" name="user_idNumber" id="user_idNumber" style="position: relative; top: -25px; display: block;" value="">
+                            <input type="text" placeholder="ID Number" class="fillup" name="user_idNumber" id="user_idNumber" style="position: relative; top: -25px; display: block;" value="" pattern="[0-9]+" minlength="8" maxlength="8">
                             
 							<input type="date" class="fillup" required name="user_date" id="user_date" >
     

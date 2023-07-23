@@ -67,7 +67,7 @@ var user = {
     firstName: 'IT',
     lastName: 'IT',
     email: 'it@gmail.com',
-    idNumber: '00000000',
+    idNumber: '11111111',
     password: 'itadmin',
     securityCode: '1234',
     designation: 'Faculty',
