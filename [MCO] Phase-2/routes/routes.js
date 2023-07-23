@@ -13,6 +13,7 @@ const signupController = require('../controllers/signupController.js');
 const reservationController = require('../controllers/reservationController.js');
 
 const searchController = require('../controllers/searchController.js');
+const scheduleController = require('../controllers/scheduleController.js');
 
 const securityController = require('../controllers/securityController.js');
 
@@ -62,6 +63,7 @@ app.post('/ChangeCode', profileController.postChangeCode);
 
 // Schedule
 app.get('/Schedule', controller.getSchedule);
+app.get('/Schedule/:date/:location/:time', scheduleController.getReservations);
 
 // Reservation
 app.get('/Reservation', reservationController.getReservations);
