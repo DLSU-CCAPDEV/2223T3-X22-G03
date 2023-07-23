@@ -112,13 +112,16 @@
                             
                             <label for="user_idNumber"></label>
 							<input type="hidden" id="hiddenStartCampus" required name="hiddenStartCampus" value="">
-							<input type="hidden" id="hiddenIdNumber" required name="hiddenIdNumber" value="">
+							<input type="hidden" id="hiddenIdNumber"  name="hiddenIdNumber" value="">
 							<input type="hidden" id="hiddenEntryLoc" name="hiddenEntryLoc" value="">
 							<input type="hidden" id="hiddenEntryTime" name="hiddenEntryTime" value="">
 							<input type="hidden" id="hiddenExitLoc" name="hiddenExitLoc" value="">
 							<input type="hidden" id="hiddenExitTime" name="hiddenExitTime" value="">
-                            <!-- <input type="text" placeholder="ID Number" class="fillup" name="user_idNumber" id="user_idNumber" required style="position: relative; top: -25px; display: block;"> -->
-                            <input type="date" class="fillup" required name="user_date" id="user_date" >
+							<input type="hidden" id="adminId" name="adminId" value="">
+							
+                            <input type="text" placeholder="ID Number" class="fillup" name="user_idNumber" id="user_idNumber" style="position: relative; top: -25px; display: block;" value="">
+                            
+							<input type="date" class="fillup" required name="user_date" id="user_date" >
     
                             <div class="entry">
                                 <img src="Images/Help.png" style="width: 25px; height: 25px; position: relative; filter:invert(1); top: 15px; left:10px; cursor: help;" title="From home, location going to be picked up.">
@@ -313,9 +316,9 @@
 							<input type="hidden" id="dCurrExitLoc" name="dCurrExitLoc" value="">
 							<input type="hidden" id="dCurrExitTime" name="dCurrExitTime" value="">
                             <button type="submit" class="toggle_btn" id="delete_btn" onclick="hideDeleteForm();"> Delete <style> .toggle_btn{ font-size: large; font-weight: bold;}</style></button>
-							
+						</form>
                             <button type="submit" class="toggle_btn" id="cancel_btn" onclick="cancelDeleteForm();"> Cancel</button>
-						</form>                      
+						                    
                     </div>
     
                 </div>
@@ -323,5 +326,4 @@
 
         </div>
     </body>
-
 </html>
