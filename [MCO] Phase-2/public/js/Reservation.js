@@ -139,7 +139,12 @@ function fillHiddenField(_box, _hiddenBox){
 }
 function populateFields(){
 	var startCampusBox = document.getElementById('hiddenStartCampus');
-	var idNumberBox = document.getElementById('hiddenIdNumber');
+	
+	var idNumberBox = document.getElementById('user_idNumber');
+	var hiddenIdNumberBox = document.getElementById('hiddenIdNumber');
+	var adminIdBox = document.getElementById('adminId');
+	
+	adminIdBox.value = getIdNumber();
 	
 	var startVal;
 	if(!getStartCampus())
@@ -149,7 +154,12 @@ function populateFields(){
 	
 	startCampusBox.value = startVal;
 	
-	idNumberBox.value = getIdNumber();
+	if(idNumberBox.value != ""){
+		alert("ID box is not null!" + idNumberBox.value);
+		hiddenIdNumberBox.value = idNumberBox.value;
+	}
+	else
+		hiddenIdNumberBox.value = getIdNumber();
 	
 	fillHiddenField('user_entry', 'hiddenEntryLoc');
 	fillHiddenField('user_entryTime', 'hiddenEntryTime');
