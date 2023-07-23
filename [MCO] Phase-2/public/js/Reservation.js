@@ -61,30 +61,32 @@ function showScheduleForm() {
 	var doc = document;
     var scheduleForm = null;
     var date_box = document.getElementById('user_date');
-	var entry_box = doc.getElementById('user_entry');
-	var entryTimeBox = doc.getElementById('user_entryTime');
-	var exitBox = doc.getElementById('user_exit');
-	var exitTimeBox = doc.getElementById('user_exitTime');
-	//var idBox = doc.getElementById('user_idNumber');
+    var entry_box = doc.getElementById('user_entry');
+    var entryTimeBox = doc.getElementById('user_entryTime');
+    var exitBox = doc.getElementById('user_exit');
+    var exitTimeBox = doc.getElementById('user_exitTime');
+    var idBox = doc.getElementById('user_idNumber');
 
     if ( adminFunctionCall == 0 ){
-        //idBox.style.display = 'none';
+        idBox.style.display = 'none';
+        idBox.type = 'hidden';
         scheduleForm = document.getElementsByClassName('form_box')[0];
         scheduleForm.querySelector('h2').innerHTML = 'Reserve Now';
         scheduleForm.querySelector('h4').innerHTML = 'Just one-click away';
         scheduleForm.style.height = '385px';
     }
     else{
-        //idBox.style.display = 'block';
+        idBox.style.display = 'block';
+        idBox.type = 'text';
         scheduleForm = document.getElementsByClassName('form_box')[0];
         scheduleForm.querySelector('h2').innerHTML = 'Admin Reserve';
         scheduleForm.querySelector('h4').innerHTML = 'Fillup to reserve for a user';
         scheduleForm.style.height = '450px';
     }
-	
-	//if(idBox != null){
-	//	idBox.value="";
-	//}
+    
+    if(idBox != null){
+        idBox.value="";
+    }
 	
 	date_box.value="";
 	entry_box.value="";
@@ -139,7 +141,12 @@ function fillHiddenField(_box, _hiddenBox){
 }
 function populateFields(){
 	var startCampusBox = document.getElementById('hiddenStartCampus');
-	var idNumberBox = document.getElementById('hiddenIdNumber');
+	
+	var idNumberBox = document.getElementById('user_idNumber');
+	var hiddenIdNumberBox = document.getElementById('hiddenIdNumber');
+	var adminIdBox = document.getElementById('adminId');
+	
+	adminIdBox.value = getIdNumber();
 	
 	var startVal;
 	if(!getStartCampus())
@@ -149,7 +156,11 @@ function populateFields(){
 	
 	startCampusBox.value = startVal;
 	
-	idNumberBox.value = getIdNumber();
+	if(idNumberBox.value != ""){
+		hiddenIdNumberBox.value = idNumberBox.value;
+	}
+	else
+		hiddenIdNumberBox.value = getIdNumber();
 	
 	fillHiddenField('user_entry', 'hiddenEntryLoc');
 	fillHiddenField('user_entryTime', 'hiddenEntryTime');
@@ -160,7 +171,7 @@ function populateFields(){
 function getIdNumber(){
 	return new URLSearchParams(window.location.search).get('idNumber');
 }
-function hideScheduleForm(fromLoad = 0, resultArr = [], isSearch = false){
+function hideScheduleForm(fromLoad = 0, resultArr = [], isSearch){
 
     var scheduleContainer = document.getElementsByClassName('schedule_container')[0];
     var scheduleForm = document.getElementsByClassName('form_box')[0];
@@ -209,21 +220,7 @@ function hideScheduleForm(fromLoad = 0, resultArr = [], isSearch = false){
 	if( fromLoad ){ //is being called to populate the list from after loading screen
 		createTextInfo(div, resultArr);
 	}
-    else{
-		if( adminFunctionCall == 0 ) { 
-        createTextInfo(div); //Show only for registered user
-		}
-		else {
-			div.style.border = '5px solid yellow';
-			createTextInfoAdmin(div,false); //Show only for admin
-		}
 
-		scheduleForm.addEventListener('submit', function(e) {
-		   e.preventDefault();
-		})
-
-		scheduleForm.style.display = 'none';
-	}
 
 }
 
@@ -631,7 +628,7 @@ function locationChangeFormHelper(location, isEditButton){
                 selectEntryContainer.appendChild(option);
             }
 
-            var storage_exit = ["DLSU LC -> Yuchenco Bldg. ", "DLSU LC -> Paseo ", "DLSU LC -> Carmona  ", "DLSU LC -> Pavilion Mall ", "DLSU LC -> Walter Mart ", "N/A"];
+            var storage_exit = ["DLSU LC -> Yuchenco Bldg.", "DLSU LC -> Paseo", "DLSU LC -> Carmona", "DLSU LC -> Pavilion Mall", "DLSU LC -> Walter Mart", "N/A"];
             for ( var i = 0; i < storage_exit.length; i++ ){
                 var option = document.createElement('option');
                 option.value = i;
@@ -651,7 +648,7 @@ function locationChangeFormHelper(location, isEditButton){
                 selectEntryContainer.appendChild(option);
             }
 
-            var storage_exit = ["DLSU LC -> Yuchenco Bldg. ", "DLSU LC -> Paseo ", "DLSU LC -> Carmona  ", "DLSU LC -> Pavilion Mall ", "DLSU LC -> Walter Mart ", "N/A"];
+            var storage_exit = ["DLSU LC -> Yuchenco Bldg.", "DLSU LC -> Paseo", "DLSU LC -> Carmona", "DLSU LC -> Pavilion Mall", "DLSU LC -> Walter Mart", "N/A"];
             for ( var i = 0; i < storage_exit.length; i++ ){
                 var option = document.createElement('option');
                 option.value = i;
