@@ -52,7 +52,7 @@ const controller = {
                 lastName: resultUser.lastName,
                 designation: resultUser.designation,
                 passengerType: resultUser.passengerType,
-                res: res
+                isAdmin: false,
             };
         }
         else if ( resultAdmin != null ) {
@@ -62,7 +62,7 @@ const controller = {
                 lastName: resultAdmin.lastName,
                 designation: resultAdmin.designation,
                 passengerType: resultAdmin.passengerType,
-                res: res
+                isAdmin: true,
             };
         }
         

@@ -76,6 +76,15 @@
 					}, 3000);
 				}
 
+				var adminLink = '/ProfileAdmin?idNumber=' + {{idNumber}};
+                var userLink = '/Profile?idNumber=' + {{idNumber}};
+
+                if ( {{isAdmin}} == true ){
+                    document.getElementById('backButton').setAttribute('href', adminLink);
+                }
+                else{
+                    document.getElementById('backButton').setAttribute('href', userLink);
+                }
 				
 			};
         </script>
@@ -135,7 +144,7 @@
     <body>
 		
         <div class="navbar">
-            <a onclick="history.back()"><img src="Images/Leftarrow.png" class="back_img"></a>
+            <a href="" id="backButton"><img src="Images/Leftarrow.png" class="back_img"></a>
             <img src="Images/DLSU_Logo.png" class="website_logo" href="#">   
         </div>
 
