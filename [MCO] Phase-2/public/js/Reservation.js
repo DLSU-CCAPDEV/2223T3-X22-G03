@@ -631,7 +631,7 @@ function locationChangeFormHelper(location, isEditButton){
                 selectEntryContainer.appendChild(option);
             }
 
-            var storage_exit = ["DLSU LC -> Yuchenco Bldg. ", "DLSU LC -> Paseo ", "DLSU LC -> Carmona  ", "DLSU LC -> Pavilion Mall ", "DLSU LC -> Walter Mart ", "N/A"];
+            var storage_exit = ["DLSU LC -> Yuchenco Bldg.", "DLSU LC -> Paseo", "DLSU LC -> Carmona", "DLSU LC -> Pavilion Mall", "DLSU LC -> Walter Mart", "N/A"];
             for ( var i = 0; i < storage_exit.length; i++ ){
                 var option = document.createElement('option');
                 option.value = i;
@@ -651,7 +651,7 @@ function locationChangeFormHelper(location, isEditButton){
                 selectEntryContainer.appendChild(option);
             }
 
-            var storage_exit = ["DLSU LC -> Yuchenco Bldg. ", "DLSU LC -> Paseo ", "DLSU LC -> Carmona  ", "DLSU LC -> Pavilion Mall ", "DLSU LC -> Walter Mart ", "N/A"];
+            var storage_exit = ["DLSU LC -> Yuchenco Bldg.", "DLSU LC -> Paseo", "DLSU LC -> Carmona", "DLSU LC -> Pavilion Mall", "DLSU LC -> Walter Mart", "N/A"];
             for ( var i = 0; i < storage_exit.length; i++ ){
                 var option = document.createElement('option');
                 option.value = i;

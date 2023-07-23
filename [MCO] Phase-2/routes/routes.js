@@ -18,6 +18,8 @@ const securityController = require('../controllers/securityController.js');
 
 const forgotPassController = require('../controllers/forgotPassController.js');
 
+const scheduleController = require('../controllers/scheduleController.js');
+
 const app = express();
 
 // Index settings
@@ -65,6 +67,7 @@ app.post('/ChangeCode', profileController.postChangeCode);
 
 // Schedule
 app.get('/Schedule', controller.getSchedule);
+app.get('/Schedule/:date/:location/:time', scheduleController.getReservations);
 
 // Reservation
 app.get('/Reservation', reservationController.getReservations);
