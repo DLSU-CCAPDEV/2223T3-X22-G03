@@ -1,12 +1,6 @@
+
 // import module `mongoose`
 const mongoose = require('mongoose');
-
-// import module `User` from `../models/UserModel.js`
-const User= require('./userdb.js');
-
-const Reservation = require('./reservationdb.js');
-
-const Admin = require('./admindb.js');
 
 // ccapdev-mongoose is the name of the database
 const url = 'mongodb://0.0.0.0:27017/ccapdev-mongoose';
@@ -23,35 +17,23 @@ const database = {
     /*
         connects to database
     */
-    connect: function () {
-        mongoose.connect(url, options, function(error) {
-            if(error) throw error;
-            console.log('Connected to: ' + url);
-        });
+    connect: async function () {
+        await mongoose.connect(url, options);
+        console.log('Connected to: ' + url);
     },
 
     /*
         inserts a single `doc` to the database based on the model `model`
     */
-    insertOne: function(model, doc, callback) {
-        model.create(doc, function(error, result) {
-            if(error){
-				return callback(false);
-			}
-            console.log('Added ' + result);
-            return callback(true);
-        });
+    insertOne: async function(model, doc) {
+        return await model.create(doc);
     },
 
     /*
         inserts multiple `docs` to the database based on the model `model`
     */
-    insertMany: function(model, docs) {
-        model.insertMany(docs, function(error, result) {
-            if(error) return callback(false);
-            console.log('Added ' + result);
-            return callback(true);
-        });
+    insertMany: async function(model, docs) {
+        return await model.insertMany(docs);
     },
 
     /*
@@ -60,10 +42,9 @@ const database = {
         limits the fields returned based on the string `projection`
         callback function is called after the execution of findOne() function
     */
-    findOne: function(model, query, projection) {
-        return model.findOne(query, projection).exec();
+    findOne: async function(model, query, projection) {
+        return model.findOne(query, projection);
     },
-          
 
     /*
         searches for multiple documents based on the model `model`
@@ -80,12 +61,8 @@ const database = {
         on a single document based on the model `model`
         filtered by the object `filter`
     */
-    updateOne: function(model, filter, update) {
-        model.updateOne(filter, update, function(error, result) {
-            if(error) return callback(false);
-            console.log('Document modified: ' + result.nModified);
-            return callback(true);
-        });
+    updateOne: async function(model, filter, update) {
+        return await model.updateOne(filter, update);
     },
 
     /*
@@ -93,36 +70,24 @@ const database = {
         on multiple documents based on the model `model`
         filtered using the object `filter`
     */
-    updateMany: function(model, filter, update) {
-        model.updateMany(filter, update, function(error, result) {
-            if(error) return callback(false);
-            console.log('Documents modified: ' + result.nModified);
-            return callback(true);
-        });
+    updateMany: async function(model, filter, update) {
+        return await model.updateMany(filter, update);
     },
 
     /*
         deletes a single document based on the model `model`
         filtered using the object `conditions`
     */
-    deleteOne: function(model, conditions) {
-        model.deleteOne(conditions, function (error, result) {
-            if(error) return callback(false);
-            console.log('Document deleted: ' + result.deletedCount);
-            return callback(true);
-        });
+    deleteOne: async function(model, conditions) {
+        return await model.deleteOne(conditions);
     },
 
     /*
         deletes multiple documents based on the model `model`
         filtered using the object `conditions`
     */
-    deleteMany: function(model, conditions) {
-        model.deleteMany(conditions, function (error, result) {
-            if(error) return callback(false);
-            console.log('Document deleted: ' + result.deletedCount);
-            return callback(true);
-        });
+    deleteMany: async function(model, conditions) {
+        return await model.deleteMany(conditions);
     }
 
 }

@@ -18,15 +18,26 @@
                 readyHTML({{displayUI}});
 				
 				{{#each result}}
-					hideScheduleForm(true, ["{{startCampus}}", "{{date}}", "{{entryLoc}}", "{{entryTime}}", "{{exitLoc}}", "{{exitTime}}", {{idNumber}}]);
+					hideScheduleForm(true, ["{{startCampus}}", "{{date}}", "{{entryLoc}}", "{{entryTime}}", "{{exitLoc}}", "{{exitTime}}", {{idNumber}}], false);
 				{{/each}}
+
+                var adminLink = '/ProfileAdmin?idNumber=' + {{idNumber}};
+                var userLink = '/Profile?idNumber=' + {{idNumber}};
+
+                if ( {{isAdmin}} == true ){
+                    document.getElementById('backButton').setAttribute('href', adminLink);
+                }
+                else{
+                    document.getElementById('backButton').setAttribute('href', userLink);
+                }
+                
             };
         </script>
         
         <div class = "banner" > 
 
             <div class="navbar">
-                <a href="/ProfileAdmin?idNumber={{idNumber}}" ><img src="Images/Leftarrow.png" class = "back_img"></a>
+                <a href="" id="backButton"><img src="Images/Leftarrow.png" class = "back_img"></a>
                 <a> <img src= "Images/DLSU_Logo.png" class = "website_logo"> </a> 
             </div>
             

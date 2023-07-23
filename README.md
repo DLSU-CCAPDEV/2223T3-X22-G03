@@ -31,7 +31,7 @@ A simplified booking experience for Arrows Express, designed by Mauries, Benmar,
 - (4.) Click the folder path -> type cmd -> press enter (if successful, it will open a cmd window)
 - (5.) Type 'node admins.js' (if successful, it will add documents to your localhost database) -> then do 'CTRL + C'
 - (6.) Type 'node index.js' (if successful, it will connect to the database and opens a localhost website)
-- (7.) Go to any browser -> type 'localhost:9090' in the URL
+- (7.) Go to any browser -> type 'localhost:3000' in the URL
 
 **[RESPONSIBLITIES]**
 -

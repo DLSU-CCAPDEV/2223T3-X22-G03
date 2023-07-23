@@ -2,6 +2,8 @@ const db = require('../models/db.js');
 
 const User = require('../models/userdb.js');
 
+const Reservation = require('../models/reservationdb.js');
+
 const searchController = {
 
     getSearch : function (req, res) {
@@ -50,7 +52,18 @@ const searchController = {
             res.send('User does not exist.');
         }
 
+    },
+
+    getSearchReservation : async function (req, res) {
+
+        var userID = req.query.idNumber;
+
+		    const result = await db.findMany(Reservation, {idNumber: userID}, {_id:0, __v:0});
+
+        res.render('SearchReservation', {result: result, idNumber: userID});
+
     }
+
 };
 
 module.exports = searchController;

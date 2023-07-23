@@ -151,10 +151,6 @@
     transition: 0.5s;
 }
 
-.content .schedule_container .reserved_schedule:hover{
-    transform: scale(1.02);
-}
-
 .content .schedule_container .reserved_schedule .text_reserved_schedule{
     position: absolute;
     width: 80%;

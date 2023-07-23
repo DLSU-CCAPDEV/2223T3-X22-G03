@@ -11,7 +11,7 @@ const routes = require('./routes/routes.js');
 const db = require('./models/db.js');
 
 const app = express();
-const port = 9090;
+const port = 3000;
 
 // set `hbs` as view engine
 app.set('view engine', 'hbs');
@@ -30,11 +30,10 @@ app.use('/', routes);
 
 // if the route is not defined in the server, render `../views/error.hbs`
 // always define this as the last middleware
-/*
+
 app.use(function (req, res) {
     res.render('error');
 });
-*/
 
 // connects to the database
 db.connect();

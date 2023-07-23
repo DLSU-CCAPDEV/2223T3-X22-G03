@@ -29,57 +29,6 @@
                 panels[i].style.display="block";
             }
 
-			/*
-			function submitForm(formName){
-				var form = document.getElementById(formName);
-				form.submit();
-				
-				alert("Form " + formName + " submitted"); 
-			}
-
-			
-			function deleteAccount(){
-				var user_loggedIn  = localStorage.getItem('loggedInUser');
-				var registeredUser;
-
-				var password = document.getElementById("password").value;
-
-				if ( ( user_loggedIn && (user_loggedIn.match(password)) && password != "")){
-
-					for ( var i = 0 ; i < localStorage.length ; i++ ) {
-
-						var key = localStorage.key(i);
-						if( key.startsWith('valid_user') ){
-							registeredUser = localStorage.getItem(key);
-						}
-
-						try{
-							var tempRegIdNumber = JSON.parse(registeredUser).idNumber;
-							var tempRegPassword = JSON.parse(registeredUser).password;
-							var tempLogIdNumber = JSON.parse(user_loggedIn).idNumber;
-							var tempLogPassword = JSON.parse(user_loggedIn).password;
-						}
-						catch{
-							console.log("Error 404");
-						}
-    					
-						if ( tempRegIdNumber == tempLogIdNumber && tempRegPassword == tempLogPassword ) {
-							localStorage.removeItem(key); //Removes the user from the localstorage
-						}
-					}			
-					
-					localStorage.removeItem('loggedInUser');
-					return 1;
-
-				}
-				else{
-					alert("Password is incorrect! Please try again.");
-					return 0;
-				}
-				
-			}
-			*/
-
         </script>
     
         <style>
@@ -181,7 +130,7 @@
 								<input type="file" id="dp" name="dp" style="margin-top: 10px;">
 							</div>
 							
-							<button type="submit" class="submitButton">Save changes</button>
+							<button type="submit" class="submitButton">Save Changes</button>
 						</form>
 					</div>
 
@@ -231,15 +180,33 @@
 						<form id="pass_change" action="/ChangePassword" method="post">
 							<input type="hidden" name="idNumber" value="{{idNumber}}">
 							<div>
-								<label for="oldPassword"><h2>Old password: <br> <h2></label>
-								<input type="text" placeholder="Old password" id="oldPassword" name="oldPassword">
+								<label for="currentPassword"><h2>Current Password: <br> <h2></label>
+								<input type="text" placeholder="Current Password" id="currentPassword" name="currentPassword">
 							</div>
 							<div>
-								<label for="newPassword"><h2>New password: <br> <h2></label>
-								<input type="text" placeholder="New password" id="newPassword" name="newPassword">
+								<label for="newPassword"><h2>New Password: <br> <h2></label>
+								<input type="text" placeholder="New Password" id="newPassword" name="newPassword">
 							</div>
 							
 							<button type="submit" class="submitButton">Save Password</button>
+						</form>
+					</div>
+
+					<div style="background-color: white; border-radius: 25px; width:auto; padding: 25px; margin-top: 20px;">
+						<h1>Two Authentication</h1>
+						<hr>
+						<form id="pass_change" action="/ChangeCode" method="post">
+							<input type="hidden" name="idNumber" value="{{idNumber}}">
+							<div>
+								<label for="currentSecCode"><h2>Current Security Code: <br> <h2></label>
+								<input type="text" placeholder="4-Digit Security Code" id="currentSecCode" name="currentSecCode" pattern="[0-9]+" minlength="4" maxlength="4" >
+							</div>
+							<div>
+								<label for="newSecCode"><h2>New Security Code: <br> <h2></label>
+								<input type="text" placeholder="4-Digit Security Code" id="newSecCode" name="newSecCode" pattern="[0-9]+" minlength="4" maxlength="4" >
+							</div>
+							
+							<button type="submit" class="submitButton">Save Changes</button>
 						</form>
 					</div>
                     <!-- Current Password, New Password, Verify Password -->
@@ -252,7 +219,7 @@
 						You must input your password in order to confirm the deletion of your account.
 						<form id="delete_account" action="/DeleteAccount" method="post">
 							<div>
-								<label for="password"><h2>Password: <br> <h2></label>
+								<label for="password"><h2>Current Password: <br> <h2></label>
 								<input type="text" placeholder="Password" id="password" name="Password">
 								<input type="hidden" name="idNumber" value="{{idNumber}}">
 							</div>
@@ -263,7 +230,6 @@
                     <!-- Type current password, delete buttom -->
                 </div>
 
-                <!-- Not limited to these ideas, if sa tingin may idadagdag pa. Lagay niyo na rin-->
             
             </div>
 

@@ -82,6 +82,10 @@ const controller = {
         res.render('ReservationAdmin', res);
     },
 
+    getError: function (req, res) {
+        res.render('Error', res);
+    }
+
 }
 
 /*

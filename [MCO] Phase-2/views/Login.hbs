@@ -6,9 +6,72 @@
         <script src="JS/User.js"> </script>
         <link rel="icon" type="image/png" href="/images/DLSU_Logo.png">
         <link rel="stylesheet" href="/css/FormStyle.css">  <!-- Kailangan to if may separate CSS file -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
 
     <body>
+
+        <script> 
+
+             window.onload = function(){
+
+                var check = "{{isValid}}";
+                var checkCodeChange = "{{codeChange}}";
+                var checkLoginCode = "{{isCodeCorrect}}"
+                var checkRegistered = "{{isRegistered}}"
+
+                document.getElementById("error_box").style.display = "none";
+
+                if ( check == "false" ){
+                    document.getElementById("error_box").style.display = "block";
+
+                    setTimeout(function(){
+                        document.getElementById("error_box").style.display = "none";
+                    }, 3000);
+                }
+
+                if ( checkCodeChange == "true"){
+                    document.getElementById("success_box").style.display = "block";
+                    $("#success_message").text("Password changed successfully!");
+                    
+
+                    setTimeout(function(){
+                        document.getElementById("success_box").style.display = "none";
+                    }, 3000);
+                }
+                else{
+                    document.getElementById("success_box").style.display = "none";
+                }
+
+                if ( checkLoginCode == "false" ){
+
+                    document.getElementById("error_box").style.display = "block";
+                    $("#error_message").text("Security code is incorrect. Please try again.");
+
+                    setTimeout(function(){
+                        document.getElementById("error_box").style.display = "none";
+                    }, 3000);
+                }
+
+                if ( checkRegistered == "true" ){
+                    document.getElementById("success_box").style.display = "block";
+                    $("#success_message").text("Account registered successfully!");
+                    
+
+                    setTimeout(function(){
+                        document.getElementById("success_box").style.display = "none";
+                    }, 3000);
+                }
+
+             }
+
+            $("#loginForm").submit(function(e){
+                e.preventDefault();
+            });
+            
+        </script>
+
+       
         <div class = "banner"> 
             <div class="navbar">
                 <a onclick="history.back()"><img src="/images/Leftarrow.png" class = "back_img"></a>
@@ -22,7 +85,7 @@
                 <div class="input">
                     <form action="/Login" id="loginForm" method="post">
                         <label for="user_idNumber"></label>
-                        <input type="text" placeholder="ID Number" class="fillup" name="user_idNumber" id="user_idNumber" required >
+                        <input type="text" placeholder="ID Number" class="fillup" name="user_idNumber" id="user_idNumber" required pattern="[0-9]+" minlength="8" maxlength="8" >
                         <label for="user_password"></label>
                         <input type="password" placeholder="Password" class="fillup" name="user_password" id="user_password" required>
                         <button type="submit" class="toggle_btn" > Login <style> .toggle_btn{ font-size: large; font-weight: bold;} </style> </button>
@@ -31,12 +94,16 @@
 
                 <div class="subtext">
                     <a href="/SignUp"> Register | </a>
-                    <a href="#"> Forgot Password? </a>
+                    <a href="/ForgotPassword"> Forgot Password? </a>
                 </div>
             </div>
 
             <div id="error_box">
-                <p> Invalid User/Password. Check your input </p>
+                <p id="error_message"> Invalid User/Password. Check your input </p>
+            </div>
+
+            <div id="success_box">
+                <p id="success_message"> Success! </p>
             </div>
 
         </div>
@@ -64,7 +131,7 @@
         #error_box{
             width: 380px;
             height: 20px;
-            top: 12%;
+            top: 0%;
             margin: auto;
             background: rgb(255, 54, 54);
             padding: 5px;
@@ -74,6 +141,26 @@
         }
 
         #error_box p{
+            text-align: center;
+            font-family: sans-serif;
+            font-size: 13px;
+            position: relative;
+            top: 3px;
+        }
+
+         #success_box{
+            width: 380px;
+            height: 20px;
+            top: 0%;
+            margin: auto;
+            background: rgb(97, 255, 77);
+            padding: 5px;
+            position: relative;
+            border-radius: 20px;
+            display: none;
+        }
+
+        #success_box p{
             text-align: center;
             font-family: sans-serif;
             font-size: 13px;

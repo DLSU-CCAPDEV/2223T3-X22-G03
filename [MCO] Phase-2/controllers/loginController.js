@@ -21,12 +21,13 @@ const loginController = {
           const result2 = await db.findOne(Admin, query, projection);
           
           if (result) {
-            res.status(200).redirect('/Profile?idNumber=' + idNumber);
+            res.redirect('/SecurityCheck?idNumber=' + idNumber);
           } else if (result2) {
-            res.status(200).redirect('/ProfileAdmin?idNumber=' + idNumber);
+            res.redirect('/SecurityCheck?idNumber=' + idNumber);
           } else {
-            res.status(401).redirect('/Login');
+            res.render('Login', { isValid: false })
           }
+          
         } catch (err) {
           res.status(500).send(err);
         }

@@ -4,6 +4,8 @@ const User = require('../models/userdb.js');
 
 const Admin = require('../models/admindb.js');
 
+const Reservation = require('../models/reservationdb.js');
+
 const profileController = {
 
     getProfile: async function (req, res) {
@@ -26,7 +28,7 @@ const profileController = {
           res.render('Profile', details);
           
         } else {
-          res.send('User does not exist.');
+          res.render('Error',res);
         }
     },
 
@@ -50,7 +52,7 @@ const profileController = {
             res.render('ProfileAdmin', details);
         }
         else {
-            res.send('User does not exist.');
+            res.render('Error',res);
         }
 
     },
@@ -103,7 +105,6 @@ const profileController = {
 
     },
 
-
     postChangePassword: async function (req, res) {
       var query = {idNumber: req.body.idNumber};
       const projection = { idNumber: 1, password: 1 };
@@ -111,18 +112,46 @@ const profileController = {
       const resultUser = await db.findOne(User, query, projection);
       const resultAdmin = await db.findOne(Admin, query, projection);
 
-      if (resultUser != null && resultUser.password === req.body.oldPassword ) {
+      if (resultUser != null && resultUser.password === req.body.currentPassword ) {
         await User.updateOne(query, {password: req.body.newPassword})
         console.log("User password change successful");
         res.redirect('/Profile?idNumber=' + req.body.idNumber);
       }
-      else if (resultAdmin != null && resultAdmin.password === req.body.oldPassword) {
+      else if (resultAdmin != null && resultAdmin.password === req.body.currentPassword) {
         await Admin.updateOne(query, {password: req.body.newPassword})
         console.log("Admin user password change successful");
-        res.redirect('/Profile?idNumber=' + req.body.idNumber);
+        res.redirect('/ProfileAdmin?idNumber=' + req.body.idNumber);
       }
       else {
         console.log("User/Admin password change unsuccessful");
+        res.redirect('/Settings?idNumber=' + req.body.idNumber);
+      }
+
+    },
+
+    postChangeCode: async function (req, res) {
+      
+      var query = {idNumber: req.body.idNumber};
+      const projection = { idNumber: 1, securityCode: 1 };
+    
+      const resultUser = await db.findOne(User, query, projection);
+      const resultAdmin = await db.findOne(Admin, query, projection);
+
+      if (resultUser != null && resultUser.securityCode == req.body.currentSecCode) {
+        await User.updateOne(query, {securityCode: req.body.newSecCode});
+        console.log("User code change successful");
+        res.redirect('/Profile?idNumber=' + req.body.idNumber);
+      }
+      else if (resultAdmin != null && resultAdmin.securityCode == req.body.currentSecCode) {
+        await Admin.updateOne(query, {securityCode: req.body.newSecCode});
+        console.log("User code change successful");
+        res.redirect('/ProfileAdmin?idNumber=' + req.body.idNumber);
+      }
+      else {
+        console.log(req.body.currentSecCode);
+        console.log(req.body.newSecCode);
+        
+        console.log("User/Admin security code change unsuccessful");
         res.redirect('/Settings?idNumber=' + req.body.idNumber);
       }
 
@@ -137,11 +166,13 @@ const profileController = {
       
       if (resultUser != null && resultUser.password === req.body.Password ) {
         await User.deleteOne(query);
+        await Reservation.deleteMany(query);
         console.log("User deleted");
         res.redirect('/?success');
       }
       else if (resultAdmin != null && resultAdmin.password === req.body.Password) {
         await Admin.deleteOne(query);
+        await Reservation.deleteMany(query);
         console.log("Admin user deleted");
         res.redirect('/?success');
       }
