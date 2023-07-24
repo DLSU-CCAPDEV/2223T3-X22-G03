@@ -29,17 +29,32 @@ A simplified booking experience for Arrows Express, designed by Mauries, Benmar,
 - (2.) Extract the folder.
 - (3.) Go inside the folder -> Go to [MCO] Phase-2 folder
 - (4.) Click the folder path -> type cmd -> press enter (if successful, it will open a cmd window)
-- (5.) Type 'node admins.js' (if successful, it will add documents to your localhost database) -> then do 'CTRL + C'
-- (6.) Type 'node index.js' (if successful, it will connect to the database and opens a localhost website)
-- (7.) Go to any browser -> type 'localhost:3000' in the URL
+- (OPTIONAL STEP) (5.) Type 'node sampledataset.js' (if successful, it will add documents to your localhost database) -> then do 'CTRL + C'
+- (5.) Type 'npm install' (this will install all necessarries libraries for the website to run locally) -> then do 'CTRL + C'
+- (7.) Type 'node index.js' (if successful, it will connect to the database and opens a localhost website)
+- (8.) Go to any browser -> type 'localhost:3000' in the URL
 
 **[RESPONSIBLITIES]**
 -
 - Mauries Lopez
-    - To be listed...
-
+    - Setup database
+    - Setup localhost server
+    - Input "validations" development
+    - Reservations (Admin) development
+    - Profile (Admin/User) development
+    - Settings development
+    - Search development
+    - User-interface development
+    - Bug fixes
+   
 - Nathan Asnan
-    - To be listed...
+    - Setup database
+    - Reservations (Admin/User) development
+    - Settings development
+    - User-interface development
+    - Bug fixes
  
 - Benmar Ramirez
-    - To be listed...
+    - Schedule Develpoment
+    - User-interface development
+
