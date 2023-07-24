@@ -18,6 +18,7 @@
             window.onload = function() {
 
                 document.getElementById("success_box").style.display = "none";
+                document.getElementById("error_box").style.display = "none";
 
                 readyHTML({{displayUI}});
 				
@@ -64,6 +65,14 @@
                         document.getElementById("success_box").style.display = "none";
                     }, 3000);
                 }
+                else if ( reserveUpdateStatus == "false" ){
+                    document.getElementById("error_box").style.display = "block";
+                    $("#error_message").text("Reservation failed to update. Please try again.");
+
+                    setTimeout(function(){
+                        document.getElementById("error_box").style.display = "none";
+                    }, 3000);
+                }
 
                 if ( reserveDeleteSatus == "true" ){
                     document.getElementById("success_box").style.display = "block";
@@ -73,6 +82,7 @@
                         document.getElementById("success_box").style.display = "none";
                     }, 3000);
                 }
+                
                 
             };
         </script>
@@ -218,13 +228,13 @@
 							<input type="hidden" id="hiddenExitTime" name="hiddenExitTime" value="">
 							<input type="hidden" id="adminId" name="adminId" value="">
 							
-                            <input type="text" placeholder="ID Number" class="fillup" name="user_idNumber" id="user_idNumber" style="position: relative; top: -25px; display: block;" value="" pattern="[0-9]+" minlength="8" maxlength="8">
+                            <input type="text" required placeholder="ID Number" class="fillup" name="user_idNumber" id="user_idNumber" style="position: relative; top: -25px; display: block;" value="" pattern="[0-9]+" minlength="8" maxlength="8">
                             
 							<input type="date" class="fillup" required name="user_date" id="user_date" >
     
                             <div class="entry">
                                 <img src="Images/Help.png" style="width: 25px; height: 25px; position: relative; filter:invert(1); top: 15px; left:10px; cursor: help;" title="From home, location going to be picked up.">
-                                <select name="user_entry" id="user_entry" class="fillup" onchange="readyChangeTime('user_entry','user_entryTime');" style="width: 185px; margin: 10px; position: relative; left: 5px; ">
+                                <select required name="user_entry" id="user_entry" class="fillup" onchange="readyChangeTime('user_entry','user_entryTime');" style="width: 185px; margin: 10px; position: relative; left: 5px; ">
                                     <option value="" disabled selected hidden s> Entry Location </option>
                                     <option value="0"> Paseo -> DLSU LC </option>
                                     <option value="1"> Carmona -> DLSU LC  </option>
@@ -232,7 +242,7 @@
                                     <option value="3"> Walter Mart -> DLSU LC </option>
                                     <option value="4"> N/A </option>
                                 </select>
-                                <select name="user_entryTime" id="user_entryTime" class="fillup" style="width: 120px; ">
+                                <select required name="user_entryTime" id="user_entryTime" class="fillup" style="width: 120px; ">
                                     <option value="" disabled selected hidden s> Time Slot </option>
                                     <option value="0"> 06:00 AM </option>
                                     <option value="1"> 07:30 AM </option>
@@ -251,7 +261,7 @@
     
                             <div class="exit"> </style>
                                 <img src="Images/Help.png" style="width: 25px; height: 25px; position: relative; filter:invert(1); top: 15px; left:10px; cursor: help;" title="From De La Salle University, location going to be dropped-off.">
-                                <select name="user_exit" id="user_exit" class="fillup" onchange="readyChangeTime('user_exit','user_exitTime');" style="width: 185px; margin: 10px; position: relative; left: 5px;">
+                                <select required name="user_exit" id="user_exit" class="fillup" onchange="readyChangeTime('user_exit','user_exitTime');" style="width: 185px; margin: 10px; position: relative; left: 5px;">
                                     <option value="" disabled selected hidden s> Exit Location </option>
                                     <option value="0"> DLSU LC -> DLSU Manila </option>
                                     <option value="1"> DLSU LC -> Paseo </option>
@@ -260,7 +270,7 @@
                                     <option value="4"> DLSU LC -> Walter Mart </option>
                                     <option value="5"> N/A </option>
                                 </select>
-                                <select name="user_exitTime" id="user_exitTime" class="fillup" style="width: 120px;">
+                                <select required name="user_exitTime" id="user_exitTime" class="fillup" style="width: 120px;">
                                     <option value="" disabled selected hidden s> Time Slot </option>
                                     <option value="0"> 06:00 AM </option>
                                     <option value="1"> 07:30 AM </option>

@@ -28,7 +28,7 @@ A simplified booking experience for Arrows Express, designed by Mauries, Benmar,
 - 5.) Descriptive feedback user interface. (i.e. shows errors and success messages).
 
 **[HOW TO RUN]**
-- (Follow steps 1 & 2 if downloaded from GitHub. Else, skip)
+-
 - (1.) Download the code as zip file.
 - (2.) Extract the folder.
 - (3.) Go inside the folder -> Go to [MCO] Phase-2 folder
