@@ -36,6 +36,8 @@
                 }
 
                 var reserveUserStatus = new URLSearchParams(window.location.search).get('reserveUserSuccess');
+                var reserveUpdateStatus = new URLSearchParams(window.location.search).get('isUpdateSuccess');
+                var reserveDeleteSatus = new URLSearchParams(window.location.search).get('isDeleteSuccess');
 
                 if ( reserveUserStatus != null && reserveUserStatus == "true"){
                     document.getElementById("success_box").style.display = "block";
@@ -51,6 +53,24 @@
 
                     setTimeout(function(){
                         document.getElementById("error_box").style.display = "none";
+                    }, 3000);
+                }
+
+                if ( reserveUpdateStatus == "true" ){
+                    document.getElementById("success_box").style.display = "block";
+                    $("#success_message").text('Reservation successfully updated!');
+
+                    setTimeout(function(){
+                        document.getElementById("success_box").style.display = "none";
+                    }, 3000);
+                }
+
+                if ( reserveDeleteSatus == "true" ){
+                    document.getElementById("success_box").style.display = "block";
+                    $("#success_message").text('Reservation successfully deleted!');
+
+                    setTimeout(function(){
+                        document.getElementById("success_box").style.display = "none";
                     }, 3000);
                 }
                 

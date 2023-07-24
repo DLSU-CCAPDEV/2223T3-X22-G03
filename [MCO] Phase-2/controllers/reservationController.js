@@ -129,7 +129,7 @@ const reservationController = {
 		if(found){
 			await Reservation.updateOne(curr, upd);
 			console.log('succesfully updated');
-			res.redirect('/Reservation?idNumber=' + req.body.ehiddenIdNumber);
+			res.redirect('/Reservation?idNumber=' + req.body.ehiddenIdNumber + '&isUpdateSuccess=true');
 		}
 		else{
 			console.log("Code monkeys did an oopsie daisy");
@@ -153,7 +153,7 @@ const reservationController = {
 		var deleted = await Reservation.deleteOne(rsv);
 		if(deleted){
 			console.log('succesfully deleted');
-			res.redirect('/Reservation?idNumber=' + req.body.dCurrIdNumber);
+			res.redirect('/Reservation?idNumber=' + req.body.dCurrIdNumber + '&isDeleteSuccess=true');
 		}
 		else{
 			console.log("Code monkeys did an oopsie daisy");
@@ -172,13 +172,29 @@ const reservationController = {
 
 		var idNumber = req.body.user_idNumber;
 		var adminId = req.body.adminId;
-		
-		const result = await db.findMany(Reservation, {idNumber: idNumber}, {_id:0, __v:0});
 
-		if ( result ){
-			res.render('ReservationAdmin', {result: result, adminId: adminId});
-			//res.redirect('/SearchUser?idNumber=' + idNumber);
+		const isFoundUser = await db.findOne(User, {idNumber: idNumber}, {idNumber: 1});
+		const isFoundAdmin = await db.findOne(Admin, {idNumber: idNumber}, {idNumber: 1});
+
+		if ( isFoundUser == null && isFoundAdmin == null ){
+			res.redirect('/ReservationAdmin?idNumber=' + adminId + '&isSearchUserValid=false');
 		}
+		else{
+
+			console.log('test');
+
+			const result = await db.findMany(Reservation, {idNumber: idNumber}, "");
+
+			if ( result.length !== 0 ){
+				res.render('ReservationAdmin', {result: result, adminId: adminId});
+			} 
+			else {
+				res.redirect('/ReservationAdmin?idNumber=' + adminId + '&reservationList=false');
+			}
+
+		}
+		
+		
 
 	},
 
@@ -211,7 +227,7 @@ const reservationController = {
 		var found = await db.findOne(Reservation, curr);
 		if(found){
 			await Reservation.updateOne(curr, upd);
-			console.log('succesfully updated');
+			console.log('Succesfully updated');
 			
 			var adminId = req.body.eAdminId;
 			if (adminId == null){
@@ -219,7 +235,7 @@ const reservationController = {
 				adminId = 1111111;
 			}
 			const result = await db.findMany(Reservation, {idNumber: upd.idNumber}, {_id:0, __v:0});
-			res.render('ReservationAdmin', {result: result, adminId: adminId});
+			res.render('ReservationAdmin', {result: result, adminId: adminId, isUpdateSuccess: true});
 		}
 		else{
 			console.log("Code monkeys did an oopsie daisy");
@@ -250,7 +266,7 @@ const reservationController = {
 				adminId = 1111111;
 			}
 			const result = await db.findMany(Reservation, {idNumber: rsv.idNumber}, {_id:0, __v:0});
-			res.render('ReservationAdmin', {result: result, adminId: adminId});
+			res.render('ReservationAdmin', {result: result, adminId: adminId, isDeleteSuccess: true});
 		}
 		else{
 			console.log("Code monkeys did an oopsie daisy");

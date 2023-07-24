@@ -9,11 +9,15 @@
         <script src="JS/User.js"> </script>
         <script src="JS/Reservation.js" defer> </script>
         <script src="JS/UserAdmin.js" defer> </script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
 
     <body>
        <script>
             window.onload = function() {
+
+                document.getElementById("success_box").style.display = "none";
+                document.getElementById("error_box").style.display = "none";
 
                 {{#each result}}
 					hideScheduleForm(true, ["{{startCampus}}", "{{date}}", "{{entryLoc}}", "{{entryTime}}", "{{exitLoc}}", "{{exitTime}}", {{idNumber}}], false);
@@ -33,6 +37,47 @@
 					}
 				}
 				adminIdCheck({{adminId}});
+
+                var searchUserStatus = new URLSearchParams(window.location.search).get('isSearchUserValid');
+                var searchUserResvListStatus = new URLSearchParams(window.location.search).get('reservationList');
+                var searchUserUpdateStatus = "{{isUpdateSuccess}}";
+                var searchUserDeleteSatus = "{{isDeleteSuccess}}";
+
+                if ( searchUserStatus == "false" ){
+                    document.getElementById("error_box").style.display = "block";
+                    $("#error_message").text("No user found. Check the inputted ID Number.");
+
+                    setTimeout(function(){
+                        document.getElementById("error_box").style.display = "none";
+                    }, 3000);
+                }
+
+                if ( searchUserResvListStatus == "false" ){
+                    document.getElementById("error_box").style.display = "block";
+                    $("#error_message").text("No reservation/s found.");
+
+                    setTimeout(function(){
+                        document.getElementById("error_box").style.display = "none";
+                    }, 3000);
+                }
+
+                if ( searchUserUpdateStatus == "true" ){
+                    document.getElementById("success_box").style.display = "block";
+                    $("#success_message").text('Reservation successfully updated!');
+
+                    setTimeout(function(){
+                        document.getElementById("success_box").style.display = "none";
+                    }, 3000);
+                }
+
+                if ( searchUserDeleteSatus == "true" ){
+                    document.getElementById("success_box").style.display = "block";
+                    $("#success_message").text('Reservation successfully deleted!');
+
+                    setTimeout(function(){
+                        document.getElementById("success_box").style.display = "none";
+                    }, 3000);
+                }
 				
             };
         </script>
@@ -41,6 +86,15 @@
 
             <div class="navbar">
 				<a href="/ProfileAdmin?idNumber={{adminId}}" id="backButton"><img src="Images/Leftarrow.png" class = "back_img"></a>
+
+                <div id="success_box">
+                    <p id="success_message"> Success! </p>
+                </div>
+
+                <div id="error_box">
+                    <p id="error_message"> Invalid User/Password. Check your input </p>
+                </div>
+
                 <a> <img src= "Images/DLSU_Logo.png" class = "website_logo"> </a> 
             </div>
             
@@ -86,7 +140,7 @@
                         <form action="/SearchUser" method="post">
                             <label for="user_idNumber"></label>
 							<input type="hidden" id="adminId" name="adminId" value="">
-                            <input type="text" placeholder="ID Number" class="fillup" name="user_idNumber" id="user_idNumber" required style="position: relative; margin-top: 40px;">
+                            <input type="text" placeholder="ID Number" class="fillup" name="user_idNumber" id="user_idNumber" required style="position: relative; margin-top: 40px;" pattern="[0-9]+" minlength="8" maxlength="8">
                             <button type="submit" class="toggle_btn" id="reserve_btn" style="position: relative; font-size: large; font-weight: bold; margin-top: 60px;"> Search </button>
                         
                         </form>
@@ -262,6 +316,45 @@
             font-size: 13px;
             font-weight: bolder;
         }
+
+        #success_box{
+            width: 380px;
+            height: 20px;
+            top: 0%;
+            margin: auto;
+            background: rgb(97, 255, 77);
+            padding: 5px;
+            border-radius: 20px;
+            display: none;
+        }
+
+        #success_box p{
+            text-align: center;
+            font-family: sans-serif;
+            font-size: 13px;
+            position: relative;
+            top: 3px;
+        }
+
+        #error_box{
+            width: 380px;
+            height: 20px;
+            top: 0%;
+            margin: auto;
+            background: rgb(255, 54, 54);
+            padding: 5px;
+            position: relative;
+            border-radius: 20px;
+            display: none;
+        }
+
+        #error_box p{
+            text-align: center;
+            font-family: sans-serif;
+            font-size: 13px;
+            position: relative;
+            top: 3px;
+        }           
 
 
     </style>
