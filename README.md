@@ -21,10 +21,14 @@ A simplified booking experience for Arrows Express, designed by Mauries, Benmar,
 
 **[NOTABLE FEATURES]**
 -
-- 1.) To be listed...
+- 1.) Working Search system.
+- 2.) Working Profile picture update function.
+- 3.) View seat availability of a specific date.
+- 4.) Minimal input validation (i.e. ID Number requires 8 digits, Security Code requires 4 digits, if ask for number input it will only take numbers, and more).
+- 5.) Descriptive feedback user interface. (i.e. shows errors and success messages).
 
 **[HOW TO RUN]**
--
+- (Follow steps 1 & 2 if downloaded from GitHub. Else, skip)
 - (1.) Download the code as zip file.
 - (2.) Extract the folder.
 - (3.) Go inside the folder -> Go to [MCO] Phase-2 folder
@@ -39,7 +43,7 @@ A simplified booking experience for Arrows Express, designed by Mauries, Benmar,
 - Mauries Lopez
     - Setup database
     - Setup localhost server
-    - Input "validations" development
+    - Input validations minimal development
     - Reservations (Admin) development
     - Profile (Admin/User) development
     - Settings development
