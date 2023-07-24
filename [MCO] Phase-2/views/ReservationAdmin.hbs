@@ -69,6 +69,15 @@
                         document.getElementById("success_box").style.display = "none";
                     }, 3000);
                 }
+                else if ( searchUserUpdateStatus == "false" ){
+                    document.getElementById("error_box").style.display = "block";
+                    $("#error_message").text("Reservation failed to update. Try again.");
+
+                    setTimeout(function(){
+                        document.getElementById("error_box").style.display = "none";
+                    }, 3000);
+
+                }
 
                 if ( searchUserDeleteSatus == "true" ){
                     document.getElementById("success_box").style.display = "block";

@@ -241,23 +241,41 @@ const reservationController = {
 		console.log("To be updated with: ");
 		console.log(upd);
 
-		var found = await db.findOne(Reservation, curr);
-		if(found){
-			await Reservation.updateOne(curr, upd);
-			console.log('Succesfully updated');
-			
+		if ( upd.entryLoc == "Entry Location" || upd.entryTime == "Entry Time" || upd.exitLoc == "Exit Location" || upd.exitTime == "Exit Time" ){
+
 			var adminId = req.body.eAdminId;
 			if (adminId == null){
 				console.log("OH NO THE CODE MONKEYS DID AN OOPSIE WOOPSIE");
 				adminId = 1111111;
 			}
 			const result = await db.findMany(Reservation, {idNumber: upd.idNumber}, {_id:0, __v:0});
-			res.render('ReservationAdmin', {result: result, adminId: adminId, isUpdateSuccess: true});
+
+			res.render('ReservationAdmin', {result, result, adminId: adminId, isUpdateSuccess: false});
+			console.log('Reservation failed to add');
+
 		}
 		else{
-			console.log("Code monkeys did an oopsie daisy");
-			console.log('error somewhere');
+			
+			var found = await db.findOne(Reservation, curr);
+			if(found){
+				await Reservation.updateOne(curr, upd);
+				console.log('Succesfully updated');
+				
+				var adminId = req.body.eAdminId;
+				if (adminId == null){
+					console.log("OH NO THE CODE MONKEYS DID AN OOPSIE WOOPSIE");
+					adminId = 1111111;
+				}
+				const result = await db.findMany(Reservation, {idNumber: upd.idNumber}, {_id:0, __v:0});
+				res.render('ReservationAdmin', {result: result, adminId: adminId, isUpdateSuccess: true});
+			}
+			else{
+				console.log("Code monkeys did an oopsie daisy");
+				console.log('error somewhere');
+			}
 		}
+		
+
 	},
 
 	postSearchUserDelete: async function (req, res){
