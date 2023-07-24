@@ -19,6 +19,21 @@ const forgotPassController = require('../controllers/forgotPassController.js');
 
 const scheduleController = require('../controllers/scheduleController.js');
 
+const multer = require('multer');
+const storage = multer.diskStorage({
+
+  destination: (req, file, cb) => {
+    cb(null, 'public/images/profilepictures')
+  },
+
+  filename: (req, file, cb) => {
+    cb(null, req.body.idNumber + '.png')
+  }
+
+})
+
+const upload = multer({storage: storage})
+
 const app = express();
 
 // Index settings
@@ -58,7 +73,7 @@ app.get('/ProfileAdmin', profileController.getProfileAdmin);
 
 // Profile settings
 app.get('/Settings', controller.getSettings);
-app.post('/ChangePublicInfo', profileController.postChangePublicInfo);
+app.post('/ChangePublicInfo', upload.single("dp"), profileController.postChangePublicInfo);
 app.post('/ChangePrivateInfo', profileController.postChangePrivateInfo);
 app.post('/ChangePassword', profileController.postChangePassword);
 app.post('/DeleteAccount', profileController.postDeleteAccount);

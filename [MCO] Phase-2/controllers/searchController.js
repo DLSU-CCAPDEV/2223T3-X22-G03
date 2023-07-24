@@ -30,26 +30,36 @@ const searchController = {
     },
 
     getSearchProfile : async function (req, res) {
-      var query = {idNumber: req.query.idNumber};
-
-        var projection = 'idNumber firstName lastName designation passengerType';
-
+      const query = {idNumber: req.query.idNumber};
+      
+        const projection = 'idNumber firstName lastName designation passengerType profilePicture';
+      
         const result = await db.findOne(User, query, projection);
-        
+      
         if (result != null) {
+      
+          const details = {
+            idNumber: result.idNumber,
+            firstName: result.firstName,
+            lastName: result.lastName,
+            designation: result.designation,
+            passengerType: result.passengerType
+          };
 
-            const details = {
-                idNumber: result.idNumber,
-                firstName: result.firstName,
-                lastName: result.lastName,
-                designation: result.designation,
-                passengerType: result.passengerType
-            };
-
-            res.render('SearchProfile', details);
-        }
-        else {
-            res.send('User does not exist.');
+          if ( result.profilePicture == "public/images/profilepictures/Default.png" || result.profilePicture == null) {
+            details.profilePicture = "images/profilepictures/Default.png"
+          }
+          else if ( result.profilePicture != "public/images/profilepictures/Default.png") {
+            details.profilePicture = result.profilePicture;
+          }
+          else{
+            details.profilePicture = "images/profilepictures/Default.png";
+          }
+      
+          res.render('SearchProfile', details);
+          
+        } else {
+          res.render('Error',res);
         }
 
     },

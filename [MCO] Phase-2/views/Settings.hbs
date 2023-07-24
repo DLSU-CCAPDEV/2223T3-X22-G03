@@ -170,7 +170,7 @@
                     <div style="background-color: white; border-radius: 25px; width:auto; padding: 25px;">
 						<h1>Public info</h1>
 						<hr>
-						<form id="public_change" action="/ChangePublicInfo" method="post">
+						<form id="public_change" action="/ChangePublicInfo" method="post" enctype="multipart/form-data">
 							<input type="hidden" name="idNumber" value="{{idNumber}}">
 							<div style="display: flex;">
 								<div style="margin-right: 20px;">
@@ -194,7 +194,7 @@
 							</div>
 							<div>
 								<label for="dp"><h2>Display Photo: <br> <h2></label>
-								<input type="file" id="dp" name="dp" style="margin-top: 10px;">
+								<input type="file" id="dp" name="dp" style="margin-top: 10px;" accept="image/png">
 							</div>
 							
 							<button type="submit" class="submitButton">Save Changes</button>

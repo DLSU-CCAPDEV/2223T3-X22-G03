@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 // ccapdev-mongoose is the name of the database
-const url = 'mongodb://0.0.0.0:27017/ccapdev-mongoose';
+const url = 'mongodb://0.0.0.0:27017/shuttle-reservation-db';
 
 // additional connection options
 const options = {

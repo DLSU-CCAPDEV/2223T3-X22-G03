@@ -6,12 +6,13 @@ const Admin = require('../models/admindb.js');
 
 const Reservation = require('../models/reservationdb.js');
 
+
 const profileController = {
 
     getProfile: async function (req, res) {
         const query = {idNumber: req.query.idNumber};
       
-        const projection = 'idNumber firstName lastName designation passengerType';
+        const projection = 'idNumber firstName lastName designation passengerType profilePicture';
       
         const result = await db.findOne(User, query, projection);
       
@@ -24,6 +25,16 @@ const profileController = {
             designation: result.designation,
             passengerType: result.passengerType
           };
+
+          if ( result.profilePicture == "public/images/profilepictures/Default.png" || result.profilePicture == null) {
+            details.profilePicture = "images/profilepictures/Default.png"
+          }
+          else if ( result.profilePicture != "public/images/profilepictures/Default.png") {
+            details.profilePicture = result.profilePicture;
+          }
+          else{
+            details.profilePicture = "images/profilepictures/Default.png";
+          }
       
           res.render('Profile', details);
           
@@ -35,7 +46,7 @@ const profileController = {
     getProfileAdmin: async function (req, res) {
         var query = {idNumber: req.query.idNumber};
 
-        var projection = 'idNumber firstName lastName designation passengerType';
+        var projection = 'idNumber firstName lastName designation passengerType profilePicture';
 
         const result = await db.findOne(Admin, query, projection);
         
@@ -48,6 +59,16 @@ const profileController = {
                 designation: result.designation,
                 passengerType: result.passengerType
             };
+
+            if ( result.profilePicture == "public/images/profilepictures/Default.png" ) {
+              details.profilePicture = "public/images/profilepictures/Default.png"
+            }
+            else if ( result.profilePicture != "public/images/profilepictures/Default.png") {
+              details.profilePicture = result.profilePicture;
+            }
+            else{
+              details.profilePicture = "public/images/profilepictures/Default.png";
+            }
 
             res.render('ProfileAdmin', details);
         }
@@ -63,21 +84,34 @@ const profileController = {
 
       const resultUser = await db.findOne(User, query, projection);
       const resultAdmin = await db.findOne(Admin, query, projection);
-     
-      if (resultUser != null ) {
+
+      if (resultUser != null && (req.body.newFirstName != "" && req.body.newLastName != "") ) {
         await User.updateOne(query, {firstName: req.body.newFirstName, lastName: req.body.newLastName})
         console.log("User public info change successful");
         res.redirect('/Profile?idNumber=' + req.body.idNumber + '&infoChangeSuccess=true');
       }
-      else if (resultAdmin != null ) {
+      else if (resultAdmin != null && (req.body.newFirstName != "" && req.body.newLastName != "") ) {
         await Admin.updateOne(query, {firstName: req.body.newFirstName, lastName: req.body.newLastName})
         console.log("Admin user public info change successful");
         res.redirect('/ProfileAdmin?idNumber=' + req.body.idNumber + '&infoChangeSuccess=true');
+      } 
+      else if ( ( resultUser != null || resultAdmin != null ) && req.file.originalname != null ){
+
+        if ( resultUser ){
+          await User.updateOne(query, {profilePicture: "images/profilepictures/" + req.body.idNumber + ".png"})
+          res.redirect('/Profile?idNumber=' + req.body.idNumber + '&infoChangeSuccess=true');
+        }
+        else if ( resultAdmin ){
+          await Admin.updateOne(query, {profilePicture: "images/profilepictures/" + req.body.idNumber + ".png"})
+          res.redirect('/ProfileAdmin?idNumber=' + req.body.idNumber + '&infoChangeSuccess=true');
+        }
+
       }
       else {
         console.log("User/Admin public info change unsuccessful");
         res.redirect('/Settings?idNumber=' + req.body.idNumber + '&infoChangeSuccess=false');
       }
+     
 
     },
 

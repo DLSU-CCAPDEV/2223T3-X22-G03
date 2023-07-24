@@ -32,6 +32,10 @@ var UserSchema = new mongoose.Schema({
     passengerType: {
         type: String,
         required: true,
+    },
+    profilePicture:{
+        type: String,
+        required: false,
     }
 });
 
