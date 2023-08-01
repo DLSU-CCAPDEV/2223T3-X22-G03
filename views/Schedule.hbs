@@ -3,11 +3,11 @@
 <html>
     <head>
         <title> Arrow Express - Schedule </title>
-        <link rel="icon" type="image/png" href="Images/DLSU_Logo.png">
-        <link rel="stylesheet" href="CSS/FormStyle.css"> 
-        <link rel="stylesheet" href="CSS/ReservationStyle.css">
-        <script src="JS/User.js"> </script>
-        <script src="JS/Schedule.js"> </script>
+        <link rel="icon" type="image/png" href="../images/DLSU_Logo.png">
+        <link rel="stylesheet" href="../css/FormStyle.css"> 
+        <link rel="stylesheet" href="../css/ReservationStyle.css">
+        <script src="../js/User.js"> </script>
+        <script src="../js/Schedule.js"> </script>
         <script>
             window.onload = function() {
                 leftClick();
@@ -20,8 +20,8 @@
         <div class = "banner"> 
 
             <div class="navbar">
-                <a onclick="history.back()"><img src="Images/Leftarrow.png" class = "back_img"></a>
-                <img src= "Images/DLSU_Logo.png" class = "website_logo">
+                <a onclick="history.back()"><img src="../images/Leftarrow.png" class = "back_img"></a>
+                <img src= "../images/DLSU_Logo.png" class = "website_logo">
 
                 <style>
                     img:hover{
@@ -83,7 +83,7 @@
                             <input type="date" placeholder="Date" class="fillup" required name="user_date" id="user_date">
     
                             <div class="location">
-                                <img src="Images/Help.png" style="width: 25px; height: 25px; position: relative; filter:invert(1); top: 15px; left:10px; cursor: help;" title="Select a designated location">
+                                <img src="../images/Help.png" style="width: 25px; height: 25px; position: relative; filter:invert(1); top: 15px; left:10px; cursor: help;" title="Select a designated location">
                                 <select name="user_location" id="user_location" class="fillup" style="width: 190px; margin: 10px; position: relative; left: 5px; " onchange="changeTimeSlots();">
                                     <option value="" disabled selected hidden s> Select Location </option>
                                 </select>

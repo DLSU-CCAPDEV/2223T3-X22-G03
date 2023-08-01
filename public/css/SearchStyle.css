@@ -34,7 +34,7 @@
     height: 100%;
     margin: auto;
     margin-top: 1em;
-    background-image: linear-gradient(rgb(0, 129, 43),rgba(0, 0, 0, 0.856)), url(../Images/DLSU_Background0.png);
+    background-image: linear-gradient(rgb(0, 129, 43),rgba(0, 0, 0, 0.856)), url(../images/DLSU_Background0.png);
     background-size: cover;
     background-position: cover;
     background-position-y: 1050px;

@@ -7,7 +7,7 @@
 .banner{
     width: 100%;
     height: 1008px;
-    background-image: linear-gradient(rgba(0,0,0,0.9),rgba(0, 0, 0, 0.3)),url(../Images/DLSU_Background0.png);
+    background-image: linear-gradient(rgba(0,0,0,0.9),rgba(0, 0, 0, 0.3)),url(../images/DLSU_Background0.png);
     background-size: cover;
     background-position: cover;
 }
