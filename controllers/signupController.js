@@ -1,5 +1,9 @@
 const db = require('../models/db.js');
 
+// import module `bcrypt`
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 const User = require('../models/userdb.js');
 
 const signupController = {
@@ -14,8 +18,8 @@ const signupController = {
             lastName: req.body.user_lastName,
             email: req.body.user_email,
             idNumber: req.body.user_idNumber,
-            password: req.body.user_password,
-            securityCode: req.body.user_securityCode,
+            password: await bcrypt.hash(req.body.user_password, saltRounds),
+            securityCode: await bcrypt.hash(req.body.user_securityCode, saltRounds),
             designation: req.body.user_designation,
             passengerType: req.body.user_passengerType,
         }
@@ -23,6 +27,7 @@ const signupController = {
         var result = await db.insertOne(User, user);
 
         if( result ){
+			console.log(result);
             console.log('User successfully added');
             res.render('Login', {isRegistered: true});
         }
