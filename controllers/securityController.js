@@ -40,27 +40,18 @@ const securityController = {
         const securityCode = req.body.user_securityCode;
       
         try {
-          const query = { idNumber: idNumber, securityCode: securityCode };
+          const query = { idNumber: idNumber };
           const projection = { idNumber: 1, securityCode: 1};
           const result = await db.findOne(User, query, projection);
           const result2 = await db.findOne(Admin, query, projection);
 
-          if (result != null ) {
-
-            if ( result.securityCode == securityCode ) {
-              res.status(200).redirect('/Profile?idNumber=' + idNumber);
-            }
-            
-          } else if ( result2 != null ) {
-
-            if ( result2.securityCode == securityCode ) {
-                res.status(200).redirect('/ProfileAdmin?idNumber=' + idNumber);
-            }
-            
-          } else {
-            res.render('Login', { isCodeCorrect: false })
-          }
-
+          if (result != null && await bcrypt.compare(securityCode, result.securityCode)) 
+			res.status(200).redirect('/Profile?idNumber=' + idNumber);
+          else if ( result2 != null && await bcrypt.compare(securityCode, result.securityCode))
+			res.status(200).redirect('/ProfileAdmin?idNumber=' + idNumber);
+          else
+            res.render('Login', { isCodeCorrect: false });
+		
         } catch (err) {
           res.status(500).send(err);
         }
