@@ -32,7 +32,7 @@ app.use('/', routes);
 // always define this as the last middleware
 
 app.use(function (req, res) {
-    res.render('error');
+    res.render('Error');
 });
 
 // connects to the database
