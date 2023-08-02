@@ -4,6 +4,9 @@ const User = require('../models/userdb.js');
 
 const Admin = require('../models/admindb.js');
 
+// import module `bcrypt`
+const bcrypt = require('bcrypt');
+
 const securityController = {
 
     getSecurity: async function (req, res) {

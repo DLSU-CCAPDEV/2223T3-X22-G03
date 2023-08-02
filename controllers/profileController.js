@@ -6,6 +6,9 @@ const Admin = require('../models/admindb.js');
 
 const Reservation = require('../models/reservationdb.js');
 
+// import module `bcrypt`
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const profileController = {
 
@@ -146,13 +149,13 @@ const profileController = {
       const resultUser = await db.findOne(User, query, projection);
       const resultAdmin = await db.findOne(Admin, query, projection);
 
-      if (resultUser != null && resultUser.password === req.body.currentPassword ) {
-        await User.updateOne(query, {password: req.body.newPassword})
+      if (resultUser != null && await bcrypt.compare(req.body.currentPassword, resultUser.password) ) {
+        await User.updateOne(query, {password: await bcrypt.hash(req.body.newPassword, saltRounds)})
         console.log("User password change successful");
         res.redirect('/Profile?idNumber=' + req.body.idNumber + '&pwChangeSuccess=true');
       }
-      else if (resultAdmin != null && resultAdmin.password === req.body.currentPassword) {
-        await Admin.updateOne(query, {password: req.body.newPassword})
+      else if (resultAdmin != null && await bcrypt.compare(req.body.currentPassword, resultAdmin.password)) {
+        await Admin.updateOne(query, {password: await bcrypt.hash(req.body.newPassword, saltRounds)} )
         console.log("Admin user password change successful");
         res.redirect('/ProfileAdmin?idNumber=' + req.body.idNumber + '&pwChangeSuccess=true');
       }
@@ -171,13 +174,13 @@ const profileController = {
       const resultUser = await db.findOne(User, query, projection);
       const resultAdmin = await db.findOne(Admin, query, projection);
 
-      if (resultUser != null && resultUser.securityCode == req.body.currentSecCode) {
-        await User.updateOne(query, {securityCode: req.body.newSecCode});
+      if (resultUser != null && await bcrypt.compare(req.body.currentSecCode, resultUser.securityCode)) {
+        await User.updateOne(query, {securityCode: await bcrypt.hash(req.body.newSecCode, saltRounds)});
         console.log("User code change successful");
         res.redirect('/Profile?idNumber=' + req.body.idNumber + '&codeChangeSuccess=true');
       }
-      else if (resultAdmin != null && resultAdmin.securityCode == req.body.currentSecCode) {
-        await Admin.updateOne(query, {securityCode: req.body.newSecCode});
+      else if (resultAdmin != null && await bcrypt.compare(req.body.currentSecCode, resultAdmin.securityCode)) {
+        await Admin.updateOne(query, {securityCode: await bcrypt.hash(req.body.newSecCode, saltRounds)});
         console.log("User code change successful");
         res.redirect('/ProfileAdmin?idNumber=' + req.body.idNumber + '&codeChangeSuccess=true');
       }
@@ -197,14 +200,14 @@ const profileController = {
     
       const resultUser = await db.findOne(User, query, projection);
       const resultAdmin = await db.findOne(Admin, query, projection);
-      
-      if (resultUser != null && resultUser.password === req.body.Password ) {
+  
+      if (resultUser != null && await bcrypt.compare(req.body.Password, resultUser.password) ) {
         await User.deleteOne(query);
         await Reservation.deleteMany(query);
         console.log("User deleted");
         res.redirect('/?success');
       }
-      else if (resultAdmin != null && resultAdmin.password === req.body.Password) {
+      else if (resultAdmin != null && await bcrypt.compare(req.body.Password, resultAdmin.password) ) {
         await Admin.deleteOne(query);
         await Reservation.deleteMany(query);
         console.log("Admin user deleted");
