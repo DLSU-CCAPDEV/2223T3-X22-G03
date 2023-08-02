@@ -19,10 +19,11 @@ const searchController = {
                 { lastName: { $regex: new RegExp('^' + payload + '.*', 'i') } },
                 { $expr: { $regexMatch: { input: { $concat: ['$firstName', ' ', '$lastName'] }, regex: new RegExp('^' + payload + '.*', 'i') } } },
                 { passengerType: { $regex: new RegExp('^' + payload + '.*', 'i') } },
-                { idNumber: parseInt(payload) || 0 }
+                { idNumber: parseInt(payload) || 0 },
+                { profilePictre: { $regex: new RegExp('^' + payload + '.*', 'i') } }
               ]
             },
-            'firstName lastName "$expr" passengerType idNumber'
+            'firstName lastName "$expr" passengerType idNumber profilePicture'
           ).exec();
 
         search = search.slice(0, 10);

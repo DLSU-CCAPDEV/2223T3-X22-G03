@@ -22,6 +22,7 @@ const signupController = {
             securityCode: await bcrypt.hash(req.body.user_securityCode, saltRounds),
             designation: req.body.user_designation,
             passengerType: req.body.user_passengerType,
+            profilePicture: "images/profilepictures/Default.png"
         }
 
         var result = await db.insertOne(User, user);

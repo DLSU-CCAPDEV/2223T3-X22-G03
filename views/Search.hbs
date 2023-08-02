@@ -86,6 +86,11 @@
 									designationElement.textContent = item.passengerType;
 									htmlAttribute.setAttribute("href", "/SearchProfile?idNumber=" + item.idNumber);
 
+									if (item.profilePicture == null)
+										imgElement.setAttribute("src", "images/Default.png");
+									else
+										imgElement.setAttribute("src", item.profilePicture);
+									
 									resultContainer.appendChild(copyUserCardTemplate);
 								});
 							}) .catch(error => {
