@@ -52,8 +52,8 @@ app.use(function (req, res) {
         checks if a user is logged-in by checking the session data
         if a user is logged-in,
         display the profile tab and logout tab in the nav bar.
-    */
-    if(req.session.idNum) {
+    */ 
+    if(req.session.idNumber) {
         details.flag = true;
         details.idNumber = req.session.idNumber;
     }

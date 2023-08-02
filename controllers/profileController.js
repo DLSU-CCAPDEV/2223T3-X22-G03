@@ -249,7 +249,6 @@ const profileController = {
     },
 
     getLogout: function (req, res) {
-      console.log(req.session.idNumber);
       req.session.destroy(function(err) {
         if(err) throw err;
         res.redirect('/');

@@ -10,8 +10,6 @@ const loginController = {
 
     getLogin: async function (req, res) {
 
-      console.log(req.session.idNumber);
-
         if ( req.session.idNumber ){
 
           const query = { idNumber: req.session.idNumber };

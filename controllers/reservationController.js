@@ -10,31 +10,53 @@ const reservationController = {
 
     getReservations: async function (req, res) {
 		
-		var userID = req.query.idNumber;
-        const query = { idNumber: userID };
-        const projection = { idNumber: 1 };
-		
-        const isAdmin = await db.findOne(Admin, query, projection);
+		if ( req.session.idNumber != req.query.idNumber ) {
+			res.redirect('/Reservation?idNumber=' + req.session.idNumber );
+		}else{
+			var userID = req.query.idNumber;
+			const query = { idNumber: userID };
+			const projection = { idNumber: 1 };
+			
+			const isAdmin = await db.findOne(Admin, query, projection);
+	
+			const result = await db.findMany(Reservation, {idNumber: userID}, {_id:0, __v:0});
+	
+			if ( isAdmin != null ) {
+				res.render('Reservation', {displayUI: 1, result: result, idNumber: userID, isAdmin: true});
+			} else {
+				res.render('Reservation', {displayUI: 0, result: result, idNumber: userID, isAdmin: false});
+			}
+		}
 
-		const result = await db.findMany(Reservation, {idNumber: userID}, {_id:0, __v:0});
-
-        if ( isAdmin != null ) {
-            res.render('Reservation', {displayUI: 1, result: result, idNumber: userID, isAdmin: true});
-        } else {
-            res.render('Reservation', {displayUI: 0, result: result, idNumber: userID, isAdmin: false});
-        }
 		
     },
 
-    getReservationAdmin: function (req, res) {
+    getReservationAdmin: async function (req, res) {
 
-		var userID = req.query.idNumber;
+		if ( req.session.idNumber != req.query.idNumber ){
 
-		const details = {
-			idNumber: userID,
+			var userID = req.session.idNumber;
+			const query = { idNumber: userID };
+			const projection = { idNumber: 1 };
+
+			const isAdmin = await db.findOne(Admin, query, projection);
+
+			if ( isAdmin != null ){
+				res.redirect('/ReservationAdmin?idNumber=' + req.session.idNumber );
+			}else{
+				res.render('Error');
+			}
+			
+		}else{
+			var userID = req.query.idNumber;
+
+			const details = {
+				idNumber: userID,
+			}
+	
+			res.render('ReservationAdmin', details);
 		}
 
-        res.render('ReservationAdmin', details);
     },
 
 	//Add reservation

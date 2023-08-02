@@ -11,8 +11,37 @@ const Admin = require('../models/admindb.js');
 */
 const controller = {
 
-    getIndex: function (req, res) {
-        res.render('index', res);
+    getIndex: async function (req, res) {
+
+        var details = {};
+
+        if ( req.session.idNumber ) {
+
+            const query = { idNumber: req.session.idNumber };
+            const projection = { firstName: 1};
+            const result = await db.findOne(User, query, projection);
+            const result2 = await db.findOne(Admin, query, projection);
+
+            if (result) {
+                details = {
+                    firstName : result.firstName,
+                };
+            } else if (result2) {
+                details = {
+                    firstName : result2.firstName,
+                };
+            }
+
+            res.render('index', details);
+
+        }else{
+            details = {
+                firstName : 'Login',
+            }
+
+            res.render('index', details);
+        }
+        
     },
 
     getLogin: function (req, res) {
@@ -37,37 +66,45 @@ const controller = {
 
     getSettings: async function (req, res){
 
-        var query = {idNumber: req.query.idNumber};
-        const projection = 'idNumber firstName lastName designation passengerType';
+        if ( req.session.idNumber != req.query.idNumber) {
+            res.status(200).redirect('/Settings?idNumber=' + req.session.idNumber);     
+        } else {
 
-        const resultUser = await db.findOne(User, query, projection);
-        const resultAdmin = await db.findOne(Admin, query, projection);
+            var query = {idNumber: req.query.idNumber};
+            const projection = 'idNumber firstName lastName designation passengerType';
+    
+            const resultUser = await db.findOne(User, query, projection);
+            const resultAdmin = await db.findOne(Admin, query, projection);
+    
+            var details = {};
+            
+            if ( resultUser != null ) {
+                details = {
+                    idNumber: resultUser.idNumber,
+                    firstName: resultUser.firstName,
+                    lastName: resultUser.lastName,
+                    designation: resultUser.designation,
+                    passengerType: resultUser.passengerType,
+                    isAdmin: false,
+                };
+            }
+            else if ( resultAdmin != null ) {
+                details = {
+                    idNumber: resultAdmin.idNumber,
+                    firstName: resultAdmin.firstName,
+                    lastName: resultAdmin.lastName,
+                    designation: resultAdmin.designation,
+                    passengerType: resultAdmin.passengerType,
+                    isAdmin: true,
+                };
+            }
+            
+            res.render('Settings', details);
 
-        var details = {};
-        
-        if ( resultUser != null ) {
-            details = {
-                idNumber: resultUser.idNumber,
-                firstName: resultUser.firstName,
-                lastName: resultUser.lastName,
-                designation: resultUser.designation,
-                passengerType: resultUser.passengerType,
-                isAdmin: false,
-            };
         }
-        else if ( resultAdmin != null ) {
-            details = {
-                idNumber: resultAdmin.idNumber,
-                firstName: resultAdmin.firstName,
-                lastName: resultAdmin.lastName,
-                designation: resultAdmin.designation,
-                passengerType: resultAdmin.passengerType,
-                isAdmin: true,
-            };
-        }
-        
 
-        res.render('Settings', details);
+
+
     },
 
     getSchedule: function (req, res){
