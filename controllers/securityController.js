@@ -47,7 +47,7 @@ const securityController = {
 
           if (result != null && await bcrypt.compare(securityCode, result.securityCode)) 
 			res.status(200).redirect('/Profile?idNumber=' + idNumber);
-          else if ( result2 != null && await bcrypt.compare(securityCode, result.securityCode))
+          else if ( result2 != null && await bcrypt.compare(securityCode, result2.securityCode))
 			res.status(200).redirect('/ProfileAdmin?idNumber=' + idNumber);
           else
             res.render('Login', { isCodeCorrect: false });

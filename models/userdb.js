@@ -22,7 +22,7 @@ var UserSchema = new mongoose.Schema({
         required: true,
     },
     securityCode: {
-        type: Number,
+        type: String,
         required: true,
     },
     designation: {
