@@ -71,6 +71,8 @@ app.get('/Profile', profileController.getProfile);
 // Admin profile settings
 app.get('/ProfileAdmin', profileController.getProfileAdmin);
 
+app.get('/Logout', profileController.getLogout);
+
 // Profile settings
 app.get('/Settings', controller.getSettings);
 app.post('/ChangePublicInfo', upload.single("dp"), profileController.postChangePublicInfo);

@@ -13,8 +13,21 @@ const saltRounds = 10;
 const profileController = {
 
     getProfile: async function (req, res) {
-        const query = {idNumber: req.query.idNumber};
       
+      if ( req.session.idNumber != req.query.idNumber ) {
+        const query = { idNumber: req.session.idNumber };
+        const projection = { idNumber: 1 };
+        const result = await db.findOne(User, query, projection);
+        const result2 = await db.findOne(Admin, query, projection);
+        if (result) {
+          res.status(200).redirect('/Profile?idNumber=' + req.session.idNumber);     
+        } else if (result2) {
+          res.status(200).redirect('/ProfileAdmin?idNumber=' + req.session.idNumber);  
+        }
+      }
+      else{
+        const query = {idNumber: req.query.idNumber};
+    
         const projection = 'idNumber firstName lastName designation passengerType profilePicture';
       
         const result = await db.findOne(User, query, projection);
@@ -44,11 +57,25 @@ const profileController = {
         } else {
           res.render('Error',res);
         }
+      }
+        
     },
 
     getProfileAdmin: async function (req, res) {
-        var query = {idNumber: req.query.idNumber};
 
+      if ( req.session.idNumber != req.query.idNumber ) {
+        const query = { idNumber: req.session.idNumber };
+        const projection = { idNumber: 1 };
+        const result = await db.findOne(User, query, projection);
+        const result2 = await db.findOne(Admin, query, projection);
+        if (result) {
+          res.status(200).redirect('/Profile?idNumber=' + req.session.idNumber);     
+        } else if (result2) {
+          res.status(200).redirect('/ProfileAdmin?idNumber=' + req.session.idNumber);  
+        }
+      }
+      else{
+        var query = {idNumber: req.query.idNumber};
         var projection = 'idNumber firstName lastName designation passengerType profilePicture';
 
         const result = await db.findOne(Admin, query, projection);
@@ -78,6 +105,8 @@ const profileController = {
         else {
             res.render('Error',res);
         }
+        
+      }
 
     },
 
@@ -217,6 +246,14 @@ const profileController = {
         console.log("User/Admin not deleted");
         res.redirect('/Settings?idNumber=' + req.body.idNumber + '&deleteSuccess=false');
       }
+    },
+
+    getLogout: function (req, res) {
+      console.log(req.session.idNumber);
+      req.session.destroy(function(err) {
+        if(err) throw err;
+        res.redirect('/');
+      });
     }
     
 }
