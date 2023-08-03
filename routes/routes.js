@@ -54,6 +54,7 @@ app.post('/ChangeFPassword', forgotPassController.postChangeFPassword);
 // Signup settings
 app.get('/SignUp', signupController.getSignUp);
 app.post('/SignUp', signupController.postSignUp);
+app.get('/SignUp/:idNumber', signupController.checkSignUp);
 
 // Security settings
 app.get('/SecurityCheck', securityController.getSecurity);
