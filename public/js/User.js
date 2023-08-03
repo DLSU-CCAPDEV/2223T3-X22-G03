@@ -19,14 +19,16 @@ function showSuccessBox(message) {
 async function submitForm(event) {
   event.preventDefault();
   const userId = document.getElementById('user_idNumber').value;
-
-  const response = await fetch(`/SignUp/userid=${userId}`);
+  
+  const response = await fetch(`/SignUp/${userId}`);
   const data = await response.json();
-  const errorText = document.getElementById('errorText');
+  
 
-  if (data === "unique") {
-    //SENDING POST REQUEST TO ADD INFO INTO DATABASE
-    //GETTING ALL DATA TO STORE IN DATABASE
+  const errorText = document.getElementById('errorText');
+  
+   if (data === "Unique") {
+  //   //SENDING POST REQUEST TO ADD INFO INTO DATABASE
+  //   //GETTING ALL DATA TO STORE IN DATABASE
     const registerData = {
       "firstName": document.getElementById('user_firstName').value,
       "lastName": document.getElementById('user_lastName').value,
@@ -50,7 +52,9 @@ async function submitForm(event) {
       window.location.href = '/Login'; //REDIRECT TO LOGIN IF SUCCESSFUL
       showSuccessBox("Account registered successfully!");
     }
-  } else {
+
+  } 
+  else {
     showErrorBox("Data already exists!");
   }
 }
