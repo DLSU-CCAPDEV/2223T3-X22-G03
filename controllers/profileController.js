@@ -242,7 +242,7 @@ const profileController = {
         
         req.session.destroy(function(err) {
           if(err) throw err;
-          res.render('/', details);
+          res.render('index', details);
         });
         
       }
@@ -257,7 +257,7 @@ const profileController = {
         
         req.session.destroy(function(err) {
           if(err) throw err;
-          res.render('/', details);
+          res.render('index', details);
         });
 
       }
