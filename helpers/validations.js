@@ -35,11 +35,6 @@ const validation = {
 
             check('user_securityCode', 'Security code should not be empty.').notEmpty(),
             check('user_securityCode', 'Security code should contain 4 digits.').isLength({min: 4, max: 4}),
-
-            check('user_desgination', 'Designation should not be empty.').notEmpty(),
-
-            check('user_passengerType', 'Passenger type should not be empty.').notEmpty(),
-
         ];
 
         return validation;
