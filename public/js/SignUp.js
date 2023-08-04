@@ -66,6 +66,10 @@ $(document).ready(function () {
 
                 }else{
                     // No result returned from the server
+
+                    $('#error_message').text('');
+                    $('error_box').css('display', 'none');
+                    
                     return callback(true);
                 }
 
