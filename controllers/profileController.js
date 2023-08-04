@@ -229,23 +229,43 @@ const profileController = {
     
       const resultUser = await db.findOne(User, query, projection);
       const resultAdmin = await db.findOne(Admin, query, projection);
+
+      var details = {};
   
       if (resultUser != null && await bcrypt.compare(req.body.Password, resultUser.password) ) {
         await User.deleteOne(query);
         await Reservation.deleteMany(query);
-        console.log("User deleted");
-        res.redirect('/?success');
+
+        details = {
+          firstName : 'Login',
+        }
+        
+        req.session.destroy(function(err) {
+          if(err) throw err;
+          res.render('/', details);
+        });
+        
       }
       else if (resultAdmin != null && await bcrypt.compare(req.body.Password, resultAdmin.password) ) {
         await Admin.deleteOne(query);
         await Reservation.deleteMany(query);
         console.log("Admin user deleted");
-        res.redirect('/?success');
+
+        details = {
+          firstName : 'Login',
+        }
+        
+        req.session.destroy(function(err) {
+          if(err) throw err;
+          res.render('/', details);
+        });
+
       }
       else {
         console.log("User/Admin not deleted");
         res.redirect('/Settings?idNumber=' + req.body.idNumber + '&deleteSuccess=false');
       }
+
     },
 
     getLogout: function (req, res) {
