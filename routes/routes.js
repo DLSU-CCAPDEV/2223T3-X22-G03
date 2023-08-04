@@ -19,6 +19,8 @@ const forgotPassController = require('../controllers/forgotPassController.js');
 
 const scheduleController = require('../controllers/scheduleController.js');
 
+const validation = require('../helpers/validations.js');
+
 const multer = require('multer');
 const storage = multer.diskStorage({
 
@@ -36,7 +38,8 @@ const upload = multer({storage: storage})
 
 const app = express();
 
-// Index settings
+
+// Index / Database settings
 app.get('/', controller.getIndex);
 
 // Error page
@@ -53,7 +56,9 @@ app.post('/ChangeFPassword', forgotPassController.postChangeFPassword);
 
 // Signup settings
 app.get('/SignUp', signupController.getSignUp);
-app.post('/SignUp', signupController.postSignUp);
+app.post('/SignUp', validation.signupValidation(), signupController.postSignUp);
+app.get('/getCheckID', signupController.getCheckID);
+app.get('/getCheckEmail', signupController.getCheckEmail);
 
 // Security settings
 app.get('/SecurityCheck', securityController.getSecurity);

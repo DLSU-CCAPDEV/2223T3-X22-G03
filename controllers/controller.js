@@ -121,7 +121,7 @@ const controller = {
 
     getError: function (req, res) {
         res.render('Error', res);
-    }
+    },
 
 }
 
