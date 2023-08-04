@@ -25,9 +25,9 @@ A simplified booking experience for Arrows Express, designed by Mauries, Benmar,
 - 1.) Working Profile Pictures (Can be seen in different devices).
 - 2.) Working Form Validations w/ UI Feedback
 - 3.) Sessions (w/ 3 weeks expiration)
-- 4.) [Minor] Web Security
-- - 4.a) Anti-Bypass System
-- 5.) 
+- 4.) Web Security
+- - 4.a) Anti-Bypass System (Included if Javascript is disabled)
+- 5.) Database Updates Realtime
 
 **[HOW TO RUN]**
 -
