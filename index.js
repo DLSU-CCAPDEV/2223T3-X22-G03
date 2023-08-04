@@ -23,7 +23,8 @@ app.use(session({
     secret: 'sessionID',
     cookie: {maxAge: 7*24*60*60*3000},
     saveUninitialized: false,
-    store: new MongoStore({mongooseConnection: db, autoRemove: 'disabled'})
+    store: new MongoStore({mongooseConnection: db, autoRemove: 'disabled'}),
+    resave: false
 }));
 
 // set `hbs` as view engine
