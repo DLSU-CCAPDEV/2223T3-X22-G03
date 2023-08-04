@@ -85,7 +85,7 @@ $(document).ready(function () {
 
     }
 
-    function isValidSecurityCode() {
+    function isValidSecurityCode(callback) {
 
         var securityCode = validator.trim($('#user_securityCode').val());
 
@@ -93,15 +93,15 @@ $(document).ready(function () {
         if (!onlyNumbers.test(securityCode)) {
             $("#error_box").css('display', 'block');
             $('#error_message').text('Security Code should contain only numbers.');
-            return false;
+            return callback(false);
         }
         else{
-            return true;
+            return callback(true);
         }
 
     }
 
-    async function isValidEmail(){
+    async function isValidEmail(callback){
 
         var email = validator.trim($('#user_email').val());
 
@@ -112,19 +112,19 @@ $(document).ready(function () {
             const result = await $.get('/getCheckEmail', {email: email} )
 
             if ( result.email != email ) {
-                return true;
+                return callback(true);
             }
             else{
                 $("#error_box").css('display', 'block');
                 $('#error_message').text('Email already registered.');
-                return false;
+                return callback(false);
             }
         }
 
     }
 
 
-    function validateField(field, fieldName, error) {
+    async function validateField(field, fieldName, error) {
 
         var value = validator.trim(field.val());
         var empty = validator.isEmpty(value);
@@ -147,8 +147,15 @@ $(document).ready(function () {
             
         var filled = isFilled();
 
-        var validEmail = isValidEmail();
-        var validSecurityCode = isValidSecurityCode();
+        var validEmail;
+        await isValidEmail( function(boolean){
+            validEmail = boolean;
+        });
+
+        var validSecurityCode;
+        await isValidSecurityCode( function(boolean){
+            validSecurityCode = boolean;
+        });
 
         isValidID(field, function (validID) {
 
