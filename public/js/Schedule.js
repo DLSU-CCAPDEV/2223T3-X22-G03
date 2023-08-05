@@ -139,60 +139,88 @@ function changeTimeSlots() {
 
 function findMatchingSeats(event) {
   event.preventDefault();
+
   var user_location = document.getElementById('user_location').value;
   var pickUpTime = document.getElementById('user_entryTime').value;
   var dateTime = document.getElementById('user_date').value;
 
-  var buttonClicked = document.getElementById('btn').style.left === '0px' ? 'entry' : 'exit';
+  var pickUpTimeObject = document.getElementById('user_entryTime');
+  var user_locationObject = document.getElementById('user_location');
 
-  if (buttonClicked=== 'entry') {
-    var location = entryTimeSlots[user_location];
-    var numberOfSeatsTaken = 0;
-    var actualPickUpTime = location[pickUpTime];
+  if ( pickUpTime == '' || user_location == ''  ) {
+    document.getElementById('user_date').value = "";
+    $('#user_location').prop('selectedIndex', 0);
+    $('#user_entryTime').prop('selectedIndex', 0);
+    
+    $('#error_box').css('display', 'block');
+    $('#error_message').html('Please fill out all fields.');
 
-    console.log(entryLocations[user_location] + '' + actualPickUpTime + '' + dateTime + '');
-    document.getElementById("schedule_label").innerHTML = entryLocations[user_location] + ' ' + actualPickUpTime + ' ' + dateTime;
+    setTimeout(function() {
+      $('#error_box').css('display', 'none');
+    }, 3000);
 
-    fetch(`/schedule/${dateTime}/${entryLocations[user_location]}/${actualPickUpTime}?buttonClicked=${buttonClicked}`)
-    .then((response) => response.json())
-    .then((data) => {
-     
-      console.log(data);  
-      console.log(data.length + "LENGTH");
-      numberOfSeatsTaken = data.length;
-      generateSeats(numberOfSeatsTaken);
+  } else if (  pickUpTimeObject.options[pickUpTimeObject.selectedIndex].text == 'N/A' || user_locationObject.options[user_locationObject.selectedIndex].text == 'N/A' ){
 
-    })
-    .catch((error) => {
-      console.error('Error fetching data:', error);
+    document.getElementById('user_date').value = "";
+    $('#user_location').prop('selectedIndex', 0);
+    $('#user_entryTime').prop('selectedIndex', 0);
+    
+    $('#error_box').css('display', 'block');
+    $('#error_message').html('N/A is not a valid option. Please select another option.');
+
+    setTimeout(function() {
+      $('#error_box').css('display', 'none');
+    }, 3000);
+
+  }else{
+
+    var buttonClicked = document.getElementById('btn').style.left === '0px' ? 'entry' : 'exit';
+
+    if (buttonClicked === 'entry') {
+      var location = entryTimeSlots[user_location];
+      var numberOfSeatsTaken = 0;
+      var actualPickUpTime = location[pickUpTime];
+
+      document.getElementById("schedule_label").innerHTML = entryLocations[user_location] + ' ' + actualPickUpTime + ' ' + dateTime;
+
+      fetch(`/schedule/${dateTime}/${entryLocations[user_location]}/${actualPickUpTime}?buttonClicked=${buttonClicked}`)
+      .then((response) => response.json())
+      .then((data) => {
       
-    });
+        numberOfSeatsTaken = data.length;
+        generateSeats(numberOfSeatsTaken);
+
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        
+      });
+    }
+
+    if (buttonClicked=== 'exit') {
+      var location = exitTimeSlots[user_location];
+      var numberOfSeatsTaken = 0;
+      var actualPickUpTime = location[pickUpTime];
+
+      document.getElementById("schedule_label").innerHTML = exitLocations[user_location] + ' ' + actualPickUpTime + ' ' + dateTime;
+
+      fetch(`/schedule/${dateTime}/${exitLocations[user_location]}/${actualPickUpTime}?buttonClicked=${buttonClicked}`)
+      .then((response) => response.json())
+      .then((data) => {
+        
+        numberOfSeatsTaken = data.length;
+        generateSeats(numberOfSeatsTaken);
+
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        
+      });
+    }
+
   }
 
-  if (buttonClicked=== 'exit') {
-    var location = exitTimeSlots[user_location];
-    var numberOfSeatsTaken = 0;
-    var actualPickUpTime = location[pickUpTime];
-
-    console.log(exitLocations[user_location] + '' + actualPickUpTime + '' + dateTime + '');
-    console.log(buttonClicked);
-    document.getElementById("schedule_label").innerHTML = exitLocations[user_location] + ' ' + actualPickUpTime + ' ' + dateTime;
-
-    fetch(`/schedule/${dateTime}/${exitLocations[user_location]}/${actualPickUpTime}?buttonClicked=${buttonClicked}`)
-    .then((response) => response.json())
-    .then((data) => {
-     
-      console.log(data);  
-      console.log(data.length + "LENGTH");
-      numberOfSeatsTaken = data.length;
-      generateSeats(numberOfSeatsTaken);
-
-    })
-    .catch((error) => {
-      console.error('Error fetching data:', error);
-      
-    });
-  }
+  
 }
 
 function generateSeats(numberOfSeatsTaken) {

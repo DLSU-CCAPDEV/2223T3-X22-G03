@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="../css/ReservationStyle.css">
         <script src="../js/User.js"> </script>
         <script src="../js/Schedule.js"> </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script>
             window.onload = function() {
                 leftClick();
@@ -21,6 +22,11 @@
 
             <div class="navbar">
                 <a onclick="history.back()"><img src="../images/Leftarrow.png" class = "back_img"></a>
+
+                <div id="error_box">
+                    <p id="error_message"> </p>
+                </div>
+                
                 <img src= "../images/DLSU_Logo.png" class = "website_logo">
 
                 <style>
@@ -28,6 +34,7 @@
                         cursor: default;
                     }
                 </style>    
+            
             </div>
             
             <div class="content">
@@ -73,7 +80,7 @@
                     <h4> Seat availability </h4>
                     <hr>
                     <div class="input">
-                        <form onsubmit="return findMatchingSeats(event);">
+                        <form onsubmit="return findMatchingSeats(event);" novalidate>
                             <div class="button_box">
                                 <div id="btn"></div>
                                 <button type="button" class="switch" id="entry_btn" onclick="leftClick();" style="text-align: center; left: 10px;" onchange="changeTimeSlots();"> Entry </button>
@@ -84,10 +91,10 @@
     
                             <div class="location">
                                 <img src="../images/Help.png" style="width: 25px; height: 25px; position: relative; filter:invert(1); top: 15px; left:10px; cursor: help;" title="Select a designated location">
-                                <select name="user_location" id="user_location" class="fillup" style="width: 190px; margin: 10px; position: relative; left: 5px; " onchange="changeTimeSlots();">
+                                <select required name="user_location" id="user_location" class="fillup" style="width: 190px; margin: 10px; position: relative; left: 5px; " onchange="changeTimeSlots();">
                                     <option value="" disabled selected hidden s> Select Location </option>
                                 </select>
-                                <select name="user_entryTime" id="user_entryTime" class="fillup" style="width: 120px; ">
+                                <select required name="user_entryTime" id="user_entryTime" class="fillup" style="width: 120px; ">
                                     <option value="" disabled selected hidden s> Time Slot </option>
                                 </select>
                             </div>
@@ -102,6 +109,8 @@
                     </div>
     
                 </div>
+
+                
 
             </div>
 
@@ -192,6 +201,26 @@
             margin-top: 20px;
             text-align: center;
             font-style: italic;
+        }
+
+        #error_box{
+            width: 380px;
+            height: 20px;
+            top: 10%;
+            margin: auto;
+            background: rgb(255, 54, 54);
+            padding: 5px;
+            position: relative;
+            border-radius: 20px;
+            display: none;
+        }
+
+        #error_box p{
+            text-align: center;
+            font-family: sans-serif;
+            font-size: 13px;
+            position: relative;
+            top: 3px;
         }
 
 
