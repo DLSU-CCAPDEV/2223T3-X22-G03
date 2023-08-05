@@ -61,7 +61,7 @@ app.post('/SignUp', validation.signupValidation(), signupController.postSignUp);
 app.get('/getCheckEmail', signupController.getCheckEmail);
 
 // Security settings
-app.post('/SecurityCheck', securityController.postSecurity);
+app.post('/SecurityCheck', validation.securityCodeValidation(), securityController.postSecurity);
 
 // Search settings
 app.get('/Search', searchController.getSearch);

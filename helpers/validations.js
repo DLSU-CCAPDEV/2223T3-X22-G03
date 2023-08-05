@@ -80,6 +80,16 @@ const validation = {
         return validation;
 
     },
+
+    securityCodeValidation: function (){
+        var validation = [
+
+            check('user_securityCode', 'Securtiy code should not be empty.').notEmpty(),
+
+        ];
+
+        return validation;
+    }
     
 }
 

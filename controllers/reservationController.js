@@ -220,8 +220,6 @@ const reservationController = {
 		}
 		else{
 
-			console.log('test');
-
 			const result = await db.findMany(Reservation, {idNumber: idNumber}, "");
 
 			if ( result.length !== 0 ){
