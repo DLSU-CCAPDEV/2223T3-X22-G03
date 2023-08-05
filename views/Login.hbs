@@ -7,6 +7,8 @@
         <link rel="icon" type="image/png" href="../images/DLSU_Logo.png">
         <link rel="stylesheet" href="../css/FormStyle.css">  <!-- Kailangan to if may separate CSS file -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="../js/validator.min.js" type="text/javascript"></script>
+        <script src="../js/Login.js"></script>
     </head>
 
     <body>
@@ -88,7 +90,7 @@
                         <input type="text" placeholder="ID Number" class="fillup" name="user_idNumber" id="user_idNumber" required pattern="[0-9]+" minlength="8" maxlength="8" >
                         <label for="user_password"></label>
                         <input type="password" placeholder="Password" class="fillup" name="user_password" id="user_password" required>
-                        <button type="submit" class="toggle_btn" > Login <style> .toggle_btn{ font-size: large; font-weight: bold;} </style> </button>
+                        <button type="submit" class="toggle_btn" id="submit" disabled style="background: #cccccc; cursor: not-allowed;"> Login <style> .toggle_btn{ font-size: large; font-weight: bold;} </style> </button>
                     </form>
                 </div>
 

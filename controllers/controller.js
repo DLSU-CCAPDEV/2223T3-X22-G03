@@ -123,6 +123,21 @@ const controller = {
         res.render('Error', res);
     },
 
+    getCheckID: async function (req, res) {
+
+        var idNumber = req.query.idNumber;
+        var result = await db.findOne(User, {idNumber: idNumber});
+        var result2 = await db.findOne(Admin, {idNumber: idNumber});
+        if ( result ){
+            res.send(result);
+        }else if (result2) {
+            res.send(result2);
+        }else{
+            res.send(null);
+        }
+        
+    },
+
 }
 
 /*

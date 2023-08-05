@@ -41,27 +41,26 @@ const app = express();
 
 // Index / Database settings
 app.get('/', controller.getIndex);
+app.get('/getCheckID', controller.getCheckID);
 
 // Error page
 app.get('/Error', controller.getError);
 
 // Login settings
 app.get('/Login', loginController.getLogin);
-app.post('/Login', loginController.postLogin);
+app.post('/Login', validation.loginValidation(), loginController.postLogin);
 
 // Forgot Password settings
 app.get('/ForgotPassword', forgotPassController.getForgotPassword);
-app.post('/ForgotPassword', forgotPassController.postForgotPassword);
-app.post('/ChangeFPassword', forgotPassController.postChangeFPassword);
+app.post('/ForgotPassword', validation.forgotPasswordValidation(), forgotPassController.postForgotPassword);
+app.post('/ChangeFPassword', validation.forgotPasswordFValidation(), forgotPassController.postChangeFPassword);
 
 // Signup settings
 app.get('/SignUp', signupController.getSignUp);
 app.post('/SignUp', validation.signupValidation(), signupController.postSignUp);
-app.get('/getCheckID', signupController.getCheckID);
 app.get('/getCheckEmail', signupController.getCheckEmail);
 
 // Security settings
-app.get('/SecurityCheck', securityController.getSecurity);
 app.post('/SecurityCheck', securityController.postSecurity);
 
 // Search settings

@@ -6,6 +6,8 @@ const User = require('../models/userdb.js');
 
 const Admin = require('../models/admindb.js');
 
+const { validationResult } = require('express-validator');
+
 const loginController = {
 
     getLogin: async function (req, res) {
@@ -33,6 +35,23 @@ const loginController = {
     },
     
     postLogin: async function (req, res) {
+
+      var errors = validationResult(req);
+
+      if ( !errors.isEmpty()){
+
+        errors = errors.errors;
+
+        var details = {};
+        for ( var i = 0; i < errors.length; i++ ){
+            details[errors[i].path + 'Error'] = errors[i].msg;
+        }
+
+        res.render('Login', details);
+
+      }
+      else{
+
         const idNumber = req.body.user_idNumber;
         const password = req.body.user_password;
 
@@ -43,16 +62,9 @@ const loginController = {
           const result2 = await db.findOne(Admin, query, projection);
           
           if (result && await bcrypt.compare(password, result.password)) {
-
-            req.session.idNumber = result.idNumber;
-
-            res.redirect('/SecurityCheck?idNumber=' + idNumber);      
+            res.render('Security', { idNumber: idNumber });
           } else if (result2 && await bcrypt.compare(password, result2.password)) {
-          
-            req.session.idNumber = result2.idNumber;
-
-            res.redirect('/SecurityCheck?idNumber=' + idNumber);
-
+            res.render('Security', { idNumber: idNumber });
           } else {
             res.render('Login', { isValid: false })
           }
@@ -60,7 +72,10 @@ const loginController = {
           } catch (err) {
             res.status(500).send(err);
           }
-        },
+        }
+
+      }
+  
 
 };
 

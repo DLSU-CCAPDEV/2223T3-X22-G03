@@ -40,6 +40,46 @@ const validation = {
         return validation;
 
     },
+
+    loginValidation: function () {
+
+        var validation = [
+
+            check('user_idNumber', 'ID number should not be empty.').notEmpty(),
+
+            check('user_password', 'Password should not be empty.').notEmpty(),
+        ];
+
+        return validation;
+    },
+
+    forgotPasswordValidation: function () {
+
+        var validation = [
+
+            check('user_email', 'Email should not be empty.').notEmpty(),
+
+            check('user_securityCode', 'Securtiy code should not be empty.').notEmpty(),
+
+        ];
+
+        return validation;
+
+    },
+
+    forgotPasswordFValidation: function () {
+
+        var validation = [
+
+            check('user_newPassword0', 'New Password should not be empty.').notEmpty(),
+
+            check('user_newPassword1', 'Confirm New Password should not be empty.').notEmpty(),
+
+        ];
+
+        return validation;
+
+    },
     
 }
 
