@@ -30,8 +30,18 @@ A simplified booking experience for Arrows Express, designed by Mauries, Benmar,
 - 5.) Database Updates Realtime
 
 **[HOW TO RUN]**
--
+- [Through Online]
 - (1.) Go to this link [https://dlsu-shuttle.onrender.com].
+-
+- [Through Local]
+- (1.) Download the code as zip file.
+- (2.) Extract the folder.
+- (3.) Go inside the folder -> Go to [MCO] Phase-3 folder
+- (4.) Click the folder path -> type cmd -> press enter (if successful, it will open a cmd window)
+- (OPTIONAL STEP) (5.) Type 'node sampledataset.js' (if successful, it will add documents to your localhost database) -> then do 'CTRL + C'
+- (5.) Type 'npm install' (this will install all necessarries libraries for the website to run locally) -> then do 'CTRL + C'
+- (7.) Type 'node index.js' (if successful, it will connect to the database and opens a localhost website)
+- (8.) Go to any browser -> type 'localhost:3000' in the URL
 
 **[RESPONSIBLITIES]**
 -
