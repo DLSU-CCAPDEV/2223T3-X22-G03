@@ -20,9 +20,11 @@ const profileController = {
         const result = await db.findOne(User, query, projection);
         const result2 = await db.findOne(Admin, query, projection);
         if (result) {
-          res.status(200).redirect('/Profile?idNumber=' + req.session.idNumber);     
+          res.status(200).redirect('/SearchProfile?idNumber=' + req.query.idNumber);     
         } else if (result2) {
-          res.status(200).redirect('/ProfileAdmin?idNumber=' + req.session.idNumber);  
+          res.status(200).redirect('/SearchProfile?idNumber=' + req.query.idNumber);  
+        }else{
+          res.redirect('/SearchProfile?idNumber=' + req.query.idNumber);
         }
       }
       else{
@@ -54,8 +56,8 @@ const profileController = {
       
           res.render('Profile', details);
           
-        } else {
-          res.render('Error',res);
+        }else {
+          res.render('/Profile?idNumber=' + req.query.idNumber);
         }
       }
         
@@ -69,9 +71,11 @@ const profileController = {
         const result = await db.findOne(User, query, projection);
         const result2 = await db.findOne(Admin, query, projection);
         if (result) {
-          res.status(200).redirect('/Profile?idNumber=' + req.session.idNumber);     
+          res.status(200).redirect('/SearchProfile?idNumber=' + req.query.idNumber);     
         } else if (result2) {
-          res.status(200).redirect('/ProfileAdmin?idNumber=' + req.session.idNumber);  
+          res.status(200).redirect('/SearchProfile?idNumber=' + req.query.idNumber);  
+        }else{
+          res.redirect('/SearchProfile?idNumber=' + req.query.idNumber);
         }
       }
       else{
@@ -103,7 +107,7 @@ const profileController = {
             res.render('ProfileAdmin', details);
         }
         else {
-            res.render('Error',res);
+            res.render('/ProfileAdmin?idNumber=' + req.query.idNumber);
         }
         
       }
