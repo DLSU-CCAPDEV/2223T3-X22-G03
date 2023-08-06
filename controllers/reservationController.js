@@ -100,7 +100,9 @@ const reservationController = {
 			exitTime: req.body.hiddenExitTime,
 		  };
 
-		if ( rsv.entryLoc == "Entry Location" || rsv.entryTime == "Entry Time" || rsv.exitLoc == "Exit Location" || rsv.exitTime == "Exit Time" ){
+		if ( ( rsv.entryLoc == "Entry Location" || rsv.entryTime == "Entry Time" || rsv.exitLoc == "Exit Location" || rsv.exitTime == "Exit Time" ) || 
+			 (  rsv.entryLoc == "N/A" && rsv.entryTime == "N/A" && rsv.exitLoc == "N/A" && rsv.exitTime == "N/A" )){
+				
 			res.redirect('/Reservation?idNumber=' + req.body.adminId + '&reserveUserSuccess=false');
 			console.log('Reservation failed to add');
 		}
@@ -150,7 +152,8 @@ const reservationController = {
 			idNumber: req.body.ehiddenIdNumber
 		}
 		
-		if ( upd.entryLoc == "Entry Location" || upd.entryTime == "Entry Time" || upd.exitLoc == "Exit Location" || upd.exitTime == "Exit Time" ){
+		if ( ( upd.entryLoc == "Entry Location" || upd.entryTime == "Entry Time" || upd.exitLoc == "Exit Location" || upd.exitTime == "Exit Time" ) || 
+			 ( upd.entryLoc == "N/A" && upd.entryTime == "N/A" && upd.exitLoc == "N/A" && upd.exitTime == "N/A" ) ){
 			res.redirect('/Reservation?idNumber=' + req.body.ehiddenIdNumber + '&isUpdateSuccess=false');
 			console.log('Reservation failed to add');
 		}
